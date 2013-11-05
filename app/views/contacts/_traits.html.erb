@@ -1,0 +1,113 @@
+Traits
+
+<div class="row bg_white well">
+	<h2>Public Traits</h2>
+	<div>
+		<% user_traits.each do |user_trait| %>
+			<% trait = user_trait.trait %>
+			<% if trait.status == TRAIT_STATUS_PUBLIC %>
+				<div>	
+					<%=  trait.name %>&nbsp;&nbsp;&nbsp;
+					<%= range_field_tag trait.name, user_trait.score, :in => 1...100, :readonly => true %> &nbsp;&nbsp;&nbsp;
+					<%= user_trait.score %>%
+				</div>
+			<% end %>		
+		<% end %>		
+	</div>
+</div>
+<div class="row bg_white well">
+	<h2>Internal Traits</h2>
+	<%= form_for(contact, :url => {:action => "save_contact_traits" }, :remote => true, :html => {:'data-replace' => ""} ) do |f|%>
+		<%= f.fields_for :user_traits do |user_trait| %>
+			<div class='all_traits' id='all_traits_div'>
+				<%= render :partial => "user_trait_fields", :locals => { :f => user_trait } %>
+			</div>
+		<% end %>
+		<%= link_to_add_trait_fields "add", f , :user_traits %><br />
+		
+	<%= f.submit "Save Traits" %>
+	<% end %>
+    <div id='no_trait_error'></div>
+    <%= select :trait, :id, traits.map { |trait| [trait.name, trait.id] }, :prompt => "Select Trait" %>	
+</div>	
+
+
+
+	<!-- Script  -->
+<script>
+var mySelect = $('#trait_id');
+
+$('form').on('click', '.add_fields', function(event) {
+  var total_sliders = $('.trait_class').length
+  if($("#trait_id").val()==''){
+      $('#no_trait_error').html("Please select Trait")
+  }else{
+	  var regexp, time;
+	  time = new Date().getTime();
+	  regexp = new RegExp($(this).data('id'), 'g');
+	  // regexp2 = new RegExp($(this).data('trait_id'), 'g');
+	  $('#no_trait_error').html('')
+	  
+	  $(this).before($(this).data('fields').replace(regexp, time));
+	  $("#user_user_traits_attributes_" + time +"_trait_id").val($("#trait_id").val());
+	  
+	  var lable_text = $("option:selected", $("#trait_id")).text();
+	  
+	  $('label[for="user_user_traits_attributes_' + time + '_trait_name"]').html(lable_text);
+	  // This line removes trait from drop down
+	  $('#trait_id option:selected').remove();
+  }
+  return event.preventDefault();
+});
+
+$('form').on('click', '.remove_fields', function(event) {
+
+  $(this).prev('input[type=hidden]').val(true);
+  // This line adds removed trait to drop down
+  $("#trait_id").append('<option value="'+$(this).closest('fieldset').children('.trait_id').val()+'">'+$(this).closest('fieldset').children().first().html()+'</option>');
+  
+  sliderHandler($(this));
+  
+  $(this).closest('fieldset').remove();
+  
+  return event.preventDefault();
+});
+
+$(document).on("change", ".trait_class", function(){
+    sliderHandler($(this));
+});
+
+function sliderHandler(current){
+    changeID = current.attr("id");
+    newVal = current.val();
+    noCount = $(".trait_class").length;
+    totalWeight = noCount* 50
+    
+    var weight = 0;
+    $('#all_traits_div').children( ".fieldset_child").each(function(){
+         weight =  parseInt($(this).find(".trait_class").val()) + weight ;
+    });
+    // $("#temp").append(weight + "<br />");
+    diff = (totalWeight - weight)
+    
+    changeVal = diff / ( noCount - 1 );
+    if ( (noCount - 1) != 0 ){
+        $('#all_traits_div').children( ".fieldset_child").each(function(){
+                 newVal = parseInt( $(this).find(".trait_class").val())  + changeVal
+                 newVal = (newVal).toFixed(2);
+                 if( newVal < 0 ){
+                    newVal = 0;    
+                 }
+                   $(this).find(".trait_class").not("#" + changeID).val(newVal);
+                   $(this).find(".trait_value").html(newVal);
+         });
+       }else{
+           $(".trait_value").html(newVal);
+       }
+}
+</script>
+
+
+	
+
+

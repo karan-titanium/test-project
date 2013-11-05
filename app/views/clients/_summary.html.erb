@@ -1,0 +1,46 @@
+<!-- START PROFILE INFO -->
+	<div class="row bg_white">
+		<div class="span3">
+		<h2>Client Dashboard</h2><% user_profile = @user.user_profile %>
+			<h4><%= @user.full_name.capitalize if @user.first_name.present? %></h4>
+			<div class="row summery-tbl">
+			   <div class="td_col2">Email</div>
+			   <div class="td_col2"><%= @user.email %></div>
+			   <div class="clearfix"></div>
+			   <div class="td_col2">Contact Tel.</div>
+			   <div class="td_col2"><%= user_profile.number_mob %></div>
+			   <div class="clearfix"></div>
+			   <div class="td_col2">Current Status</div>
+			   <div class="td_col2"><%= (user_profile.employed.present? && user_profile.employed.casecmp("yes") == 0) ? "employed" : "unemployed"  %></div>
+			   <div class="clearfix"></div>
+			   <div class="td_col2">CV Uploaded</div>
+			   <div class="td_col2"><% if (cvs = @user.user_files.where(:user_file_type => "cv")).present? %> <%= (Time.now.to_date - cvs.last.created_at.to_date).to_i  %> <% end %></div>
+			   <div class="clearfix"></div>
+			</div>
+		</div>
+				<!-- end PROFILE SUMMERY -->
+	</div>
+
+<script>
+
+// $.ajaxSetup({
+  // complete: function() {
+    // alert(1);
+  // }
+// });
+// $.ajax('summary.html.erb',
+  // {
+    // complete: function() {
+        // $('.current').removeClass('current');
+       // $('.icon-profilesummery').addClass('current');
+       // $('.profilesummery').addClass('current');
+    // }
+  // }
+// );
+
+// $('.icon-profilesummery').addclass('current'); 
+// 	
+// function pageLoad(){
+    // alert();
+// }
+</script>

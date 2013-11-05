@@ -1,0 +1,179 @@
+
+<script>
+//$(document).on("click", ".remove_category", function() {
+	// jQuery - To delete trait
+function remove_quecategory_func(current){
+		categoryID = $(current).attr('id');
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : "/database_managements/remove_question_category/" + categoryID,
+			success : function(data) {
+				$('#database_management_div').html(data);
+				
+				categoryFlagValue = $("#categoryflag").text();
+				if( categoryFlagValue.match(/true/g) ){
+					$("#warningbox").modal('show');
+				}
+			},
+			error : function(data) {
+			}
+		});
+		return false;
+	}
+
+	
+	// jQuery - To add data table
+$(document).ready(function() {
+	$('.display').dataTable( {
+	//"aaSorting": [[ 4, "desc" ]]
+	"sPaginationType": "full_numbers",
+	"sScrollY": "300px",
+	"bPaginate": true,
+	"bScrollCollapse": true,
+	"fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+	} );
+} );
+
+</script>
+
+<label id="categoryflag" style="display: none"> <%= question_categories_flag %> </label>
+
+<div class="row bg_white well">
+<!-- To display the list of all Question Types-->
+	<h2>Question Types</h2>
+	
+	<!-- button named as 'Add New' to add new trait-->
+	<button data-toggle="modal" class="button_primery_big pull-right" href="#newquestiontype" data-placement="top" title="">
+		Add New Type
+	</button>
+	
+	<div class="clearfix margin-20"></div>	
+    <!-- start Traits table -->
+		<table cellpadding="0" cellspacing="0" border="0" class="display" id="trait-type">
+			<thead>
+				<tr>
+					<th><a>Type</a></th>
+					<th><a>Questions</a></th>
+					<th><a>Examples</a></th>
+					<th><a>Link to Trait</a></th>	
+					<th><a>Manage</a></th>		
+				</tr>
+			</thead>
+		
+			<tbody>
+				<% @question_categories.each do |question_category| %>
+				<% if question_category.status != QUESTION_CATEGORY_STATUS_DELETED %>
+					<tr>
+						<td><%= question_category.name%></td>
+						
+						<td><%= Question.where(:question_category_id => question_category.id, :status => "active").count%> </td>
+						
+						<td><%= Question.where("explanation IS NOT NULL").where(:question_category_id => question_category.id, :status => "active").count%> </td> 
+						
+						<td><%= Trait.find(question_category.trait_id).name if question_category.trait_id.present? && @traits_lists.collect(&:id).include?(question_category.trait_id) %> </td> 
+						
+						<td><%= link_to("","",:'data_replace' => "edit_category_form",:'path' => "/database_managements/edit_question_category/" + question_category.id.to_s, :class => "ajax_call button_view_table disply_inline" ,  :'data-toggle' => "modal", :'data-placement' => "top" , :'href' => "#editquestiontype")%>
+							&nbsp; <%= link_to "", "#", :class => "button_remove_table disply_inline", :id => question_category.id , :onclick => "return remove_quecategory_func(this)" %> </td>
+					</tr>
+				<% end %>
+				<% end %>
+			</tbody>
+		</table>
+</div>
+
+
+	<!-- Modal Definitions to add new Qualification Type-->
+<div id="newquestiontype" class="modal modal-qualification hide fade" data-width="760">
+	<%= form_for(QuestionCategory.new ,:validate => true, :url => {:action =>'create_question_category', :controller => "database_managements"}, :class => 'ays-ignore', :remote => true, :html => {:'data-replace' => "database_management_div"}) do |question_category_form| %>
+	 																																																			
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>New Question Type</h3>
+	</div>
+	
+	<div class="modal-body">
+		    <div class="row">
+		        <div class="span2 txt_highlight">Question Type :</div>
+				<div class="span4"> 
+			    <%= question_category_form.text_field :name, :class => "question_category_class", :placeholder => Settings.h_questioncategoryname, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title => "t_questiontype_name" %> 
+			    </div>
+	    	</div>
+	    	
+		    <div class="row">
+			    <div class="span2 txt_highlight">Status :</div>
+			    <div class="span4"> 
+			    <span data-toggle="tooltip" data-placement="left" title="t_questiontype_status"><%= question_category_form.select :status, options_for_select(QUESTION_CATEGORY_STATUS_LIST.invert), :include_blank => Settings.h_status %></span>
+			  	</div>
+	    	</div>	
+	    	
+	        <div class="row">
+			    <div class="span2 txt_highlight">Trait :</div>
+			    <div class="span4">
+			    <span data-toggle="tooltip" data-placement="left" title="t_questiontype_trait"><%= question_category_form.select :trait_id, options_from_collection_for_select(@traits_lists, "id", "name"), :include_blank => Settings.h_traitname %></span>
+			  	</div>
+	    	</div>	
+	        
+	       	<div class="clearfix margin-20"></div>	
+			<div class="row">
+				<div class="span3">
+				<%= question_category_form.submit "Add & Finish", :class => "button_primery_modal" %>
+				<!-- <a href="#" id= "add_and_finished" class="button_primery_modal add_qualification">Add & Finished</a> -->
+				</div>
+				
+				<div class="span3">
+				<%= question_category_form.submit "Add & Enter Another", :class => "button_primery_modal" %>
+				<!-- <a href="#" id= "add_and_enter_another" class="button_primery_modal add_qualification">Add & Enter Another</a> -->
+				</div>
+			</div>
+	</div>
+    <% end %>
+    
+</div>
+
+
+<!-- Modal Definitions (managetrait) -->
+<div id="editquestiontype" class="modal modal-qualification hide fade" data-width="760">
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Edit Question Type</h3>
+  </div>
+  <div class="modal-body" id ="edit_category_form">
+    
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of manage trait -->
+
+
+<!--Script for tooltip-->
+<script>
+	$('input[type=text]').tooltip({ /*or use any other selector, class, ID*/
+	trigger: "hover"
+});
+// $('input[type=select]').tooltip({ /*or use any other selector, class, ID*/
+	// trigger: "hover"
+// });
+
+</script>
+ 
+ 
+<div id="warningbox" class="modal hide fade" data-width="960">
+
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error warningbox" style="margin-top:25px;"> 
+          	<h4>Warning box</h4>
+            <div class="clearfix margin-15"></div>
+            <p>
+            	<%= Settings.e_DeleteFailed%>
+            </p> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of warning box -->
+

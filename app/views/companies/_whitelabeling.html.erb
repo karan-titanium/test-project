@@ -1,0 +1,91 @@
+<% if company.can_enable_whitelabeling? %>
+    <div class="row bg_white well">
+        <div class="row" style="font-size:18px;">
+            Enable Whitelabeling
+            <%= form_for(company, :url => {:action => "update_company_whitelabeling_info", :company_id => company.id}, :validate => true, :html => {:remote => true, :'data-replace' => 'company_profile_section_div', :class => "display_inline"})  do |f| %>
+              <p class="field switch pull-right">
+                <label for="rb_whitelabel_enable" class="cb-enable <%= "selected"  if company.whitelabel %>"><span>Enable</span><%= f.radio_button :whitelabel, 1, :id => "rb_whitelabel_enable", :onchange => "$(this).closest('form').submit();" %></label>
+                <label for="rb_whitelabel_disable" class="cb-disable <%= "selected"  if !company.whitelabel %>"><span>Disable</span><%= f.radio_button :whitelabel, 0, :id => "rb_whitelabel_disable", :onchange => "$(this).closest('form').submit();" %></label>
+              </p>
+            <% end %>
+        </div>
+    </div>
+<% end %>
+
+
+
+<div class="row bg_white well">
+    <%= form_for company, :url => { :action => "update_company_whitelabeling_info", :company_id => company.id }, :validate => true, :html => {:remote => true, :'data-replace' => 'company_profile_section_div'}  do |f| %>
+        <h2>Company Profile</h2>
+        <div class="clearfix margin-10"></div>
+
+        <div class="row">
+            <div class="span3" style="font-size:18px;">Display Name</div>
+            <div class="span3">
+               <%= f.text_field :displayname, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_company_displayname %>
+            </div>
+        </div>
+        
+        <div class="span7">
+            <%= f.text_area :profile, :class => "txtarea_max", :rows => 2, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_company_profile %>
+        </div>
+        <div class="clearfix margin-10"></div>
+        <%= f.submit "Save Profile", :class => "button_primery_big position_center" %>
+    <% end %>
+</div>
+
+
+
+<div class="row bg_white well">    
+    <%= form_for company, :url => { :action => "update_company_whitelabeling_info", :company_id => company.id }, :validate => true, :html => {:remote => true, :'data-replace' => 'company_profile_section_div'}  do |f| %>
+        <h2>Whitelabel Domain</h2>
+        
+        <div class="span6 position_center">
+            <span>https://</span>
+            <%= f.text_field :subdomain, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_company_subdomain %>
+            <span>.topfivepercent.co.uk</span>
+        </div>
+        <div class="clearfix margin-10"></div>
+        <%= f.submit "Change Subdomain", :class => "button_primery_big position_center" %>
+    <% end %>
+</div>
+
+    
+
+<div class="row bg_white well">
+    <h2>Upload Logo</h2>
+    <div class="clearfix"></div>
+    <div class="row">    
+        <div class="logo_placeholder position_center">
+            <% if company.logo.present? && CdnFile.find(company.logo).present? %>
+                <%= image_tag CdnFile.find(company.logo).cf_filename_url, :alt => "Company Logo", :class => "position_center" %>
+            <% end %>
+        </div>
+    </div>
+    <div class="row">    
+        <div class="span5 position_center" style="text-align: center;">
+            <%= form_for CdnFile.new, :url => {:controller => "companies", :action => "upload_logo", :company_id => company.id }, :validate => true, :remote => true  do |f| %>
+                <span id="uploaded_file_name"></span>
+                <div class="field_with_errors"><label id="file_errors"></label></div>
+
+                <input type="button" value="Choose File" class="button_primery_big pull-left upload_button_to_display" />
+                <%= f.file_field :cf_filename, :onchange =>"validateFiles(this);", :data => {:max_file_size => FILE_SIZE_MAX_10MB}, :'supported_formate' => FILE_IMAGE_SUPPORTED_FORMATS, :id => "upload_logo", :'file_type' => FILE_TYPE_IMAGE, :class => "original_upload_button" %>
+                <%= f.hidden_field :uploaded_by, :value => current_user.present? ? current_user.id : nil %>
+                <%= f.submit 'Upload Logo', :class => "button_primery_big icn_upld pull-right", :onclick => "return isFilePresent();" %>    
+            <% end %>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function isFilePresent (){
+        if( $('#upload_logo').val() === '' )
+            return false;
+        return true;
+    }    
+
+    
+    displayTooltip();
+</script>

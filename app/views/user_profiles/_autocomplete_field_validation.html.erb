@@ -1,0 +1,34 @@
+<script>
+function check_autocomplete(){
+	flag = true;
+	$(".autocomplete_field").each(function(){
+		
+		minLimit = $(this).attr("min_limit");
+		minMsg = $(this).attr('min_msg');
+		maxMsg = $(this).attr('max_msg');
+		maxLimit = $(this).attr("max_limit");
+		enteredVal = $(this).val();
+		errorDiv =  $(this).siblings('.field_with_errors');
+		if( enteredVal.length < minLimit ){
+		    if(  jQuery.isEmptyObject( errorDiv.text() ) ){
+			     $(this).after("<div class='field_with_errors'><label class='message'>" + minMsg + "</label></div>");
+		     }else{
+		         errorDiv.css("display", "block");
+		         errorDiv.children('.message').text( minMsg );//.css("display", "block");
+		     }
+		  flag = false;   
+		} else if( enteredVal.length > maxLimit ) {
+		    if(  jQuery.isEmptyObject( errorDiv.text() ) ){
+                 $(this).after("<div class='field_with_errors'><label class='message'>" + maxMsg + "</label></div>");
+             }else{
+                 errorDiv.css("display", "block");
+                 errorDiv.children('.message').text( maxMsg );
+             }
+		  flag = false;  
+		 } else {
+		    errorDiv.css("display", "none"); 
+		 }
+	});
+	return flag ;
+}
+</script>

@@ -1,0 +1,211 @@
+
+<% contact_campaigns.each do |user_campaign| %>
+<% campaign = user_campaign.campaign %>
+<% initial_exam_present, initial_exam_ended_date = campaign.initial_exam_end_date(contact) %>
+<% additional_exam_present, additional_exam_ended_date = campaign.additional_exam_end_date(contact) %>
+<% verification_exam_present, verification_exam_ended_date = campaign.verification_exam_end_date(contact) %>
+<div class="row bg_white well">
+	<div class="row">
+		<div class="span1 txt_highlight">Campaign :</div>
+		<div class="span3"><label><%= campaign.campaign_name %></label></div>
+		<div class="span1 txt_highlight">Status :</div>
+		<div class="span2"><label><%= user_campaign.status %></label></div>
+	</div>
+
+	<div class="row">
+		<div class="span1 txt_highlight">Client :</div>
+		<div class="span3"><label><%= campaign.reference %></label></div>
+	</div>
+
+	<div class="row margin-20">
+		<div class="span1 txt_highlight">Status :</div>
+		<div class="span3"><label><%= campaign.status %></label></div>
+	</div>
+
+	<table class="table" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td>Applied</td><td><label></label></td>
+			<td><%= image_tag('icon/icon-checked.png', :style => 'width:21;height:20') %></td>
+			<td><label><%= user_campaign.date.present? ? user_campaign.date.to_date : NOT_AVAILABLE %></label></td>
+			<td><a href="#" class="button_view_table"></a></td>
+		</tr>
+		<tr>
+			<td>Initial Exam</td><td><label>Name</label></td>
+			<td><%= image_tag( ( initial_exam_ended_date ? 'icon/icon-checked.png' : 'icon/icon_cross_green.png' ) , :style => 'width:21;height:20') %></td>
+			<td><label><%= initial_exam_ended_date ? initial_exam_ended_date.to_date : NOT_AVAILABLE %></label></td>
+			<td><a href="staff-contacts-ExamStageViewEdit.html" class="button_view_table"></a><a href="staff-contacts-ExamStageViewEdit.html" class="button_edit_table"></a><a href="#" class="button_lock_table"></a></td>
+		</tr>
+		<tr>
+			<td>Additional Exam</td><td><label>Name</label></td>
+			<td><%= image_tag( ( additional_exam_ended_date ? 'icon/icon-checked.png' : 'icon/icon_cross_green.png' ) , :style => 'width:21;height:20') %></td>
+			<td><label><%= additional_exam_ended_date ? initial_exam_ended_date.to_date : NOT_AVAILABLE %></label></td>
+			<td><a href="staff-contacts-ExamStageViewEdit.html" class="button_view_table"></a><a href="staff-contacts-ExamStageViewEdit.html" class="button_edit_table"></a><a href="#" class="button_lock_table"></a></td>
+		</tr>
+		<tr>
+			<td>TFP phone Interview</td><td><label>Name</label></td>
+			<td><%= image_tag( ( user_campaign.phone_date.present? ? 'icon/icon-checked.png' : 'icon/icon_cross_green.png' ) , :style => 'width:21;height:20') %></td>
+			<td><label><%= user_campaign.phone_date.present? ? user_campaign.phone_date.to_date : NOT_AVAILABLE %></label></td>
+			<td><a href="staff-contacts-InterviewStageViewEdit.html" class="button_view_table"></a><a href="staff-contacts-InterviewStageViewEdit.html" class="button_edit_table"></a><a href="#" class="button_lock_table"></a></td>
+		</tr>
+		<tr>
+			<td>Verification Exam</td><td><label>Name</label></td>
+			<td><%= image_tag( ( verification_exam_ended_date ? 'icon/icon-checked.png' : 'icon/icon_cross_green.png' ) , :style => 'width:21;height:20') %></td>
+			<td><label><%= verification_exam_ended_date ? initial_exam_ended_date.to_date : NOT_AVAILABLE %></label></td>
+			<td><a href="#" class="button_view_table"></a><a href="#" class="button_edit_table"></a><a href="#" class="button_lock_table"></a></td>
+		</tr>
+		<tr>
+			<td>TFP Interview</td><td><label>Name</label></td>
+			<td><%= image_tag( ( user_campaign.interview_date.present? ? 'icon/icon-checked.png' : 'icon/icon_cross_green.png' ) , :style => 'width:21;height:20') %></td>
+			<td><label><%= user_campaign.interview_date.present? ? user_campaign.interview_date.to_date : NOT_AVAILABLE %></label></td>
+			<td><a href="staff-contacts-InterviewStageViewEdit.html" class="button_view_table"></a><a href="staff-contacts-InterviewStageViewEdit.html" class="button_edit_table"></a><a href="#" class="button_lock_table"></a></td>
+		</tr>
+		<tr>
+			<td>Forward</td><td><label>Name</label></td>
+			<td><%= image_tag( ( user_campaign.date_forwarded.present? ? 'icon/icon-checked.png' : 'icon/icon_cross_green.png' ) , :style => 'width:21;height:20') %></td>
+			<td><label><%= user_campaign.date_forwarded.present? ? user_campaign.date_forwarded.to_date : NOT_AVAILABLE %></label></td>
+			<td><a href="#" class="button_view_table"></a><a href="#forwardedit" data-toggle="modal" data-placement="top" class="button_edit_table"></a><a href="#" class="button_lock_table"></a></td>
+		</tr>
+		<tr>
+			<td>Accepted/Rejected</td><td><label>Name</label></td>
+			<td><%= image_tag( ( user_campaign.date_reviewed.present? ? 'icon/icon-checked.png' : 'icon/icon_cross_green.png' ) , :style => 'width:21;height:20') %></td>
+			<td><label><%= user_campaign.date_reviewed.present? ? user_campaign.date_reviewed : NOT_AVAILABLE %></label></td>
+			<td><a href="#" class="button_view_table"></a><a href="#" class="button_edit_table"></a><a href="#" class="button_lock_table"></a></td>
+		</tr>
+
+	</table>
+</div>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="row bg_white well" id="contact_campaigns_list">
+	<button data-toggle="modal" class="button_primery_big pull-right" href="#link_to_campaign" data-placement="top" title="" >
+		Link to Campagins
+	</button>
+</div>	
+< % contact_campaigns.each do |user_campaign| %>
+< % campaign = user_campaign.campaign %>
+< % initial_exam_present, initial_exam_ended_date = campaign.initial_exam_end_date(contact) %>
+< % additional_exam_present, additional_exam_ended_date = campaign.additional_exam_end_date(contact) %>
+< % verification_exam_present, verification_exam_ended_date = campaign.verification_exam_end_date(contact) %>
+<div class="row bg_white well" id="contact_campaigns_list">
+	<div class="clearfix margin-20"></div>
+	<div style="height:400px; overflow-y:scroll;">
+		<table>
+			<tbody>
+				<tr>
+					<td>	Campaigns : </td> <td colspan="3"><%= campaign.campaign_name %></td>
+				</tr>
+				<tr>
+					<td>	Client : </td> <td  colspan="3"><%= campaign.reference %></td>
+				</tr>
+				<tr>		
+					<td> 	Status : </td>	<td  colspan="3"><%= campaign.status %></td>
+				</tr>
+				<tr>
+					<td>Applied :</td>
+					 <td>OK</td>
+					 <td>< %= user_campaign.date.present? ? user_campaign.date.to_date : NOT_AVAILABLE %></td>
+					 <td><a class="button_view_table" href=""></a></td>
+				</tr>
+				< % if  initial_exam_present %>
+					<tr>
+						<td>Initial Exam :</td> 
+						<td>< %= initial_exam_ended_date ? "OK" :  "X" %></td>
+						<td>< %= initial_exam_ended_date ? initial_exam_ended_date.to_date : NOT_AVAILABLE %> </td>
+						<td><a class="button_view_table" href=""></a></td>
+					</tr>
+				< % end %>
+				< % if additional_exam_present %>
+					<tr>
+						<td>Additional Exam :</td>
+						<td>< %=  additional_exam_ended_date ? "OK" :  "X" %> </td>
+						<td>< %= additional_exam_ended_date ? initial_exam_ended_date.to_date : NOT_AVAILABLE %> </td>
+						<td><a class="button_view_table" href=""></a></td>
+					</tr>
+				< % end %>
+				<tr>
+					<td>Tfp Phoen Interview</td>
+					<td>< %= user_campaign.phone_date.present? ? "OK" : "X"%></td>
+					<td>  < %= user_campaign.phone_date.present? ? user_campaign.phone_date.to_date : NOT_AVAILABLE %> </td>
+					<td><a class="button_view_table" href=""></a></td>
+				</tr>
+				
+				< % if verification_exam_present %>
+					<tr>
+						<td>Verification Exam</td>
+						<td>< %=  verification_exam_ended_date ? "OK" :  "X" %></td>
+						<td>< %= verification_exam_ended_date ? initial_exam_ended_date.to_date : NOT_AVAILABLE %> </td>
+						<td><a class="button_view_table" href=""></a></td>
+					</tr>
+				< % end %>
+				<tr>
+					<td>Tfp Interview</td>
+					<td>< %= user_campaign.interview_date.present? ? "OK" : "X" %></td>
+					<td>  < %= user_campaign.interview_date.present? ? user_campaign.interview_date.to_date : NOT_AVAILABLE %> </td>
+					<td><a class="button_view_table" href=""></a></td>
+				</tr>
+				<tr>
+					<td>Forward</td>
+					<td>< %= user_campaign.date_forwarded.present? ? "OK" : "X" %> </td>
+					<td>< %= user_campaign.date_forwarded.present? ? user_campaign.date_forwarded.to_date : NOT_AVAILABLE %> </td>
+					<td><a class="button_view_table" href=""></a></td>
+				</tr>
+				<tr>
+					<td>Accepted</td>
+					<td>< %= user_campaign.date_reviewed.present? ? "OK" : "X" %> </td>
+					<td>< %= user_campaign.date_reviewed.present? ? user_campaign.date_reviewed : NOT_AVAILABLE %> </td>
+					<td><a class="button_view_table" href=""></a></td>
+				</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+< % end if contact_campaigns.present? %> -->
+
+	
+<!-- Modal Definitions (newcampaign) -->
+    <!-- <div id="link_to_campaign" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Link To Campaign</h3>
+      </div>
+      <div class="modal-body">
+        < %= form_for UserCampaign.new, :url => {:action => "add_campaign"}, :validate => true, :html => {:remote => true, :'data-replace' => 'contact_profile_section_div'}, :class => 'ays-ignore' do |f| %>
+        	< %= f.hidden_field :user_id, :value => contact.id %>
+        	< %= f.hidden_field :date, :value => DateTime.now %>
+        	< %=f.select :campaign_id, options_from_collection_for_select(non_applied_active_campaigns, "id", "campaign_name"), :prompt => "Select Campaign" %>
+        	< %= f.hidden_field :source_staff, :value => current_user.id %>
+        	< %= f.hidden_field :status, :value => USER_CAMPAIGN_STATUS_APPLIED %>
+        	< %= f.submit "Link To campaign" %>
+        < % end %>	
+      </div>
+      < !-- end model body -- > 
+    </div> --><!-- end model of newcampaign --> 

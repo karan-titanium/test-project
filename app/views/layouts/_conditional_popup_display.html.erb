@@ -1,0 +1,23 @@
+<%= render :partial => partial_tobe_rendered, :locals => partial_locals %>
+
+<div style="display: none">
+	<label id="modal_id"><%= modal_id %></label>
+	<label id="button_caption"><%= button_caption %></label>
+</div>
+
+<script>
+    $(document).ready(function(event){
+        var modal_id = $('#modal_id').text();
+       // alert("took modal id");
+        var button_caption = $('#button_caption').text();
+        //alert("took button text");
+        $('#'+modal_id).modal('hide');
+        //alert("after modal hide");
+        $('.modal-backdrop').remove();
+       // alert("after backdrop remove");
+        if(button_caption.toUpperCase() === "Add and Enter Another".toUpperCase() || button_caption.toUpperCase() === "Add & Enter Another".toUpperCase()){
+        	//alert("in caption comparision");
+            $('#' + modal_id).modal('show');
+        }
+    });
+</script>

@@ -1,0 +1,71 @@
+
+<!-- Google Font -->
+<%= stylesheet_link_tag "http://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900", :media => "all" %>
+<!-- End Js -->
+<script>
+    $(document).ready(function(){
+        if ("<%= devise_error_messages!.present? ? "true" : "false" %>" == "true"){
+        $("#warning1").click();
+        }
+      });
+</script>
+<!-- Header -->
+<%= render :partial => "layouts/header" , :locals => {:title => "Change your password" } %>
+<!-- End Header --> 
+
+<div id="login" class="page">
+  <div class="container">
+    <div class="row bg_white">
+      <div class="span10 position_center">
+        <div class="span2"></div>
+        <div class="span1">
+          <h2 class="title"></h2>
+        </div>
+        <!--end span3-->
+        
+        <div class="span6">
+            <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+            
+            <%= f.hidden_field :reset_password_token %>
+            <div class="row"> <a href="#" data-toggle="tooltip" data-placement="right" title="<%= Settings.t_password %>">
+              <%= f.password_field :password, :placeholder => "New Password", :autofocus => true,:tabindex => 1, :style => "width: 378px;" %>
+              </a> </div>
+            <div class="row"> <a href="#" data-toggle="tooltip" data-placement="right" title="<%= Settings.t_password %>">
+              <%= f.password_field :password_confirmation, :placeholder => "Confirm Password",:tabindex => 2, :style => "width: 378px;" %>
+              </a> </div>
+            <div class="row">
+                  
+                  <div class="span4">
+                  <%= f.submit "Change my password", :class => "btn_resetpass position_center" %>
+                  </div>
+              </div>
+             <% end %>
+        </div>
+        <!--end span4--> 
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div style="display: none">
+<a href="#warningbox1" id="warning1" data-toggle="modal" title="Link to Settings page" class="button_primery_big" data-placement="top" id="">Warning Box</a>
+</div>
+
+<div id="warningbox1" class="modal hide fade" data-width="960">
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error warningbox" style="margin-top:25px;"> 
+            <h4>Warning box</h4>
+            <div class="clearfix margin-15"></div>
+            <p id = "warning_msg">
+                <%=  resource.errors.full_messages.first %> 
+            </p> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>
+

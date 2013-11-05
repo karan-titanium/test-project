@@ -1,0 +1,27 @@
+Setting Category  <%= select_tag "setting_category", options_from_collection_for_select(setting_categories, "id", "name") %><br /><br /> 
+
+<% system_settings.each do |s| %>
+		<div id="setting_div">
+			<%= s.name  if s.name.present? %>&nbsp;&nbsp;
+			<%= s.setting_type.casecmp(SETTING_TYPE_HTML) == 0 ? s.value.html_safe : s.value %>&nbsp;&nbsp;
+
+			<!-- TODO:  <div id="edit_setting_value" style="display: none;"> -->        
+		    <div id="edit_setting_value">
+				<%= form_for(s, :url => {:controller => "staffs", :action => "update_system_setting", :s_id => s.id}, :remote => true, :html => { :'data-replace' => 'system_config_tab' } ) do |f| %>
+				  <%= f.text_field :value, :class => "only_numerics"  if s.setting_type.casecmp(SETTING_TYPE_INT) == 0 %>
+				  <%= f.text_field :value  if s.setting_type.casecmp(SETTING_TYPE_TEXT) == 0 %>
+				  <%= f.text_area :value, :rows => 8  if s.setting_type.casecmp(SETTING_TYPE_LONGTEXT) == 0 %>
+				  <!-- < %= f.text_area :value, :class => "ckeditor"  if s.setting_type.casecmp(SETTING_TYPE_HTML) == 0 %>  -->
+				  <%= (f.cktext_area :value, :class => "ckeditor")  if s.setting_type.casecmp(SETTING_TYPE_HTML) == 0 %>
+				  <%= f.email_field :value  if s.setting_type.casecmp(SETTING_TYPE_EMAIL) == 0  %>
+				  <br />
+				  
+				  <input type="button" value="Cancel" onclick="makeValueNonEditable(this);" />&nbsp;&nbsp;
+				  <%= f.submit "Save", :class => "save_setting_value_btn" %>
+				<% end %>
+			</div>
+			
+			<input type="button" value="Edit" onclick="makeValueEditable(this);" id="edit_btn" />&nbsp;&nbsp;
+			<%= s.description  if s.description.present? %><br /><br />
+		</div>
+<% end  if system_settings.present? %>

@@ -1,0 +1,123 @@
+<label id="link_label_company" style="display: none"><%= @from_companies.present? %></label>
+<label id="link_label_type" style="display: none"><%= @from_types.present? %></label>
+<label id="link_label_location" style="display: none"><%= @from_locations.present? %></label>
+<label id="link_label_subject" style="display: none"><%= @from_subjects.present? %></label>
+<label id="link_label_grade" style="display: none"><%= @from_grades.present? %></label>
+<label id="link_label_itskill" style="display: none"><%= @from_itskills.present? %></label>
+<label id="link_label_language" style="display: none"><%= @from_languages.present? %></label>
+
+<script>
+	$(document).ready(function(){
+		 if( ( $("#link_label_company").text() ).match(/true/g) ){
+		 	$("#link_company").click();
+		 }
+		 if( ( $("#link_label_type").text() ).match(/true/g) ){
+		 	$("#link_type").click();
+		 }
+		 if( ( $("#link_label_location").text() ).match(/true/g) ){
+		 	$("#link_location").click();
+		 }
+		 if( ( $("#link_label_subject").text() ).match(/true/g) ){
+		 	$("#link_subject").click();
+		 }
+		 if( ( $("#link_label_grade").text() ).match(/true/g) ){
+		 	$("#link_grade").click();
+		 }
+		 if( ( $("#link_label_itskill").text() ).match(/true/g) ){
+		 	$("#link_itskill").click();
+		 }
+		 if( ( $("#link_label_language").text() ).match(/true/g) ){
+		 	$("#link_language").click();
+		 }
+		 
+	});
+</script>
+
+
+<div class="row bg_white well">
+        <h2>Database Management</h2>
+        <div class="clearfix margin-20"></div>
+        <table class="table">
+	
+	<tr>
+		<td>Traits</td> 
+		<td>Internal : </td>
+		<td> <%= @internal_traits_count%> </td>
+		<td>Public : </td>
+		<td> <%= @public_traits_count%> </td>
+		<td><%= link_to("Manage","", :'data_replace' => "database_management_div", :'path' => "/database_managements/traits", :class => 'ajax_call button_primery_mini' )%></td>
+	</tr>
+	
+	<tr>
+		<td>Question Categories</td> 
+		<td>Categories : </td>
+		<td> <%= @question_categories_count%></td>
+		<td></td>
+		<td></td>
+		<td><%= link_to("Manage","", :'data_replace' => "database_management_div", :'path' => "/database_managements/question_categories", :class => 'ajax_call button_primery_mini' )%></td>
+	</tr>
+	
+	<tr>
+		<td>Companies</td>
+		<td>Active : </td>
+		<td> <%= @active_companies_count%> </td>
+		<td>Unconfirmed : </td>
+		<td> <%= @unconfirmed_companies_count%> </td>
+		<td><%= link_to("Manage","", :'data_replace' => "database_management_div", :'path' => "/database_managements/companies", :class => 'ajax_call button_primery_mini', :id => "link_company" )%></td>
+	</tr>
+
+	<tr>
+		<td>Qualification Types</td>
+		<td>Active : </td>
+		<td><%= @active_qualification_types_count%></td>
+		<td>Unconfirmed : </td>
+		<td><%= @unconfirmed_qualification_types_count%></td>
+		<td><%= link_to("Manage","", :'data_replace' => "database_management_div", :'path' => "/database_managements/qualification_types", :class => 'ajax_call button_primery_mini', :id => "link_type")%></td>
+	</tr>
+		
+	<tr>
+		<td>Qualification Locations</td>
+		<td>Active : </td>
+		<td><%= @active_qualification_locations_count%></td>
+		<td>Unconfirmed : </td>
+		<td><%= @unconfirmed_qualification_locations_count%></td>
+		<td><%= link_to("Manage","", :'data_replace' => "database_management_div",:'path' => "/database_managements/qualification_locations", :class => "ajax_call button_primery_mini", :id => "link_location")%></td>
+	</tr>
+
+	<tr>
+		<td>Qualification Subjects</td>
+		<td>Active : </td>
+		<td><%= @active_qualification_subjects_count%></td>
+		<td>Unconfirmed : </td>
+		<td><%= @unconfirmed_qualification_subjects_count%></td>
+		<td><%= link_to("Manage","", :'data_replace' => "database_management_div",:'path' => "/database_managements/qualification_subjects", :class => "ajax_call button_primery_mini", :id => "link_subject")%></td>
+	</tr>
+
+	<tr>
+		<td>Qualification Grades</td>
+		<td>Active : </td>
+		<td><%= @active_qualification_grades_count%></td>
+		<td>Unconfirmed : </td>
+		<td><%= @unconfirmed_qualification_grades_count%></td>
+		<td><%= link_to("Manage","", :'data_replace' => "database_management_div",:'path' => "/database_managements/qualification_grades", :class => "ajax_call button_primery_mini", :id => "link_grade")%></td>
+	</tr>
+
+	<tr>
+		<td>IT Skills</td>
+		<td>Active : </td>
+		<td><%= @active_itskills_count%></td>
+		<td>Unconfirmed : </td>
+		<td><%= @unconfirmed_itskills_count%></td>
+		<td><%= link_to("Manage","", :'data_replace' => "database_management_div",:'path' => "/database_managements/itskills", :class => "ajax_call button_primery_mini", :id => "link_itskill")%></td>
+	</tr>
+
+	<tr>
+		<td>Languages</td>
+		<td>Active : </td>
+		<td><%= @active_languages_count%></td>
+		<td>Unconfirmed : </td>
+		<td><%= @unconfirmed_languages_count%></td>
+		<td><%= link_to("Manage","", :'data_replace' => "database_management_div",:'path' => "/database_managements/languages", :class => "ajax_call button_primery_mini", :id => "link_language")%></td>
+	</tr>
+</table>
+</div>

@@ -1,0 +1,5 @@
+<%= form_for(CdnFile.new, :validate => true, :url => {:action => "update_contact_profile"}, :remote => true ) do |f| %>
+   <%= f.file_field :cf_filename, :id => 'browse_cv_button', :onchange =>"validateFiles(this);", :data => {:max_file_size => 20.megabytes}, :'supported_formate' => 'doc docx pdf rtf', :'file_type' => 'cv' %>
+   <%= f.hidden_field :file_type, :"value" => "cv" %>
+   <%= f.submit 'Submit', :id => 'upload_cv_button' %>
+ <% end %>

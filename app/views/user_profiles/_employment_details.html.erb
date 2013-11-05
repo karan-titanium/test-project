@@ -1,0 +1,382 @@
+<!-- < %= render :partial => "autocomplete_field_validation" %> -->
+
+<!-- -------------------- WORKING AREA--------------------- -->
+<div class="span3" style="background:#1a74c2;">
+    <!--  Profile photo -->
+    <div class="profilepic" id="profile_photo_content">
+         <%= render :partial => "profile_photo", :locals => {:user => @user } %>
+    </div>
+    <h3 class="profilename"><%= @user.first_name.capitalize if @user.first_name.present? %></h3>
+    <hr/>
+    <!--  Profile photo End-->  
+    <!-- candidate left menu --> 
+        <%= render :partial => "layouts/left_menu_candidate", :locals => {:current_nav => 'employment_details'} %>
+    <!-- end left menu --> 
+</div>
+  <!-- end Left side bar -->
+          
+
+
+<% current_user_company = @user.user_companies.where(:current => true).first %>
+<!-- This label used for jquery to make currently employed? yes checked when user add new company with current yes -->
+	<label id="current_company_present" style="display: none"><%= current_user_company.present? %></label>
+	<label id="untill_date_present" style="display: none"><%= current_user_company.untill.present? if current_user_company.present? %></label>
+<!-- end of label -->
+
+
+<div class="span8" id='right_side_menu_div'>
+	<div class="row bg_white well">
+		<div class="row">
+			<div class="span4" style="margin-left: 1px"><h2>Employment Details</h2></div>
+			<div class="span3"><button data-toggle="modal" class="button_primery_big pull-right" href="#employerbuilder" data-placement="top" title="" id="add_user_company_button" >Add Employer</button></div>
+		</div>
+		<%= form_for(@user, :validate => true, :url => {:action =>'upload_cv'}, :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |user_form| %>
+			<%= user_form.fields_for :user_profile do |profile_form| %>
+				<div class="row">
+					<div class="span2 txt_highlight">Currently Employed :</div>
+					<div class="span5">
+						<%= profile_form.radio_button :employed, "yes", :id => "r10" %>
+						<label for="r10"><span></span>Yes</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span2"></div>
+					<div class="span5">
+						<%= profile_form.radio_button :employed, "no", :id => "r12" %>
+						<label for="r12"><span></span>No</label>
+					</div>
+				</div>
+				<!-- Current salary and current company div -->
+				<div class="row" id='current_salary_div' style="display: none">
+					<div class="row">
+						<div class="span2 txt_highlight">Current Employer :</div>
+						<div class="span5">
+						     <%= (current_user_company.present?)  ? current_user_company.company.name : NOT_AVAILABLE %> 
+						</div>
+					</div>
+				
+					<div class="span2 txt_highlight">Current salary :</div>
+					<div class="span5">
+						 <%= profile_form.text_field :salary_current, :placeholder => Settings.h_candidate_currentsalary, :"data-toggle" => "tooltip", :"data-placement" => "right", :title => 't_candidate_currentsalary' %>
+					</div>
+				</div>
+				<!-- end  -->
+				<div class="row">
+					<div class="span2 txt_highlight">Target Salary :</div>
+					<div class="span5">
+						<%= profile_form.text_field :salary_target, :placeholder => Settings.h_candidate_target_salary, :"data-toggle" => "tooltip", :"data-placement" => "right", :title => 't_candidate_target_salary' %> 
+					</div>
+				</div>
+			<% end %>
+			<div style="display:none">
+				<%= user_form.submit "Next", :id => "employment_submit_form" %>
+			</div>
+		<% end %>
+		<div class="row">
+			<div class="row bg_white well"><h3>Employment Summary</h3>
+				<table cellpadding="0" cellspacing="0" border="0" class="display" id="employment_summary">
+					<thead>
+						<tr><th><a>Company Name</a></th><th><a>From</a></th><th><a>Until</a></th><th><a>Position</a></th></tr>
+					</thead>
+					<tbody>
+					<% @user.user_companies.order("untill ASC").each do |comp| %>
+						<tr>
+							<td><%= comp.company.name if comp.company.present? %></td>
+							<td><%= comp.from.to_date if comp.from.present? %></td>
+							<td><%= comp.untill.to_date if comp.untill.present? %></td>
+							<td><%= comp.position %></td>
+						</tr>
+					<% end if @user.user_companies.present? %>
+					</tbody>
+					<tfoot><tr><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th></tr></tfoot>
+				</table>
+			</div>
+		</div>
+		<div class="clearfix margin-10"></div>
+	</div>
+	<div class=" span5 nav-userdashboard position_center">
+		<a class="button_primery button_back side_links" path=<%= @path[:personal_details] %> id="back_link">Back</a>
+		<a class="button_primery button_next" onclick="$('#employment_submit_form').click();"  >Next</a>
+	</div>
+</div>
+
+
+
+
+
+
+<!-- Model Box EMployment Builder-->
+<div id="employerbuilder" class="modal modal-qualification hide fade" data-width="760">
+	<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Employment Builder</h3>
+	</div>
+	<%= form_for(UserCompany.new, :validate => true, :url => {:action =>'add_user_company'}, :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |user_company| %>
+	<div class="modal-body">
+		<div class="row">
+			<div class="span2 txt_highlight">Company Name :</div>
+			<div class="span4">
+				<%= user_company.autocomplete_field :company_name, autocomplete_company_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory, :max_msg => Settings.e_fieldlength_50, :update_elements => {}, :placeholder => Settings.h_companyname, :"data-toggle" => "tooltip", :"data-placement" => "left", :title => 't_company_name' %> 
+				<label id="company_name_errors"></label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">From :</div>
+			<div class="span4 input-append date dp1" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+				<%= user_company.text_field :from, :style => "width:308px", :readonly => true, :placeholder => Settings.h_candidate_empstdate, :id => "user_company_from_date" %>
+				  <span class="add-on", data-toggle="tooltip" data-placement="left" title ='t_candidate_fromdate'><i class="icon-calendar"></i></span>
+				  <label id="user_company_from_date_errors"></label> 
+			</div>
+		</div>
+		<div class="row" >
+			<div class="span2 txt_highlight">Until :</div>
+			<div class="span4  input-append date dp2" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+				<%= user_company.text_field :untill, :style => "width:308px", :readonly => true, :placeholder => Settings.h_candidate_empenddate, :id => "user_company_until_date"  %>
+				  <span class="add-on", data-toggle="tooltip" data-placement="left" title ='t_candidate_untildate'><i class="icon-calendar"></i></span>
+				<label id="user_company_until_date_errors"></label> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">Position :</div>
+			<div class="span4">
+				<%= user_company.text_field :position, :placeholder => Settings.h_candidate_position, :id => "user_company_position", :"data-toggle" => "tooltip", :"data-placement" => "left", :title => 't_candidate_position' %> 
+				<label id="user_company_position_errors"></label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">Current Employer:</div>
+			<div class="span4">
+				<div class="row">
+					<%= user_company.radio_button :current, true, :id => "r1", :checked => true %>
+					<label for="r1"><span></span>Yes</label>
+				</div>
+				<div class="row">
+					<%= user_company.radio_button :current, false, :id => "r2" %>
+					<label for="r2"><span></span>No</label>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix margin-15"></div>
+		<div class="row">
+			<div class="span3">
+				<%= user_company.submit "Add and Finished", :class => "button_primery_modal add_qualification add_user_company" %>
+			</div>
+			<div class="span3">
+				<%= user_company.submit "Add and Enter Another", :class => "button_primery_modal add_qualification  add_user_company" %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>
+
+
+
+
+<% if current_user_company.present? %>
+<div id="editCurrentEmployer" class="modal modal-qualification hide fade" data-width="760" data-backdrop="static">
+	<div class="modal-header"><!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+		<h3>Select until date for company</h3>
+	</div>
+	<%= form_for(current_user_company, :validate => true, :url => {:action =>'update_user_company', :user_company_id => current_user_company.id }, :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |f| %>
+	<div class="modal-body">
+		<div class="row">
+			<div class="span2 txt_highlight">Company Name :</div>
+			<div class="span4">
+				<%= f.object.company.name %>
+				<%= f.hidden_field :current, :value => false %>
+				<%= f.hidden_field :company_id, :value => f.object.company_id %>
+				<!-- < %= f.hidden_field :current, :value => false %> -->
+			</div>
+		</div>
+		
+		<div class="row" >
+			<div class="span2 txt_highlight">Until :</div>
+			<div class="span4  input-append date dp2" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+				<%= f.text_field :untill, :style => "width:308px", :readonly => true, :placeholder => Settings.h_candidate_empenddate, :id => "until_date"  %>
+				  <span class="add-on"><i class="icon-calendar"></i></span>
+				<label id="until_date_errors"></label> 
+			</div>
+		</div>
+		<div class="clearfix margin-15"></div>
+		<div class="row">
+			<div class="span2"></div>
+			<div class="span2">		
+				<%= f.submit "Save", :onclick => "return validateUntil(this);", :class => "button_primery button_finish" %>
+			</div>	
+		</div>
+	</div>
+	<% end %>
+</div>
+<% end %>
+
+<!-- ==============================================================================================-->
+<!-- =============================== Scripts ======================================================-->
+<script>
+	displayTooltip();  // Function call to display tooltip
+	
+	//  this is for client side validation should be work on twitter bootstrap modal
+	$('.modal').on('shown', function() {
+		$(ClientSideValidations.selectors.forms).validate();
+	});
+	// end of script for client side validation
+
+	// date-picker
+	 $('.dp1, .dp2').datepicker().on('changeDate', function(ev){
+     	$(ev.target).find('input').change().focusout();
+     	$(this).datepicker('hide');
+     });
+	
+	$(document).ready(function() {
+		$('#employment_summary').dataTable({
+			"sPaginationType": "full_numbers",
+			"sScrollY": "200px",
+			"bPaginate": true,
+			"bScrollCollapse": true,
+			"fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+		});
+	
+	
+        $(":radio:eq(0)").click(function() {
+            $("#current_salary_div").show(300);
+        });
+        
+        $(":radio:eq(1)").click(function() {
+            $("#current_salary_div").hide(500);
+            if ( ( $("#current_company_present").text() ).match(/true/g) ){
+            	if ( ( $("#untill_date_present").text() ).match(/false/g) ){
+            		$("#editCurrentEmployer").modal("show");
+            	}
+            }
+        });
+        
+        if ($("#r10").attr("checked") == "checked") {
+            $("#current_salary_div").css("display", "block");
+        }else if ($("#r12").attr("checked") == "checked"){
+            $("#current_salary_div").css("display", "none");
+        }else{
+        	$("#current_salary_div").css("display", "none");
+        	$("#r12").attr("checked", "checked");
+        }
+        
+        if ( ( $("#current_company_present").text() ).match(/true/g) ){
+        	$("#current_salary_div").css("display", "block");
+        	$("#r10").attr("checked", "checked");
+        }
+    });
+ 
+// validate until date for current company when click on no for current employer    
+    function validateUntil(current){
+    	flag = false;
+    	selectedDate = $("#until_date").val()
+    	if ( selectedDate == ""){
+    		$('#until_date_errors').text("This field is mandatory. Please enter the field information.");
+    		$('#until_date_errors').addClass("custom_error_message");
+    	}else{
+    		$('#until_date_errors').text("");
+    		$('#until_date_errors').removeClass("custom_error_message");
+    		flag = true
+    	}
+    	return flag;
+    }
+    $("#until_date").focusout(function(){
+    	validateUntil($(this));
+    });
+    
+
+
+// Company name validations
+	function check_company_name(){
+    	companyName = $("#user_company_company_name").val();
+    	minLimit = $("#user_company_company_name").attr("min_limit");
+    	maxLimit = $("#user_company_company_name").attr("max_limit");
+    	minMsg = $("#user_company_company_name").attr("min_msg");
+    	maxMsg = $("#user_company_company_name").attr("max_msg");
+    	var flag = true;
+    	if ( companyName.length < minLimit){
+    		$("#company_name_errors").text( minMsg );
+    		flag = false ;
+    	}else if ( companyName.length > maxLimit ){
+    		$("#company_name_errors").text( maxMsg );
+    		flag = false ;
+    	}else { $("#company_name_errors").text( "" ); }
+    	
+    	if ( flag == false ){ $("#company_name_errors").addClass( "custom_error_message" ); } else { $("#company_name_errors").removeClass( "custom_error_message" ); }
+    	
+    	return flag;
+    }
+    
+    $("#user_company_company_name").focusout(function(){
+    	check_company_name();
+    });
+  
+    
+// Until Date  validations
+	function check_until_date(){
+		flag = true;
+		untilDate = $("#user_company_until_date").val();
+		if ( document.getElementById('r2').checked ){
+			if ( untilDate.length == 0 ){
+				$("#user_company_until_date_errors").text("This field is mandatory. Please enter the field information");
+				flag = false; 
+			}else{ $("#user_company_until_date_errors").text(""); }
+		}else{ $("#user_company_until_date_errors").text(""); } 
+		
+		if ( flag == false ){ $("#user_company_until_date_errors").addClass( "custom_error_message" ); } else { $("#user_company_until_date_errors").removeClass( "custom_error_message" ); }
+		return flag;
+	}  
+	
+	$("#user_company_until_date").focusout(function(){
+    	check_until_date();
+    });  
+    
+    
+// Form Date  validations
+	function check_from_date(){
+		flag = true;
+		fromDate = $("#user_company_from_date").val();
+		if ( fromDate.length == 0 ){
+			$("#user_company_from_date_errors").text("This field is mandatory. Please enter the field information");
+			flag = false; 
+		}else{ $("#user_company_from_date_errors").text(""); }
+		if ( flag == false ){ $("#user_company_from_date_errors").addClass( "custom_error_message" ); } else { $("#user_company_from_date_errors").removeClass( "custom_error_message" ); }
+		return flag;
+	}  
+	
+	$("#user_company_from_date").focusout(function(){
+    	check_from_date();
+    });  
+        
+// position  validations
+	function check_for_position(){
+		flag = true;
+		position = $("#user_company_position").val();
+		if ( position.length == 0 ){
+			$("#user_company_position_errors").text("This field is mandatory. Please enter the field information");
+			flag = false; 
+		}else{ $("#user_company_position_errors").text(""); }
+		if ( flag == false ){ $("#user_company_position_errors").addClass( "custom_error_message" ); } else { $("#user_company_position_errors").removeClass( "custom_error_message" ); }
+		return flag;
+	}  
+	
+	$("#user_company_position").focusout(function(){
+    	check_for_position();
+    }); 
+    
+            
+        
+// validate user company    
+   function validate_usercompany(){
+   		
+   }
+   $(".add_user_company").click(function(){
+   		flag = true;
+   		companyFlag = check_company_name();
+   		untilDateFlag = check_until_date();
+   		fromDateFlag = check_from_date();
+   		positionFlag = check_for_position();
+   		if( companyFlag == false || untilDateFlag == false || fromDateFlag == false || positionFlag == false){
+   			flag = false;
+   		}
+   		return flag;
+   });
+</script> 
+

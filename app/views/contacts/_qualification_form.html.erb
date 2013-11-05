@@ -1,0 +1,64 @@
+<!-- Qualification Builder Modal -->
+<%= form_for(UserQualification.new, :validate => true, :url => {:action =>'update_contact_profile'}, :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |user_qualification_form| %>
+<div class="row">
+	<div class="span2 txt_highlight">
+		Qualification type:
+	</div>
+	<div class="span4">
+
+		<%= user_qualification_form.autocomplete_field :qualification_name, autocomplete_qualification_type_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory, :max_msg => Settings.e_fieldlength_50, :placeholder => Settings.h_candidate_qualificationtype, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title =>"" %>
+
+	</div>
+</div>
+<div class="row">
+	<div class="span2 txt_highlight">
+		School/Location:
+	</div>
+	<div class="span4">
+
+		<%= user_qualification_form.autocomplete_field :school_loc_name, autocomplete_qualification_location_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory, :max_msg => Settings.e_fieldlength_50, :placeholder => Settings.h_candidate_qualificationschool, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title =>"" %>
+
+	</div>
+</div>
+<div class="row">
+	<div class="span2 txt_highlight">
+		Subject:
+	</div>
+	<div class="span4">
+
+		<%= user_qualification_form.autocomplete_field :subject_name, autocomplete_qualification_subject_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory, :max_msg => Settings.e_fieldlength_50, :placeholder => Settings.h_candidate_subject, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title =>"" %>
+
+	</div>
+</div>
+<div class="row">
+	<div class="span2 txt_highlight">
+		Grade Achieved:
+	</div>
+	<div class="span4">
+
+		<%= user_qualification_form.select :qualification_grade_id, options_from_collection_for_select(grades, "id", "name"), :prompt =>  Settings.h_candidate_grade %>
+
+	</div>
+</div>
+<div class="row">
+	<div class="span2 txt_highlight">
+		Year Qualified:
+	</div>
+	<div class="span4">
+
+		<%= user_qualification_form.text_field :year , :class => 'year', :placeholder => Settings.h_candidate_year, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title =>"" %>
+
+	</div>
+</div>
+<div class="row">
+	<div class="span3">
+		<%= user_qualification_form.submit "Add and Finish", :class => "button_primery_modal add_qualification", :onClick => 'return check_autocomplete()' %>
+		<!-- <a href="#" id= "add_and_finished" class="button_primery_modal add_qualification">Add & Finished</a> -->
+	</div>
+	<div class="span3">
+		<%= user_qualification_form.submit "Add and Enter Another", :class => "button_primery_modal add_qualification", :onClick => 'return check_autocomplete()' %>
+		<!-- <a href="#" id= "add_and_enter_another" class="button_primery_modal add_qualification">Add & Enter Another</a> -->
+	</div>
+</div>
+<% end %>
+ <!-- end model body -->

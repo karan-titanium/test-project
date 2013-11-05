@@ -1,0 +1,452 @@
+<!--  ---------------------------Commented code----------------------------------------- -->
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$('#itskills, #languages, #otherskill').dataTable({
+			"sPaginationType": "full_numbers",
+			"sScrollY": "200px",
+			"bPaginate": true,
+			"bScrollCollapse": true,
+			"fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+		});
+	}); 
+</script>
+
+<!-- -----------------------SCRIPT END-------------------- -->
+<%= render :partial => "autocomplete_field_validation" %>
+
+<div class="span3" style="background:#1a74c2;">
+    <!--  Profile photo -->
+    <div class="profilepic" id="profile_photo_content">
+         <%= render :partial => "profile_photo", :locals => {:user => @user } %>
+    </div>
+    <h3 class="profilename"><%= @user.first_name.capitalize if @user.first_name.present? %></h3>
+    <hr/>
+    <!--  Profile photo End-->  
+    <!-- candidate left menu --> 
+        <%= render :partial => "layouts/left_menu_candidate", :locals => {:current_nav => 'skills'} %>
+    <!-- end left menu --> 
+</div>
+  <!-- end Left side bar -->
+      
+<div class="span8" id='right_side_menu_div'>
+	<div class="row bg_white well">
+		<h2>Skills</h2>
+		<P>
+			<%= Settings.c_Skills %>
+		</P>
+	</div>
+	<div class="row bg_white well">
+		<h2>IT Skills</h2>
+		<button data-toggle="modal" class="button_primery_big pull-right" href="#itskill" data-placement="top" title="">
+			Add IT Skills
+		</button>
+		<table class="display" id="itskills">
+			<thead>
+				<tr>
+					<th><a>Skills</a></th>
+					<th><a>Experience</a></th>
+					<th><a>Skill Level</a></th>
+					<th><a>Edit</a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% user_it_skills.each do |user_itskill| %>
+				<tr>
+					<td><%= user_itskill.itskill.present? ? user_itskill.itskill.name : ''%></td>
+					<td><%= user_itskill.experience %> Months</td>
+					<td><%= user_itskill.level %></td>
+					<td><a class="button_remove_table remove_record" path='/user_profiles/remove_it_skill' id=<%= user_itskill.id %> ></a></td>
+				</tr>
+				<% end if user_it_skills.present? %>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+				</tr>
+			</tfoot>
+	   </table>
+	</div>
+
+	<div class="row bg_white well">
+		<h2>Languages</h2>
+		<button data-toggle="modal" class="button_primery_big pull-right" href="#language" data-placement="top" title="">
+			Add Languages
+		</button>
+		<table class="display" id="languages">
+			<thead>
+				<tr>
+					<th><a>Languages</a></th>
+					<th><a>Spoken level</a></th>
+					<th><a>Written Level</a></th>
+					<th><a>Edit</a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% user_languages.each do |ur_lan| %>
+				<tr>
+					<td><%= ur_lan.language.name if ur_lan.language.present? %></td>
+					<td><%= ur_lan.spoken %></td>
+					<td><%= ur_lan.written %></td>
+					<td><a class="button_remove_table remove_record" path='/user_profiles/remove_language' id=<%= ur_lan.id %> ></a></td>
+				</tr>
+				<% end if user_languages.present? %>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<div class="row bg_white well">
+		<h2>Other Skills</h2>
+		<button data-toggle="modal" class="button_primery_big pull-right" href="#otherskills" data-placement="top" title="">
+			Add Other Skills
+		</button>
+		<table class="display" id="otherskill">
+			<thead>
+				<tr>
+					<th><a>Skills</a></th>
+					<th><a>Experience</a></th>
+					<th><a>Skill Level</a></th>
+					<th><a>Edit</a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% user_other_skills.each do |ur_otherskill| %>
+				<tr>
+					<td><%= ur_otherskill.skill if ur_otherskill.present? %></td>
+					<td><%= ur_otherskill.experience %> Months</td>
+					<td><%= ur_otherskill.level %></td>
+					<td><a class="button_remove_table remove_record" path='/user_profiles/remove_other_skill' id=<%= ur_otherskill.id %> ></a></td>
+				</tr>
+				<% end if user_other_skills.present? %>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<%= form_for(user.user_profile,:validate => true, :url => {:action => "summary"}, :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |f| %>
+	<div class="row bg_white well">
+		<div class="span4">
+			Do you have valid UK driving licence?
+		</div>
+		<div class="span1">
+			<!-- <input type="radio" id="r1" name="rr" /> -->
+			<%= f.radio_button :uk_driving_licence, "yes", :id => "r1", :checked => true %>
+			<label for="r1"><span></span>Yes</label>
+		</div>
+		<div class="span1">
+			<!-- <input type="radio" id="r2" name="rr" /> -->
+			<%= f.radio_button :uk_driving_licence, "no", :id => "r2" %>
+			<label for="r2"><span></span>No</label>
+		</div>
+	</div>
+
+	<div class=" span5 nav-userdashboard position_center">
+		<a class="button_primery button_back side_links" id="next_link" path=<%= @path[:qualifications] %> >Back</a>
+		<!-- <a class="button_primery pull-right next_link" id="next_link" path=< %= path[:summary] % >>Finish</a> -->
+		<%= f.submit "Finish", :class => "button_primery button_finish pull-right" %>
+	</div>
+	<% end %>
+	<!-- end nav-userdashboard -->
+
+</div>
+
+
+
+
+
+<!-- ====================Model Start=================================================== -->
+<!-- Modal Definitions (Add IT Skills) -->
+<div id="itskill" class="modal modal-qualification hide fade" data-width="760">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			&times;
+		</button>
+		<h3>IT Skills Builder</h3>
+	</div>
+	<%= form_for(user.user_itskills.build, :validate => true, :url => "add_it_skill", :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |f| %>
+	<div class="modal-body">
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Skills:
+			</div>
+			<div class="span4">
+				
+					<%= f.autocomplete_field :it_skill_name, autocomplete_itskill_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory  , :max_msg => Settings.e_fieldlength_50, :placeholder => Settings.h_candidate_itskill, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title =>"t_candidate_itskill" %> 
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Experience:
+			</div>
+			<div class="span2">
+				
+					<%= f.text_field :experience, :class => "small", :placeholder => Settings.h_candidate_itskillexperiene, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title =>"t_candidate_itskillexperiene" %> 
+				
+			</div>
+			<div class="span2">
+			<span data-toggle="tooltip" data-placement="left" title="t_candidate_experiencetype">	
+				<select name="it_experience_type" class="small mergin-left">
+					<option value="month">Month</option><option value="year">Year</option>
+				</select>
+			</span>	
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Skill Level:
+			</div>
+			<div class="span4">
+
+				<div class="row">
+					<!-- <input type="radio" id="r3" name="rr" /> -->
+					<%= f.radio_button :level, "basic", :id => "r3", :checked => true %>
+					<label for="r3"><span></span>Basic</label>
+				</div>
+
+				<div class="row">
+					<!-- <input type="radio" id="r4" name="rr" /> -->
+					<%= f.radio_button :level, "intermediate", :id => "r4" %>
+					<label for="r4"><span></span>Intermediate</label>
+				</div>
+
+				<div class="row">
+					<!-- <input type="radio" id="r5" name="rr" /> -->
+					<%= f.radio_button :level, "advanced", :id => "r5" %>
+					<label for="r5"><span></span>Advanced</label>
+				</div>
+
+			</div>
+		</div>
+		<div class="clearfix margin-20"></div>
+		<div class="row">
+			<div class="span3">
+				<%= f.submit "Add and Finished", :class => "button_primery_modal add_itskill", :onClick => 'return check_autocomplete()' %>
+				<!-- <a href="#" class="button_primery_modal add_it_skill" id="add_and_finished" >Add & Finished</a> -->
+			</div>
+			<div class="span3">
+				<%= f.submit "Add and Enter Another", :class => "button_primery_modal add_itskill", :onClick => 'return check_autocomplete()' %>
+				<!-- <a href="#" class="button_primery_modal add_it_skill" id="add_and_enter_another">Add & Enter Another</a> -->
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>
+<!-- end model  -->
+
+
+
+
+<!-- Modal Definitions (Add Other Skills) -->
+<div id="otherskills" class="modal modal-qualification hide fade" data-width="760">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			&times;
+		</button>
+		<h3>Other Skills Builder</h3>
+	</div>
+	<%= form_for(user.user_otherskills.build, :validate => true, :url => "add_other_skill", :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |f| %>
+	<div class="modal-body">
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Skills:
+			</div>
+			<div class="span4">
+					 <%= f.text_field :skill, :placeholder => Settings.h_candidate_otherskill, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title =>"t_candidate_otherskill" %> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Experience:
+			</div>
+			<div class="span2">
+					<%= f.text_field :experience, :class => "small", :placeholder => Settings.h_candidate_otherskillexperiene, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title =>"t_candidate_otherskillexperiene" %> 
+			</div>
+			<div class="span2">
+			<span data-toggle="tooltip" data-placement="left" title="t_candidate_experiencetype">
+				<select name="other_experience_type" class="small mergin-left">
+					<option value="month">Month</option><option value="year">Year</option>
+				</select>
+			</span>	
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Skill Level:
+			</div>
+			<div class="span4">
+				<div class="row">
+					<!-- <input type="radio" id="r12" name="rr" /> -->
+					<%= f.radio_button :level, "basic", :id => "r12", :checked => true %>
+					<label for="r12"><span></span>Basic</label>
+				</div>
+				<div class="row">
+					<!-- <input type="radio" id="r13" name="rr" /> -->
+					<%= f.radio_button :level, "intermediate", :id => "r13" %>
+					<label for="r13"><span></span>Intermediate</label>
+				</div>
+				<div class="row">
+					<!-- <input type="radio" id="r14" name="rr" /> -->
+					<%= f.radio_button :level, "advanced", :id => "r14" %>
+					<label for="r14"><span></span>Advanced</label>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix margin-20"></div>
+		<div class="row">
+			<div class="span3">
+				<%= f.submit "Add and Finished", :class => "button_primery_modal" %>
+				<!-- <a href="#" class="button_primery_modal add_other_skill" id="add_and_finished">Add & Finished</a> -->
+			</div>
+			<div class="span3">
+				<%= f.submit "Add and Enter Another", :class => "button_primery_modal add_itskill" %>
+				<!-- <a href="#" class="button_primery_modal add_other_skill" id="add_and_enter_another" >Add & Enter Another</a> -->
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<!-- end model body -->
+</div>
+<!-- end model of Add Other Skills -->
+
+
+
+
+
+<!-- Modal Definitions (Add Language) -->
+<div id="language" class="modal modal-qualification hide fade" data-width="760">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			&times;
+		</button>
+		<h3>Language Builder</h3>
+	</div>
+	<%= form_for(user.user_languages.build, :validate => true, :url => "add_language", :remote => true, :html => {:'data-replace' => "user_profile_content"} ) do |f| %>
+	<div class="modal-body">
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Language :
+			</div>
+			<div class="span4">
+				<span data-toggle="tooltip" data-placement="left" title="t_candidate_language">
+					<%= f.select :language_id, options_from_collection_for_select(languages, "id", "name"), :prompt => Settings.h_candidate_language %> 
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Spoken Level :
+			</div>
+			<div class="span4">
+				<div class="row">
+					<!-- <input type="radio" id="r6" name="rr" /> -->
+					<%= f.radio_button :spoken, "basic", :id => "r6", :checked => true %>
+					<label for="r6"><span></span>Basic</label>
+				</div>
+				<div class="row">
+					<!-- <input type="radio" id="r7" name="rr" /> -->
+					<%= f.radio_button :spoken, "intermediate", :id => "r7" %>
+					<label for="r7"><span></span>Intermediate</label>
+				</div>
+				<div class="row">
+					<!-- <input type="radio" id="r8" name="rr" /> -->
+					<%= f.radio_button :spoken, "advanced", :id => "r8" %>
+					<label for="r8"><span></span>Advanced</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Written Level :
+			</div>
+			<div class="span4">
+				<div class="row">
+					<!-- <input type="radio" id="r9" name="rr" /> -->
+					<%= f.radio_button :written, "basic", :id => "r9", :checked => true %>
+					<label for="r9"><span></span>Basic</label>
+				</div>
+				<div class="row">
+					<!-- <input type="radio" id="r10" name="rr" /> -->
+					<%= f.radio_button :written, "intermediate", :id => "r10" %>
+					<label for="r10"><span></span>Intermediate</label>
+				</div>
+				<div class="row">
+					<!-- <input type="radio" id="r11" name="rr" /> -->
+					<%= f.radio_button :written, "advanced", :id => "r11" %>
+					<label for="r11"><span></span>Advanced</label>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix margin-20"></div>
+		<div class="row">
+			<div class="span3">
+				<%= f.submit "Add and Finished", :class => "button_primery_modal" %>
+				<!-- <a href="#" class="button_primery_modal add_language" id="add_and_finished" >Add & Finished</a> -->
+			</div>
+			<div class="span3">
+				<%= f.submit "Add and Enter Another", :class => "button_primery_modal add_itskill"%>
+				<!-- <a href="#" class="button_primery_modal add_language" id="add_and_enter_another" >Add & Enter Another</a> -->
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<!-- end model body -->
+</div>
+<!-- end model of Add Language -->
+
+<!-- < %= render :partial => "tooltip_in_dynamic_form" %> -->
+
+<script>
+
+	displayTooltip();  // Function call to display tooltip
+	
+	$(document).ready(function() {
+		$('form[data-validate]').validate();
+		//for Client side validation should work on ajax generated form
+	});
+
+	// this is for client side validation should be work on twitter bootstrap modal
+	$('.modal').on('shown', function() {
+		$(ClientSideValidations.selectors.forms).validate();
+	});
+	// end of script for client side validation
+</script>
+
+<!--           Script to make ajax call to remove_it_skill, remove_other_skill, remove_language action on remove button click -->
+<script>
+	$(document).ready(function() {
+		$('.remove_record').click(function() {
+			path = $(this).attr('path');
+			itemIdToBeRemoved = $(this).attr('id');
+
+			$.ajax({
+				async : true,
+				type : 'GET',
+				url : path + '/' + itemIdToBeRemoved,
+				success : function(data) {
+					$('#skills').click();
+				},
+				error : function(data) {
+				}
+			});
+		});
+	}); 
+</script>

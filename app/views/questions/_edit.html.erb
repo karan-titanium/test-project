@@ -1,0 +1,95 @@
+<% size = "120x5" %> <h1> Manage Question</h1>
+<script>
+        $(document).ready(function() {
+    		$('#display_file').html('<%= escape_javascript(render 'questions/question_file_fields', :locals => { :question => @question }) %>');
+    		for(i = 0; i < parseInt($('.question_part_select').length); i++){
+    			ques_part_select_id = "#question_question_parts_attributes_"+ i.toString() +"_question_part_type";
+    			ques_part_type = $(ques_part_select_id).children(':selected').val().toString();
+    			$(ques_part_select_id).parents('div:eq(0)').children('#' + ques_part_type).show();
+    		}
+        });
+        
+</script>
+
+
+<%= form_for(@question, :validate => true, :remote => true ,:url => {:action =>'update',:id =>@question.id}) do |f| %>
+<table>
+    <tr>
+        <td> Question Name </td>
+        <td> <%= f.text_field :name %> </td>
+        <td> Example Question &nbsp;&nbsp;&nbsp; <%= check_box_tag "example_question" %> </td>
+        <td> &nbsp; &nbsp; </td>
+    </tr>
+
+    <tr>
+        <td colspan="1"> Description </td>
+        <td colspan="3"> <%= f.text_area :description, :size => size %> </td>
+    </tr>
+    <tr id="explanation" style="display: none;">
+        <td colspan="1"> Explanation </td>
+        <td colspan="3"> <%= f.cktext_area :explanation, :size => size, :class  => 'ckeditor' %> </td>
+    </tr>
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+        <td> Difficulty </td>
+        <td> <%= f.select :difficulty, DIFFICULTY_LEVEL %> </td>
+        <td> Category &nbsp;&nbsp;&nbsp; <%= f.select :question_category_id, QuestionCategory.all.collect {|qc| [ qc.name, qc.id ] } %> </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="1"> Text Content </td>
+        <td colspan="3"> <%= f.cktext_area :content, :class  => 'ckeditor', :size => size %> </td>
+    </tr>
+    <tr>
+        <td colspan="1"> Status </td>
+        <td colspan="3"> <%= f.select :status, QUESTION_STATUS %> </td>
+    </tr>
+
+</table>
+<div id="display_file">
+	
+</div>
+<div class="clear"></div>
+<div class="st-form-line">
+	<%= f.fields_for :cdn_files do |builder| %>
+		<% if builder.object.new_record? %>
+			<%= render "cdn_file_fields", :f => builder %>    	
+	    <% end %>
+	<% end %>
+    </br>
+    <%= link_to_add_fields "Add Question File", f, :cdn_files %>
+    <div class="clear"></div>
+</div>
+
+
+
+<div class="st-form-line">
+	<%= f.fields_for :question_parts do |builder| %>
+		<!-- < % if builder.object.new_record? %> -->
+			<%= render "question_part_fields", :f => builder %>    	
+	    <% end %>
+	<!-- < % end %> -->
+    </br>
+    <%= link_to_add_fields "Add Question Part", f, :question_parts %>
+    <div class="clear"></div>
+</div>
+
+
+<%= f.submit "Submit" %>
+<% end %>
+<br />
+<br />
+<br />
+
+<br />
+<br />
+<table>
+    <tr>
+        <td> <%= link_to "take me back to index page", questions_path %> </td>
+    </tr>
+</table>

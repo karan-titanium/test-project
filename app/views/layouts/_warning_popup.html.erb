@@ -1,0 +1,89 @@
+<script>
+    $(document).ready(function(){
+        if ("<%= flash[:alert].present? ? "true" : "false" %>" == "true"){
+        $("#warning").click();
+        }
+        if ("<%= flash[:notice].present? ? "true" : "false" %>" == "true"){
+        $("#information").click();
+        }
+      });
+</script>
+<div style="display: none">
+<a href="#warningbox" id="warning" data-toggle="modal" title="Link to Settings page" class="button_primery_big" data-placement="top" id="">Warning Box</a>
+<a href="#informationbox" id="information" data-toggle="modal" title="Link to Settings page" class="button_primery_big" data-placement="top">Information Box</a>
+<a href="#actionbox" id="action" data-toggle="modal" title="Link to Settings page" class="button_primery_big" data-placement="top">Action Box</a>
+<a href="#warningbox_clientside" id="warning_cs" data-toggle="modal" title="Link to Settings page" class="button_primery_big" data-placement="top" id="">Warning Box Client side</a>
+</div>
+
+<!-- Modal Definitions (warning box) -->
+<div id="warningbox" class="modal hide fade" data-width="960">
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error warningbox" style="margin-top:25px;"> 
+            <h4>Warning box</h4>
+            <div class="clearfix margin-15"></div>
+            <p id = "warning_msg">
+                <%= flash[:alert].present? ? flash[:alert] : flash[:notice] %> 
+            </p> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of warning box -->
+
+<!-- Modal Definitions (information box) -->
+<div id="informationbox" class="modal hide fade" data-width="960">
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error informationbox" style="margin-top:25px;"> 
+            <h4>Information Box</h4>
+            <div class="clearfix margin-15"></div>
+            <p>
+               <%= flash[:notice] if flash[:notice].present? %> 
+            </p> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of information box -->
+
+<!-- Modal Definitions (action box) -->
+<div id="actionbox" class="modal hide fade" data-width="960">
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error actionbox" style="margin-top:25px;"> 
+            <h4>Action Box</h4>
+            <div class="clearfix margin-15"></div>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <a href="#" class="button_primery">Action</a> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of action box -->
+
+<!-- Modal Definitions (client side warning box) -->
+<div id="warningbox_clientside" class="modal hide fade" data-width="960">
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error warningbox" style="margin-top:25px;"> 
+            <h4>Warning box</h4>
+            <div class="clearfix margin-15"></div>
+            <p id = "warning_msg">
+                <p id='errror_div'> </p> 
+            </p> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of client side warning box  -->

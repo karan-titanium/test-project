@@ -1,0 +1,42 @@
+<div id="Dashboard-candidate" class="page">
+    <div class="container">
+        <div class="span12" style="margin:0 auto; float:none;">
+            <!-- ------------------------Navigation tab---------------- -->
+
+            <div class="span3" style="background:#1a74c2;">
+
+                <div class="profilepic">
+                    <div href="#" id="ppc" style="height:inherit; display:block;" data-toggle="popover" title="" data-content="">
+                    <% company = @user.client_company %>
+                    <% if company.logo.present? && CdnFile.find(company.logo).present? %>
+                    <%= image_tag CdnFile.find(company.logo).cf_filename_url, :alt => "Company Logo", :class => "img-circle", :'data-src' => "holder.js/140x140", :style => "width: 160px; height: 160px;" %>    
+                    <% end %>
+                    </div>
+                </div>
+                <h3 class="profilename"><!--User Name--></h3>
+                <hr/>                
+                <!-- start left menu -->
+                <%= render 'client_side_link_navigation' %>
+                <!-- end left menu -->
+            </div>
+            <div class="span8" id='client_content'>
+                <%= render :partial => 'summary'%>
+            </div>
+    </div>
+</div>
+</div>
+<div class="clearfix"></div>
+<script>
+    $(document).on("click",'.button_next', function(){
+        /* Convenience for forms or links that return HTML from a remote ajax call.
+      The returned markup will be inserted into the element id specified.
+      */
+     // alert();
+      $('[data-remote][data-replace]').on('ajax:success', function(event, data) {
+                var target = $(this).data('replace');
+                // alert('11111111'+ data)
+            $('#' + target).html(data);
+        });
+    });
+</script>
+

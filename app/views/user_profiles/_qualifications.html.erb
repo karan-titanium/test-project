@@ -1,0 +1,174 @@
+<script>
+	$(document).on("click", ".remove_qualification", function() {
+		qualiID = $(this).attr('id');
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : "/user_profiles/remove_qualification/" + qualiID,
+			success : function(data) {
+				$('#qualification').click();
+			},
+			error : function(data) {
+			}
+		});
+		return false;
+	}); 
+</script>
+<%= render :partial => "autocomplete_field_validation" %>
+
+<div class="span3" style="background:#1a74c2;">
+    <!--  Profile photo -->
+    <div class="profilepic" id="profile_photo_content">
+         <%= render :partial => "profile_photo", :locals => {:user => @user } %>
+    </div>
+    <h3 class="profilename"><%= @user.first_name.capitalize if @user.first_name.present? %></h3>
+    <hr/>
+    <!--  Profile photo End-->  
+    <!-- candidate left menu --> 
+        <%= render :partial => "layouts/left_menu_candidate", :locals => {:current_nav => 'qualifications'} %>
+    <!-- end left menu --> 
+</div>
+  <!-- end Left side bar -->
+      
+<div class="span8" id='right_side_menu_div'>
+	<div class="row bg_white well">
+		<h2>Qualifications</h2>
+		<P>
+			<%= Settings.c_Qualification  %>
+		</P>
+	</div>
+	<div class="row bg_white well">
+		<h2>Your Qualifications</h2>
+		<button data-toggle="modal" class="button_primery_big pull-right" href="#qualificationbuilder" data-placement="top" title="">
+			Add Qualification
+		</button>
+		<table cellpadding="0" cellspacing="0" border="0" class="display" id="qualification_data_table">
+			<thead>
+				<tr>
+					<th><a>Qualification</a></th>
+					<th><a>School</a></th>
+					<th><a>Subject</a></th>
+					<th><a>Year</a></th>
+					<th><a>Grade</a></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @user_qualifications.each do |q| %>
+				<tr>
+					<td><%= q.qualification_type.name if q.qualification_type.present? %></td>
+					<td><%= q.qualification_location.name if q.qualification_location.present? %></td>
+					<td><%= q.qualification_subject.name  if q.qualification_subject.present? %></td>
+					<td><%= q.year %></td>
+					<td><%= q.qualification_grade.name if q.qualification_grade.present? %></td>
+					<td><%= link_to "", "#", :id => q.id, :class => "remove_qualification button_remove_table" %></td>
+				</tr>
+				<% end if @user_qualifications.present? %>
+			</tbody>
+		</table>
+	</div>
+	<%= form_for(@user, :url => {:action =>'skills'}, :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |f| %>
+	<div class="span5 nav-userdashboard position_center">
+		<a class="button_primery button_back side_links" path=<%= @path[:online_test_side_link] %> >Back</a>
+
+		<%= f.submit "Next", :class => "button_primery button_next1 "%>
+
+		<!-- <a class="button_primery button_next next_link" path=< %= @path[:skills] % > >Next</a> -->
+	</div>
+	<% end %>
+</div>
+
+
+
+    <!-- Modal Box Start -->
+<!-- Qualification Builder Modal -->
+<div id="qualificationbuilder" class="modal modal-big hide fade" data-width="760">
+	<%= form_for(UserQualification.new, :validate => true, :url => {:action =>'add_qualification'}, :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |user_qualification_form| %>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			&times;
+		</button>
+		<h3>Qualification Builder</h3>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Qualification type:
+			</div>
+			<div class="span4">
+					<%= user_qualification_form.autocomplete_field :qualification_name, autocomplete_qualification_type_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory, :max_msg => Settings.e_fieldlength_50, :placeholder => Settings.h_candidate_qualificationtype, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title =>"t_candidate_qualificationtype" %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				School/Location:
+			</div>
+			<div class="span4">
+				
+					<%= user_qualification_form.autocomplete_field :school_loc_name, autocomplete_qualification_location_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory, :max_msg => Settings.e_fieldlength_50, :placeholder => Settings.h_candidate_qualificationschool, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title =>"t_candidate_qualificationlocation" %>
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Subject:
+			</div>
+			<div class="span4">
+				
+					 <%= user_qualification_form.autocomplete_field :subject_name, autocomplete_qualification_subject_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory, :max_msg => Settings.e_fieldlength_50, :placeholder => Settings.h_candidate_subject, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title =>"t_candidate_subject" %> 
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Grade Achieved:
+			</div>
+			<div class="span4">
+				<span data-toggle="tooltip" data-placement="left" title="t_candidate_grade">
+					<%= user_qualification_form.select :qualification_grade_id, options_from_collection_for_select(@grades, "id", "name"), :prompt =>  Settings.h_candidate_grade %>
+				</span>	
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2 txt_highlight">
+				Year Qualified:
+			</div>
+			<div class="span4">
+					<%= user_qualification_form.text_field :year , :class => 'year', :placeholder => Settings.h_candidate_year, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title =>"t_candidate_year" %> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="span3">
+				<%= user_qualification_form.submit "Add and Finish", :class => "button_primery_modal add_qualification", :onClick => 'return check_autocomplete()' %>
+				<!-- <a href="#" id= "add_and_finished" class="button_primery_modal add_qualification">Add & Finished</a> -->
+			</div>
+			<div class="span3">
+				<%= user_qualification_form.submit "Add and Enter Another", :class => "button_primery_modal add_qualification", :onClick => 'return check_autocomplete()' %>
+				<!-- <a href="#" id= "add_and_enter_another" class="button_primery_modal add_qualification">Add & Enter Another</a> -->
+			</div>
+		</div>
+	</div>
+	<% end %> <!-- end model body -->
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$('#qualification_data_table').dataTable({
+			"sPaginationType": "full_numbers",
+			"sScrollY": "200px",
+			"bPaginate": true,
+			"bScrollCollapse": true,
+			"fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+		});
+		$('form[data-validate]').validate();
+		//for Client side validation should work on ajax generated form
+	});
+
+	// this is for client side validation should be work on twitter bootstrap modal
+	$('.modal').on('shown', function() {
+		$(ClientSideValidations.selectors.forms).validate();
+	});
+	// end of script for client side validation
+
+</script>
+<%= render :partial => "tooltip_in_dynamic_form" %>

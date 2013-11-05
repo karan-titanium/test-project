@@ -1,0 +1,18 @@
+<% staff_users.each do |u| %>
+	<%= "#{u.first_name} #{u.last_name}" %>
+	<%= check_box_tag "Active", "", (u.status.casecmp(USER_STATUS_ACTIVE) == 0 ? true : false), :class => "chk_box_to_activate", :u_id => (u.id * 3) %> Active
+	<input type="button" rel="permissions" class="topopup" value="Roles" />
+	<input type="button" rel="edit_staff_<%= u.id * 3 %>" class="topopup" value="Edit" />
+	<input type="button" value="Delete" class="delete_user_btn" u_id="<%= u.id * 3 %>" />
+	<!-- < %= button_to "Delete", "/staffs/set_user_status/#{u.id}/#{USER_STATUS_DELETED}", :onclick => "return confirm('Are you sure?');", :remote => true, :'data-replace' => 'manage_users_tab' %>  -->
+	<!-- < %= link_to "<button>Delete</button>".html_safe, "/staffs/set_user_status/#{u.id}/#{USER_STATUS_DELETED}", :remote => true, :'data-replace' => 'manage_users_tab', :onclick => "return confirm('Are you sure?');" %>  -->
+	<br />
+	<%= u.email %><br /><br />
+	
+	<div class="popup_block content" id="edit_staff_<%= u.id * 3 %>">
+		<a href="#" class="avgrund-close"></a>
+		Edit
+		<%= render :partial => "edit_user", :locals => { :staff_user => User.find(u.id) } %>
+	</div>
+
+<% end if staff_users.present? %>

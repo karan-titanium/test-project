@@ -1,0 +1,98 @@
+<% resource.user_companies.build %>
+<% resource.build_user_profile %>
+<%= form_for(resource, :as => resource_name, :url => {:action => "create_contact"}, :validate => true, :html => {:remote => true, :'data-replace' => 'company_profile_section_div'} ) do |f| %>
+    <div class="row">
+      <div class="span2">First Name :</div>
+      <div class="span4">
+        <%= f.text_field :first_name, :placeholder => Settings.h_candidate_fname, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_signup_fname %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="span2">Last Name :</div>
+      <div class="span4">
+        <%= f.text_field :last_name, :placeholder => Settings.h_candidate_lname, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_signup_lname %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="span2">Email address :</div>
+      <div class="span4">
+        <%= f.text_field :email, :value => "", :placeholder => Settings.h_candidate_emailaddress, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_emailid %>
+      </div>
+    </div>
+    
+
+    <%= f.fields_for :user_profile do |user_profile| %>
+        <div class="row">
+          <div class="span2">Mobile Number :</div>
+          <div class="span4">
+            <%= user_profile.text_field :number_mob,  :placeholder => Settings.h_candidate_mobilenumber, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_mobilenumber %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span2">Alternate Number :</div>
+          <div class="span4">
+            <%= user_profile.text_field :number_alt,  :placeholder => Settings.h_candidate_alternativenumber, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_phonenumber %>
+          </div>
+        </div>
+    <% end %>
+    
+
+    <div>
+      <%= f.hidden_field :user_type, :value => USER_TYPE_CONTACT %>
+      <%= f.hidden_field :status, :value => USER_STATUS_ACTIVE %>
+      <%= f.hidden_field :password, :value => Settings.config_default_password %>     <!-- TODO: Chk pwd value -->
+      <%= f.hidden_field :password_confirmation, :value => Settings.config_default_password %>
+    </div>
+    
+    
+    <%= f.fields_for :user_companies do |user_company| %>
+        <div class="row">
+          <div class="span2">Position :</div>
+          <div class="span4">
+            <%= user_company.text_field :position, :value => "",  :placeholder => Settings.h_candidate_position, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => "*" %>  <!-- TODO: tooltip -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="span2">TFP Contact :</div>
+          <div class="span4">
+            <%= user_company.radio_button :clientcontact, 0, :checked => true, :id => "rb_clientcontact_no" %>
+            <label for="rb_clientcontact_no"><span></span>No- other employee</label>
+            
+            <%= user_company.radio_button :clientcontact, 1, :id => "rb_clientcontact_yes" %>
+            <label for="rb_clientcontact_yes"><span></span>Yes- TFP emplyee</label>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="span2">Welcome Email :</div>
+          <div class="span4">
+            <%= radio_button_tag "welcome_email", false, "", :id => "rb_welcome_email_no" %>
+            <label for="rb_welcome_email_no"><span></span>Do not mail</label>
+            
+            <%= radio_button_tag "welcome_email", true, "", :id => "rb_welcome_email_yes" %>
+            <label for="rb_welcome_email_yes"><span></span>Send Welcome Mail</label>
+          </div>
+        </div>
+        
+        <%= user_company.hidden_field :company_id, :value => company.id %>
+        <%= user_company.hidden_field :current, :value => true %>
+    <% end %>
+    
+    <div class="row">
+      <div class="span2">Primary Contact :</div>
+      <div class="span4">
+        <%= check_box_tag "primary_contact", true, false, :id => "chk_bx_primary_contact" %>
+        <label for="chk_bx_primary_contact"><span></span></label>
+      </div>
+    </div>
+    
+    <%= hidden_field_tag :company_id, company.id %>
+    <div class="clearfix margin-20"></div>
+    <div class="row">
+      <div class="span6"> <%= f.submit "Create Contact", :class => "button_primery_big position_center" %> </div>
+    </div>
+    
+<% end %>

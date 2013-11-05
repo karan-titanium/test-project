@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'AvenirLT35LightRegular';
+    src: url('avenir_lt_35_light.eot');
+    src: url('avenir_lt_35_light.eot') format('embedded-opentype'),
+         url('avenir_lt_35_light.woff') format('woff'),
+         url('avenir_lt_35_light.ttf') format('truetype'),
+         url('avenir_lt_35_light.svg#AvenirLT35LightRegular') format('svg');
+}

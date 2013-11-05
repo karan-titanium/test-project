@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class User - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/user.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-get_staff_users_to_be_managed">::get_staff_users_to_be_managed</a>
+    
+    <li><a href="#method-i-change_status">#change_status</a>
+    
+    <li><a href="#method-i-is_staff-3F">#is_staff?</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Campaign.html">Campaign</a>
+  
+    <li><a href="./CampaignExam.html">CampaignExam</a>
+  
+    <li><a href="./CampaignLink.html">CampaignLink</a>
+  
+    <li><a href="./CampaignLinkClick.html">CampaignLinkClick</a>
+  
+    <li><a href="./CampaignTrait.html">CampaignTrait</a>
+  
+    <li><a href="./CdnFile.html">CdnFile</a>
+  
+    <li><a href="./CompaniesController.html">CompaniesController</a>
+  
+    <li><a href="./CompaniesHelper.html">CompaniesHelper</a>
+  
+    <li><a href="./Company.html">Company</a>
+  
+    <li><a href="./ConfirmationsController.html">ConfirmationsController</a>
+  
+    <li><a href="./ConfirmationsHelper.html">ConfirmationsHelper</a>
+  
+    <li><a href="./ContactAttachment.html">ContactAttachment</a>
+  
+    <li><a href="./ContactLog.html">ContactLog</a>
+  
+    <li><a href="./Exam.html">Exam</a>
+  
+    <li><a href="./ExamTest.html">ExamTest</a>
+  
+    <li><a href="./ExamsController.html">ExamsController</a>
+  
+    <li><a href="./ExamsHelper.html">ExamsHelper</a>
+  
+    <li><a href="./Interview.html">Interview</a>
+  
+    <li><a href="./Itskill.html">Itskill</a>
+  
+    <li><a href="./Language.html">Language</a>
+  
+    <li><a href="./LogSystem.html">LogSystem</a>
+  
+    <li><a href="./Note.html">Note</a>
+  
+    <li><a href="./Permission.html">Permission</a>
+  
+    <li><a href="./QualificationGrade.html">QualificationGrade</a>
+  
+    <li><a href="./QualificationLocation.html">QualificationLocation</a>
+  
+    <li><a href="./QualificationSubject.html">QualificationSubject</a>
+  
+    <li><a href="./QualificationType.html">QualificationType</a>
+  
+    <li><a href="./Question.html">Question</a>
+  
+    <li><a href="./QuestionCategory.html">QuestionCategory</a>
+  
+    <li><a href="./QuestionFile.html">QuestionFile</a>
+  
+    <li><a href="./QuestionOption.html">QuestionOption</a>
+  
+    <li><a href="./QuestionPart.html">QuestionPart</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./RegistrationsHelper.html">RegistrationsHelper</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./RolePermission.html">RolePermission</a>
+  
+    <li><a href="./RoleUser.html">RoleUser</a>
+  
+    <li><a href="./Service.html">Service</a>
+  
+    <li><a href="./ServicesController.html">ServicesController</a>
+  
+    <li><a href="./ServicesHelper.html">ServicesHelper</a>
+  
+    <li><a href="./SessionsController.html">SessionsController</a>
+  
+    <li><a href="./SessionsHelper.html">SessionsHelper</a>
+  
+    <li><a href="./SettingCategory.html">SettingCategory</a>
+  
+    <li><a href="./StaffsController.html">StaffsController</a>
+  
+    <li><a href="./StaffsHelper.html">StaffsHelper</a>
+  
+    <li><a href="./StaticPagesController.html">StaticPagesController</a>
+  
+    <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
+  
+    <li><a href="./SystemSetting.html">SystemSetting</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./TestQuestion.html">TestQuestion</a>
+  
+    <li><a href="./Trait.html">Trait</a>
+  
+    <li><a href="./TranscriptRequest.html">TranscriptRequest</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserAnswer.html">UserAnswer</a>
+  
+    <li><a href="./UserCampaign.html">UserCampaign</a>
+  
+    <li><a href="./UserCompany.html">UserCompany</a>
+  
+    <li><a href="./UserExam.html">UserExam</a>
+  
+    <li><a href="./UserFile.html">UserFile</a>
+  
+    <li><a href="./UserItskill.html">UserItskill</a>
+  
+    <li><a href="./UserLanguage.html">UserLanguage</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
+  
+    <li><a href="./UserOtherskill.html">UserOtherskill</a>
+  
+    <li><a href="./UserProfile.html">UserProfile</a>
+  
+    <li><a href="./UserProfilesController.html">UserProfilesController</a>
+  
+    <li><a href="./UserProfilesHelper.html">UserProfilesHelper</a>
+  
+    <li><a href="./UserQualification.html">UserQualification</a>
+  
+    <li><a href="./UserTrait.html">UserTrait</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class User</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-get_staff_users_to_be_managed" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_staff_users_to_be_managed</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_staff_users_to_be_managed-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_staff_users_to_be_managed</span>
+  <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span> <span class="ruby-value">:all</span>, <span class="ruby-value">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-string">'user_type = :t AND status &lt;&gt; :s'</span>, <span class="ruby-identifier">t</span><span class="ruby-operator">:</span> <span class="ruby-constant">USER_TYPE_STAFF</span>, <span class="ruby-identifier">s</span><span class="ruby-operator">:</span> <span class="ruby-constant">USER_STATUS_DELETED</span>]   <span class="ruby-comment">#TODO: check query</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_staff_users_to_be_managed-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_staff_users_to_be_managed-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-change_status" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">change_status</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="change_status-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">change_status</span>
+   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">status</span> = <span class="ruby-constant">USER_STATUS_ACTIVE</span> <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-constant">USER_STATUS_PENDING</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">confirmed?</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- change_status-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- change_status-method -->
+
+    
+      <div id="method-i-is_staff-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">is_staff?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="is_staff-3F-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_staff?</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">user_type</span>.<span class="ruby-identifier">casecmp</span>(<span class="ruby-constant">USER_TYPE_STAFF</span>) <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- is_staff-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- is_staff-3F-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

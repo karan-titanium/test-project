@@ -1,0 +1,63 @@
+<!-- Modal Definitions (New Company) -->
+    <div id="addcompany" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>New Company</h3>
+      </div>
+      <div class="modal-body">
+          <%= render :partial => "new_company_form" %>
+      </div>
+      <!-- end model body --> 
+    </div>
+<!-- end model of setting -->
+
+
+
+<!-- Start Company Database table -->
+    <div class="row bg_white well">
+      <h2>Company Database</h2>
+      <button data-toggle="modal" class="button_primery_big pull-right" href="#addcompany" data-placement="top" title="" >New Company</button>
+      <table cellpadding="0" cellspacing="0" border="0" class="display" id="company_database">
+        <thead>
+          <tr>
+            <th><a>Name</a></th>
+            <th><a>Status</a></th>
+            <th><a>Number of Contacts</a></th>
+            <th><a>Number of Active Campaings</a></th>
+          </tr>
+        </thead>
+        <tbody>
+            <% companies.each do |c| %>
+                <tr>
+                    <td><%= link_to c.name, company_path(c.id) %></td>
+                    <td><%= c.status.titleize %></td>
+                    <td><%= c.active_contacts.count %></td>
+                    <td><%= c.active_campaigns.count %></td>
+                </tr>
+            <% end if companies.present? %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+<!-- End start Company Database table -->
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#company_database').dataTable( {
+            "aaSorting": [[ 4, "desc" ]],
+            "sPaginationType": "full_numbers",
+            "sScrollY": "200px",
+            "bPaginate": true,
+            "bScrollCollapse": true,
+            "fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+        } );
+    } );
+</script>

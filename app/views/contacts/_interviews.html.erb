@@ -1,0 +1,96 @@
+Interviews
+
+<div class="row bg_white well">
+	<button data-toggle="modal" class="button_primery_big pull-right" href="#new_interview" data-placement="top" title="" >
+		New Interview
+	</button>
+	<% contact_interviews.each do |interview| %>
+	<div class="row">
+		<div class="span8">
+			<div class="row">
+				<div class="span3">Date : </div> <div  class="span4"><%= interview.date %></div>
+			</div>	
+			<div class="row">
+				<div class="span3">Type : </div> <div class="span4"><%= interview.interview_type %></div>
+			</div>	
+			<div class="row">
+				<div class="span3">Interviwer :</div><div class="span4"> <%= interview.user_interviewer.full_name if interview.interviewer.present? %></div>
+			</div>		
+			<div class="row">
+				<div class="span3">client :</div> <div class="span4">TODO</div>
+			</div>
+			<div class="row">
+				<div class="span3">Campaign :</div> <div class="span4"><%= interview.campaign if interview.campaign.present? %></div>
+			</div>	
+			<div class="row">
+				<div class="span3">Audio Recording :</div> <div class="span4">TODO</div>
+			</div>	
+			<div class="row">
+				<div class="span3">Transcript Request:</div> <div class="span4">TODO</div>
+			</div>	
+			<div class="row">
+				<div class="span3">Transcript :</div> <div class="span4"></div>
+			</div>
+		</div>
+		<div class="span3">Notes: <%= interview.notes %></div>
+	</div>
+	<br/ ><br/ ><br/ >		
+	<% end if contact_interviews.present? %>
+</div>
+
+
+
+
+<!-- Modal Definitions (newcampaign) -->
+    <div id="new_interview" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>New Interview</h3>
+      </div>
+      <div class="modal-body">
+        <%= form_for Interview.new, :url => {:action => "add_interview"}, :validate => true, :html => {:remote => true, :'data-replace' => 'contact_profile_section_div' }, :class => 'ays-ignore' do |f| %>
+        	<div class="row">
+		        <div class="span3">	Date : </div>
+		        <div class="span4">
+		        	<div class="span4 input-append date dp1" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+		        		<%= f.text_field :date, :class => 'add-on' %>
+		        	</div>	
+		        </div>	
+        	</div>
+        	<%= f.hidden_field :candidate, :value => contact.id %>
+        	<%= f.hidden_field :interviewer, :value => current_user.id %>
+        	<div class="row">
+	        	Campaign
+	        	<%= f.collection_select :campaign, campaigns, :id, :campaign_name, :prompt => "Select Campaign" %>
+	        </div>	
+        	<div class="row">
+	        	Type
+	    		<%= f.select :interview_type, options_for_select(INTERVIEW_TYPE_LIST), :prompt => "Select Type" %>   	
+	        </div>	
+        	<div class="row">
+	        	Note
+	        	<%= f.text_field :notes %>
+	        </div>	
+        	<div class="row">
+	        	AudioFile
+	        	<%= f.text_field :audiofile %>
+	        </div>	
+        	<div class="row">
+	        	Transcript
+	        	<%= f.text_field :transcript %>
+	        </div>	
+        	<div class="row">
+        		<%= f.submit "Save" %>
+        	</div>	
+        <% end %>	
+      </div>
+      <!-- end model body --> 
+    </div>
+<!-- end model of newcampaign --> 
+
+<script>
+	
+	$('.dp1').datepicker().on('changeDate', function(){
+        $(this).datepicker('hide');
+    });
+</script>

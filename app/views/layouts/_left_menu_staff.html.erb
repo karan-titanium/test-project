@@ -1,0 +1,8 @@
+<!-- start Staff left menu --> 
+	<a class="btnlm  btnlm-icon  btnlm-txt" href=<%= staff_dashboard_path(current_user.id)  %>><i class="icon-dashboard <%= params[:controller] == "staffs" && params[:action]== "dashboard" ? "current" : "" %>"></i><span class=<%= params[:controller] == "staffs" && params[:action]== "dashboard" ? "current" : "" %> >Dashboard</span></a>
+    <a class="btnlm  btnlm-icon  btnlm-txt" href=<%= contacts_path %>><i class="icon-contact"></i><span>Contact</span></a>
+    <a class="btnlm  btnlm-icon  btnlm-txt" href=<%= companies_path %>><i class="icon-companies <%= params[:controller] == "companies" ? "current" : "" %>"></i><span class=<%= params[:controller] == "companies" ? "current" : "" %> >Companies</span></a>
+    <a class="btnlm  btnlm-icon  btnlm-txt" href="#"><i class="icon-compaigns"></i><span>Campaigns</span></a>
+    <a class="btnlm  btnlm-icon  btnlm-txt" href=<%= exams_dashboard_path %>><i class="icon-exams"></i><span>Exams & Tests</span></a>
+    <a class="btnlm  btnlm-icon  btnlm-txt" href=<%= database_managements_path %>><i class="icon-dgmgmt <%= params[:controller] == "database_managements" ? "current" : "" %>"></i><span class=<%= params[:controller] == "database_managements" ? "current" : "" %>>DB Management</span></a> 
+<!-- end Staff left menu -->

@@ -1,0 +1,309 @@
+<style>
+	.currnt_display_div{
+		display:block;
+	}
+	.non_display_div{
+		display:none;
+	}
+	.current_link{
+		background-color:#1F5348
+	}
+</style>
+
+
+<% user_profile = contact.user_profile %>
+<% current_company = contact.user_companies.where(:current => true).first %>
+<% user_itskills = contact.user_itskills %>
+<% user_otherskills = contact.user_otherskills %>
+<% user_languages = contact.user_languages %>
+
+<div class="row">
+	<div class="span2">
+		<%= link_to("Work Eligibility", "", :"div_id" => "work_eligibility_div", :class => "edit_link current_link" )%>
+	</div>
+	<div class="span2">
+		<%= link_to("Employment Details", "", :"div_id" => "employment_details_div", :class => "edit_link" )%>
+	</div>	
+	<div class="span2">	
+		<%= link_to("CV", "", :"div_id" => "cv_div", :class => "edit_link" )%>
+	</div>
+</div>
+<div class="row">		
+	<div class="span2">	
+		<%= link_to("It Skills", "", :"div_id" => "itskills_div", :class => "edit_link" )%>
+	</div>	
+	<div class="span2">	
+		<%= link_to("Other Skills", "", :"div_id" => "otherskills_div", :class => "edit_link" )%>
+	</div>	
+	<div class="span2">	
+		<%= link_to("User Languages", "", :"div_id" => "languages_div", :class => "edit_link" )%>
+	</div>
+</div>		
+
+
+
+
+<div class="row bg_white well currnt_display_div " id="work_eligibility_div" >
+	<div class="tr"> Work Eligibility
+	    <button data-toggle="modal" class="button_primery_mini" href="#workeligibility" data-placement="top" title="" >Edit</button>
+		<div class="ttin">
+		    <div class="tr">
+		        <div class="td_col_40">UK/EU Passport :</div>
+		        <div class="td_col_60"><%= user_profile.passport %></div>
+		    </div>
+		    <div class="tr">
+		        <div class="td_col_40">Eligiable to work in UK :</div>
+		        <div class="td_col_60"><%= user_profile.eligableuk %></div>
+		    </div>
+		    <div class="tr">
+		        <div class="td_col_40">Further Details :</div>
+		        <div class="td_col_60"><%= user_profile.eligabledetails %></div>
+		    </div>
+		 </div>
+	</div>	    
+</div>
+
+
+<div class="row bg_white well  non_display_div" id="employment_details_div">
+	<div class="tr"> Employment Details
+	    <button data-toggle="modal" class="button_primery_mini" href="#employmentdetails" data-placement="top" title="" >Edit</button>
+		<div class="ttin">
+		    <div class="tr">
+		        <div class="td_col_40">Current Employed :</div>
+		        <div class="td_col_60"><%= user_profile.employed %></div>
+		    </div>
+		    <div class="tr">
+		        <div class="td_col_40">Employer :</div>
+		        <div class="td_col_60"><%= current_company.company.name if current_company.present? %></div>
+		    </div>
+		    <div class="tr">
+		        <div class="td_col_40">Position :</div>
+		        <div class="td_col_60"><%= current_company.position if current_company.present? %></div>
+		    </div>
+		    <div class="tr">
+		        <div class="td_col_40">Current Salary :</div>
+		        <div class="td_col_60"><%= user_profile.salary_current %></div>
+		    </div>
+		    <div class="tr">
+		        <div class="td_col_40">Target Salary :</div>
+		        <div class="td_col_60"><%= user_profile.salary_target  %></div>
+		    </div>
+		 </div>
+	</div>	    
+</div>
+
+
+<div class="row bg_white well  non_display_div" id="cv_div">
+	<div class="tr"> CV
+	    <button data-toggle="modal" class="button_primery_mini" href="#addcv" data-placement="top" title="" >Edit</button>
+		<div class="ttin">
+		    <div class="tr">
+		        <div class="td_col_40">UK/EU Passport :</div>
+		        <div class="td_col_60"><%= %></div>
+		    </div>
+		    <div class="tr">
+		        <div class="td_col_40">Eligiable to work in UK :</div>
+		        <div class="td_col_60"><%= %></div>
+		    </div>
+		    <div class="tr">
+		        <div class="td_col_40">Further Details :</div>
+		        <div class="td_col_60"><%= %></div>
+		    </div>
+		 </div>
+	</div>	    
+</div>
+
+
+<div class="row bg_white well  non_display_div" id="itskills_div">
+	<div class="tr"> It Skills
+	    <button data-toggle="modal" class="button_primery_mini" href="#itskills" data-placement="top" title="" >Edit</button>
+		<div class="ttin">
+		    <% if user_itskills.present? %>
+		    <table border="2px" cellspacing="2px">
+		        <tr>
+		            <th> Name </th>
+		            <th> Level </th>
+		            <th>Experience</th>
+		        </tr>
+		        <% user_itskills.each do |user_itskill| %>
+		        <tr>
+                    <th><%= user_itskill.itskill.name if user_itskill.itskill.present? %></th>
+                    <th><%= user_itskill.level %></th>
+                    <th><%= user_itskill.experience %> Months</th>
+                </tr>
+                <% end %>
+		    </table>
+		   <% end %> 
+		 </div>
+	</div>	    
+</div>
+
+
+<div class="row bg_white well  non_display_div" id="otherskills_div">
+	<div class="tr"> Other Skills
+	    <button data-toggle="modal" class="button_primery_mini" href="#otherskills" data-placement="top" title="" >Edit</button>
+		<div class="ttin">
+		    <% if user_otherskills.present? %>
+            <table border="2px" cellspacing="2px">
+                <tr>
+                    <th> Name </th>
+                    <th> Level </th>
+                    <th>Experience</th>
+                </tr>
+                <% user_otherskills.each do |user_otherskill| %>
+                <tr>
+                    <th><%= user_otherskill.skill %></th>
+                    <th><%= user_otherskill.level %></th>
+                    <th><%= user_otherskill.experience %> Months</th>
+                </tr>
+                <% end %>
+            </table>
+           <% end %>
+		 </div>
+	</div>	    
+</div>
+
+<div class="row bg_white well  non_display_div" id="languages_div">
+	<div class="tr"> Languages
+	    <button data-toggle="modal" class="button_primery_mini" href="#language" data-placement="top" title="" >Edit</button>
+		<div class="ttin">
+		    <% if user_languages.present? %>
+            <table border="2px" cellspacing="2px">
+                <tr>
+                    <th> Name </th>
+                    <th> Written </th>
+                    <th>Spoken</th>
+                </tr>
+                <% user_languages.each do |user_lang| %>
+                <tr>
+                    <th><%= user_lang.language.name if user_lang.language.present? %></th>
+                    <th><%= user_lang.written %></th>
+                    <th><%= user_lang.spoken %></th>
+                </tr>
+                <% end %>
+            </table>
+           <% end %>
+		</div>
+	</div>	    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal Definitions (workeligibility) -->
+    <div id="workeligibility" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Work Eligibility</h3>
+      </div>
+      <div class="modal-body">
+        <%= render :partial => "work_eligibility_form", :locals => {:user => contact} %>
+      </div>
+    </div>
+<!-- end model of newcampaign -->
+
+
+
+<!-- Modal Definitions (employmentdetails) -->
+    <div id="employmentdetails" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Employment details</h3>
+      </div>
+      <div class="modal-body">
+        <!-- < %= render :partial => "new_campaign_form", :locals => {:status => CAMPAIGN_STATUS_DRAFT, :company_id => company.id, :from_page => COMPANY_OVERVIEW} %> -->
+      </div>
+      <!-- end model body --> 
+    </div>
+<!-- end model of newcampaign -->
+
+
+
+<!-- Modal Definitions (addcv) -->
+    <div id="addcv" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>New Campaign</h3>
+      </div>
+      <div class="modal-body">
+        <%= render :partial => "add_cv_form" %>
+      </div>
+      <!-- end model body --> 
+    </div>
+<!-- end model of newcampaign -->
+
+<!-- Modal Definitions (itskills) -->
+    <div id="itskills" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>It Skill</h3>        <!-- < %= render :partial => "new_contact_log_form", :locals => {:company => company, :from_page => COMPANY_CONTACT_LOG} %> -->
+      </div>
+      <div class="modal-body">
+        <%= render :partial => 'user_itskill_form', :locals => {:user => contact} %>
+      </div>
+      <!-- end model body --> 
+    </div>
+<!-- end model of itskills -->
+
+<!-- Modal Definitions (otherskills) -->
+    <div id="otherskills" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Other Skill</h3>
+      </div>
+      <div class="modal-body">
+        <%= render :partial => 'user_otherskill_form', :locals => {:user => contact} %>
+      </div>
+      <!-- end model body --> 
+    </div>
+<!-- end model of otherskills -->
+
+<!-- Modal Definitions (language) -->
+    <div id="language" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Language</h3>
+      </div>
+      <div class="modal-body">
+          <%= render :partial => 'user_language_form', :locals => {:user => contact} %>
+      </div>
+      <!-- end model body --> 
+    </div>
+<!-- end model of language -->
+
+
+
+
+<script>
+	$(document).on("click", ".edit_link", function(){
+		var divID = $(this).attr("div_id");
+		
+		$(".currnt_display_div").addClass("non_display_div");
+		
+		$(".currnt_display_div").removeClass("currnt_display_div");
+		
+		$("#" + divID).addClass("currnt_display_div");
+		
+		$("#" + divID).removeClass("non_display_div");
+		
+		$(".current_link").removeClass("current_link");
+		$(this).addClass("current_link");
+		return false;
+	});
+</script>
+
+
+
+
+
+

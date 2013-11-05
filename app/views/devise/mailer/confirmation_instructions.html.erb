@@ -1,0 +1,18 @@
+
+<p>
+    Dear <%= @resource.first_name %>,<br />
+    Thanks very much for registering to TFP.<br />
+    <br />
+    Please activate your account<br />
+    <br />
+    If this link does not work,<br />
+    copy and paste the link below directly into your browser:<br />
+    <a href=<%= confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %>><%= confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></a><br />
+    After you confirm, you will be able to log in to the site with the following credentials:<br />
+    <strong>Username: <%= @resource.email %><br />
+    Password: <%= @resource.password %></strong>
+    <br />
+    Thank You,<br />
+    The TFP Support Team
+    </p>
+    

@@ -1,0 +1,97 @@
+<% resource.user_companies.build %>
+<% resource.build_user_profile %>
+<%= form_for(resource, :as => resource_name, :url => {:action => "create_contact"}, :validate => true) do |f| %>
+    <div class="row">
+      <div class="span2">First Name :</div>
+      <div class="span4"> 
+        <%= f.text_field :first_name %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="span2">Last Name :</div>
+      <div class="span4"> 
+        <%= f.text_field :last_name %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="span2">Email address :</div>
+      <div class="span4">
+        <%= f.text_field :email, :value => "" %>
+      </div>
+    </div>
+
+    <%= f.fields_for :user_profile do |user_profile| %>
+        <div class="row">
+          <div class="span2">Phone Number :</div>
+          <div class="span4"> 
+            <%= user_profile.text_field :number_mob %>
+          </div>
+        </div>
+    <% end %>
+    
+    <div>
+      <%= f.hidden_field :user_type, :value => USER_TYPE_CONTACT %>
+      <%= f.hidden_field :status, :value => USER_STATUS_ACTIVE %>
+      <%= f.hidden_field :password, :value => "password" %>     <!-- TODO: value of pwd -->
+      <%= f.hidden_field :password_confirmation, :value => "password" %>
+    </div>
+    
+    <%= f.fields_for :user_companies do |user_company| %>
+    
+    	<div class="row">
+          <div class="span2">Company :</div>
+          <div class="span4"> 
+            <%= user_company.autocomplete_field :company_name, autocomplete_company_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory, :max_msg => Settings.e_fieldlength_50, :update_elements => {}, :placeholder => Settings.h_companyname %>
+          </div>
+        </div>
+        
+        <div class="row">
+	      <div class="span2">Position :</div>
+	      <div class="span4">
+	        user_company.text_field :position %>
+	      </div>
+      	</div>
+    
+    	<div class="row">
+	      <div class="span2">Primary Contact :</div>
+	      <div class="span4">
+	        <%= check_box_tag  true, false, :id => "chk_bx_primary_contact" %>
+	        <%= radio_button "primary_contact", 0, :checked => false, :id => "rb_clientcontact_no" %>
+	        <label for="chk_bx_primary_contact"><span></span></label>
+	      </div>
+	    </div>
+        
+        <div class="row">
+          <div class="span2">TFP Contact :</div>
+          <div class="span4">
+            <%= user_company.radio_button :clientcontact, 0, :checked => true, :id => "rb_clientcontact_no" %>
+            <label for="rb_clientcontact_no"><span></span>No- other employee</label>
+            
+            <%= user_company.radio_button :clientcontact, 1, :id => "rb_clientcontact_yes" %>
+            <label for="rb_clientcontact_yes"><span></span>Yes- TFP emplyee</label>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="span2">Welcome Email :</div>
+          <div class="span4">
+            <%= radio_button_tag "welcome_email", false, "", :id => "rb_welcome_email_no" %>
+            <label for="rb_welcome_email_no"><span></span>Do not mail</label>
+            
+            <%= radio_button_tag "welcome_email", true, "", :id => "rb_welcome_email_yes" %>
+            <label for="rb_welcome_email_yes"><span></span>Send Welcome Mail</label>
+          </div>
+        </div>
+        
+        <!-- < %= user_company.hidden_field :company_id, :value => company.id % > -->
+        <!-- < %= user_company.hidden_field :current, :value => true % > -->
+    <% end %>
+    
+    <div class="clearfix margin-20"></div>
+    <div class="row">
+      <div class="span6"> <%= f.submit "Create Contact", :class => "button_primery_big position_center" %> </div>
+    </div>
+    
+<% end %>

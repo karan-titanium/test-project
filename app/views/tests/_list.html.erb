@@ -1,0 +1,39 @@
+<h1>  Tests </h1>
+
+<div>
+    tests list
+</div>
+<div style="width: 100px; margin: 0px 0px 0px 700px; color: blue;" id="new_question_link">
+    <!-- < % = link_to "New Question", "#", :class => "new_question_link", :id => "new_question_link" % > -->
+    <a rel="add_qualifications" class="topopup"> New test </a>
+</div>
+<div id='testList'>
+    <table border="1px" width="80%">
+        <thead style="background-color: #CCCCCC;">
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <td>Edit</td>
+            </tr>
+        </thead>
+        <tbody >
+            <% @tfp_tests.each do |test| %>
+            <tr class="<%= cycle("odd", "even") -%>">
+                <td> <%= test.name %> </td>
+                <td> <%= test.description %> </td>
+                <td><%= link_to :Edit,"#" ,:path => URI::escape(edit_test_path(test.id)), :class => "edit_test"  %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+    <style>
+        .even {
+            background-color: #CCCCFF;
+        }
+
+        .odd {
+            background-color: #FFCC99;
+        }
+    </style>
+</div>

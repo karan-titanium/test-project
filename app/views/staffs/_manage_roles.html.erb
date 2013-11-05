@@ -1,0 +1,41 @@
+Select Role <%= select_tag "roles", options_from_collection_for_select(roles, "id", "name") %>
+
+<div class="popup_block content" id="add_new_role">
+	<a href="#" class="avgrund-close"></a>
+	Add a new Role
+	
+	<%= form_for(Role.new, :validate => true, :url => {:controller => "staffs", :action => "create_role"}, :remote => true, :html => { :'data-replace' => 'manage_roles_tab' } ) do |f| %>
+	  <%= f.label :name %>:
+	  <%= f.text_field :name %><br />
+	  
+	  <%= f.submit "Add", :class => "close_popup" %>
+	<% end %>
+</div>
+
+
+<input type="button" rel="add_new_role" class="topopup" value="Add a new Role" />
+
+
+<table class="display data_table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Permission</th>
+			<th>Model</th>
+			<th>Description</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<% permissions.each do |p| %>
+			<tr>
+				<td><%= p.id %></td>
+				<td><%= p.name %></td>
+				<td><%= p.subject_class %></td>
+				<td><%= p.description %></td>
+				<td></td>
+			</tr>
+		<% end if permissions.present? %>
+	</tbody>
+</table>

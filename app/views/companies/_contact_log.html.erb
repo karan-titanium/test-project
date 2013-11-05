@@ -1,0 +1,204 @@
+<div class="row bg_white well"> 
+    <div class="row margin-10" style="padding-top:5px; padding-right:5px; ">
+        <div class="row">
+            <div class="span1">From :</div>
+            <div class="span3">
+                <div class="input-append date" id="dp_from" data-date="12-02-2012" data-date-format="yyyy/mm/dd" style="margin-top: 0px;">
+                    <input class="span2" type="text" readonly id="from" style="width:225px" value="2013/09/01">
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>
+            </div>
+            <div class="span3">
+                <button data-toggle="modal" class="button_primery_big pull-right margin-5" href="#newcontactlog" data-placement="top" title="" >New Entry</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span1">To :</div>
+            <div class="span3">
+                <div class="input-append date" id="dp_to" data-date="12-02-2012" data-date-format="yyyy/mm/dd" style="margin-top: 0px;">
+                    <input class="span2" type="text" readonly id="to" style="width:225px" value=<%= DateTime.now.strftime("%Y/%m/%d") %>>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>
+            </div>
+            <div class="span3"></div>
+        </div>
+    </div>
+    
+    
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="contactlog">
+        <thead>
+          <tr>
+            <th><a>Date</a></th>
+            <th><a>TFP Staff</a></th>
+            <th><a>Subject</a></th>
+            <th><a>Method</a></th>
+            <th><a>Campaign</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% contact_logs.each do |cl| %>
+              <tr>
+                <td><%= cl.created_at.strftime("%Y/%m/%d") %></td>
+                <td><a data-toggle="modal" class="" href="#contactlogdetails_<%= cl.id %>" data-placement="top" title=""><%= User.find(cl.from).full_name  if cl.from.present? %></a></td>
+                <td><a data-toggle="modal" class="" href="#contactlogdetails_<%= cl.id %>" data-placement="top" title=""><%= cl.subject %></a></td>
+                <td><a data-toggle="modal" class="" href="#contactlogdetails_<%= cl.id %>" data-placement="top" title=""><%= cl.method.titleize %></a></td>
+                <td><a data-toggle="modal" class="" href="#contactlogdetails_<%= cl.id %>" data-placement="top" title=""><%= Campaign.find(cl.campaign_id).campaign_name   if cl.campaign_id.present? %></a></td>
+              </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<!-- Modal Definitions (newcontactlog) -->
+    <div id="newcontactlog" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>New Contact Log</h3>
+      </div>
+      <div class="modal-body">
+        <%= render :partial => "new_contact_log_form", :locals => {:company => company, :from_page => COMPANY_CONTACT_LOG} %>    
+        <div class="clearfix margin-20"></div>
+      </div>
+      <!-- end model body --> 
+    </div>
+<!-- end model of newcontactlog -->
+
+
+<% contact_logs.each do |cl| %>
+    <!-- Modal Definitions (contactlogdetails) -->
+        <div id="contactlogdetails_<%= cl.id %>" class="modal modal-big hide fade" data-width="760">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Contact Log Details</h3>
+          </div>
+          <div class="modal-body">
+            <!-- <div class="row">
+              <div class="span2">Contact Id :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <input name="skillstype" type="text" value="contact Id">
+                </a> </div>
+            </div> -->
+            <div class="row">
+              <div class="span2">Date :</div>
+              <div class="span4">
+                <%= text_field_tag :created_at, cl.created_at.strftime("%Y/%m/%d"), :readonly => true %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">From :</div>
+              <div class="span4">
+                <%= text_field_tag :from, User.find(cl.from).full_name, :readonly => true %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">To :</div>
+              <div class="span4">
+                <%= text_field_tag :created_at, User.find(cl.to).full_name, :readonly => true %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">Campiagn :</div>
+              <div class="span4">
+                <%= text_field_tag :created_at, cl.campaign.present? ? Campaign.find(cl.campaign).campaign_name : "" , :readonly => true %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">Method :</div>
+              <div class="span4">
+                <%= text_field_tag :method, cl.method.titleize, :readonly => true %>
+                <!-- < %= select_tag :method, options_for_select(CONTACT_LOG_METHOD_LIST, :selected => cl.method), :prompt => "Select Method", :disabled => true %> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">Date of Contact :</div>
+              <div class="span4">
+                <%= text_field_tag :created_at, cl.datecontact.strftime("%d/%m/%Y"), :readonly => true %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">Subject :</div>
+              <div class="span4">
+                <%= text_area_tag :created_at, cl.subject, :readonly => true %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span2">Details :</div>
+              <div class="span4">
+                <%= text_area_tag :created_at, cl.details, :rows => 4, :readonly => true %>
+              </div>
+            </div>
+            <% if cl.cdn_files.present? %>
+                <div class="row">
+                  <div class="span2">Attachment :</div>
+                  <div class="span4">
+                    <%= text_field_tag "Attachment", cl.cdn_files.first.filename, :readonly => true, :style => "width:270px;" %>
+                    <%= link_to '', cl.cdn_files.first.cf_filename_url, :target => "_blank", :class => 'button_download' %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="span2">Private :</div>
+                  <div class="span4">
+                    <%= check_box_tag :private, true, cl.contact_attachments.first.private, :id => "chk_bx_private" %>
+                    <label for="chk_bx_private"><span></span></label>
+                  </div>
+                </div>
+            <% end %>
+            <div class="clearfix margin-20"></div>
+          </div>
+          <!-- end model body --> 
+        </div>
+    <!-- end model of contact log details -->
+<% end %>
+
+
+
+<script type="text/javascript" charset="utf-8">
+    var oTable
+    
+    $(document).ready(function() {
+        oTable = $('#contactlog').dataTable( {
+                    "aaSorting": [[ 4, "desc" ]],
+                    "sPaginationType": "full_numbers",
+                    "sScrollY": "200px",
+                    "bPaginate": true,
+                    "bScrollCollapse": true,
+                    "fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+                 });
+        
+    } );
+    
+    
+    $('#dp_from, #dp_to').datepicker().on('changeDate', function(){
+        $(this).datepicker('hide');
+        oTable.fnDraw();
+    });
+
+
+    $.fn.dataTableExt.afnFiltering.push(
+        function( oSettings, aData, iDataIndex ) {
+            var from = new Date(document.getElementById('from').value);
+            var to = new Date(document.getElementById('to').value);
+            var iVersion = new Date(aData[0] == "-" ? 0 : aData[0]);
+                   
+            if ( from == "" && to == "" )
+                return true;
+            else if ( from == "" && iVersion <= to )
+                return true;
+            else if ( from <= iVersion && "" == to )
+                return true;
+            else if ( from <= iVersion && iVersion <= to )
+                return true;
+            return false;
+        }
+    );
+</script>

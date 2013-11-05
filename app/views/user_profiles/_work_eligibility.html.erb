@@ -1,0 +1,104 @@
+<!-- -------------------- WORKING AREA--------------------- -->
+<div class="span3" style="background:#1a74c2;">
+ <!--  Profile photo -->
+    <div class="profilepic" id="profile_photo_content">
+         <%= render :partial => "profile_photo", :locals => {:user => @user } %>
+    </div>
+    <h3 class="profilename"><%= @user.first_name.capitalize if @user.first_name.present? %></h3>
+    <hr/>
+ <!--  Profile photo End-->
+      
+ <!-- candidate left menu --> 
+        <%= render :partial => "layouts/left_menu_candidate", :locals => {:current_nav => 'work_eligibility'} %>
+ <!-- end left menu --> 
+</div>
+ 
+ 
+      
+<div class="span8" id='right_side_menu_div'>
+	<div class="row bg_white well">
+		<h2>Work Eligibility</h2><P><%= Settings.c_WorkEligibility %></P>
+	</div>
+
+	<!-- START ELIGIBILITY INFO -->
+	<div class="row bg_white well">
+	<%= form_for(@user, :validate => true, :url => {:action =>'personal_details'}, :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |user| %>
+		<%= user.fields_for :user_profile do |profile_form| %>
+		
+		<div class="row ">
+			<span class="txt_highlight">Do you have a UK or EU Passport?</span>
+		</div>
+		<div class="row">
+			<%= profile_form.radio_button :passport, "yes", :class => 'messageCheckbox', :id => "r1" %>
+			<label for="r1"><span></span>Yes</label>
+		</div>
+		
+		<div class="row">
+			<%= profile_form.radio_button :passport, "no", :class => 'messageCheckbox', :id => "r2" %>
+			<label for="r2"><span></span>No</label>
+
+			<!-- end main block -->
+			<!--start hidden block-->
+				<div class="row bg_grey well" id="eligible_details_div" style="display: none">
+					<div class="row">
+						<span class="txt_highlight">Are you eligible to work in the UK?</span>
+					</div>
+					<div class="row">
+						<%= profile_form.radio_button :eligableuk,"yes", :checked => true, :class => 'messageBox', :id => "r3" %>
+						<label for="r3"><span></span>Yes</label>
+					</div>
+					<div class="row">
+						<%= profile_form.radio_button :eligableuk,"no", :class => 'messageBox', :id => "r4" %>
+						<label for="r4"><span></span>No</label>
+					</div>
+					<div class="row">
+						Please give further details
+					</div>
+					<div class="row">
+						<%= profile_form.text_area :eligabledetails, :placeholder => "", :'data-toggle' => "tooltip", :'data-placement' => "right", :title => 't_eligible_details', :rows => 2, :cols => 1%>
+					</div>
+				</div>
+			<!-- end hidden block -->
+		</div>
+		<% end %>
+		
+		<%= user.submit "submit", :id => 'submit_work_eligibility_details', :style => 'display:none' %>
+		
+	<% end %>	
+	<div class=" span5 nav-userdashboard position_center">
+		<a class="button_primery button_back side_links" path=<%= @path[:summary] %> id="next_link">Back</a>
+		<a class="button_primery button_next" onclick="$('#submit_work_eligibility_details').click();">Next</a>
+	</div>
+	
+	</div>
+</div>
+
+
+
+
+<script>
+
+	$('form[data-validate]').validate();
+
+	$(document).ready(function() {
+		
+		$(":radio:eq(0)").click(function() {
+			$("#eligible_details_div").hide(300);
+		});
+		$(":radio:eq(1)").click(function() {
+			$("#eligible_details_div").show(500);
+		});
+		if ($("#r1").attr("checked") == "checked") {
+            $("#eligible_details_div").css("display", "none");
+        }else if($("#r2").attr("checked") == "checked") {
+            $("#eligible_details_div").css("display", "block");
+        }else{
+        	$("#r1").attr('checked', 'checked');
+        }
+        
+	});
+	
+	 displayTooltip();
+</script>
+
+	

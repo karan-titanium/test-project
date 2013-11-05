@@ -1,0 +1,36 @@
+<div class="popup_block content" id="add_new_user">
+	<a href="#" class="avgrund-close"></a>
+	Add a new Staff User
+	<%= render :partial => "add_new_user", :locals => {:user_type => USER_TYPE_STAFF} %>
+</div>
+
+<div class="popup_block content" id="permissions">
+	<a href="#" class="avgrund-close"></a>
+	Permissions
+</div>
+
+
+<input type="button" rel="add_new_user" class="topopup" value="Add a new User" />
+<br /><br />
+<%= render :partial => "staff_users_to_be_managed", :locals => {:staff_users => staff_users} %>
+
+
+<script>
+	$(document).on("click", '.chk_box_to_activate, .delete_user_btn', function() {
+		uId = $(this).attr("u_id") / 3
+		if($(this).attr("class") == "chk_box_to_activate") {
+			$(this).is(':checked') ? (status = "<%= USER_STATUS_ACTIVE %>") : (status = "<%= USER_STATUS_INACTIVE %>")
+		} 
+		else if($(this).attr("class") == "delete_user_btn") {
+			if(confirm('Are you sure?'))
+				status = "<%= USER_STATUS_DELETED %>"
+		}
+
+		if( !(typeof(uId) === 'undefined') && !(typeof(status) === 'undefined') && uId != '' && status != '' ) {
+			jQuery.get('/staffs/set_user_status/' + uId + '/' + status, function(data) {
+				$("#manage_users_tab").html(data);
+			});
+		}
+			
+	});
+</script>

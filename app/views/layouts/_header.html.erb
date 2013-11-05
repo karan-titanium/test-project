@@ -1,0 +1,22 @@
+<header class= "<%= (title.nil?) ? 'border_no bg_no' : '' %>">
+  <div class="sticky-nav"> <a id="mobile-nav" class="menu-nav" href="#menu-nav"></a>
+    <div id="logo">
+        <%= link_to "Home", root_path, :id => 'goUp', :class => "external"  %> 
+    </div>
+    <nav id="menu">
+        <ul id="menu-nav">
+        	<% if current_user.present? %>
+        		<li><a href="#setting" data-toggle="modal" title="<%= Settings.t_candidate_settingsicon  %>" class="" data-placement="top">Settings</a></li>
+        		<li><%= link_to "My Profile", root_path, :class => "external" %> </li>
+        	<% else %>
+        	<% end %>
+        	<li><%= link_to "About Us", about_us_path, :class => "external"  %> </li>
+	    	<li><%= link_to "Contact Us", contact_us_path, :class => "external" %> </li>			
+       		<li><%= user_signed_in? ? link_to('Logout', {:controller => :users,:action => :show }, :method => :delete, :class => "external") : link_to('Login', new_user_session_path, :class => "external") %> </li>	
+  	  	</ul>
+    </nav>
+    <% if !title.nil? %>
+	    <h1 class="PageTitle"> <%= title %> </h1>
+    <% end %>
+  </div>
+</header>

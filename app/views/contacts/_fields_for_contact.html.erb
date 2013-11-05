@@ -1,0 +1,122 @@
+<% if check_flag == "for_create"
+		f.object.user_companies.build
+	    f.object.build_user_profile
+	end
+%>
+
+<div class="row">
+	<div class="span2">First Name :</div>
+	<div class="span4"><%= f.text_field :first_name %></div>
+</div>
+
+<div class="row">
+	<div class="span2">Last Name :</div>
+	<div class="span4"><%= f.text_field :last_name %></div>
+</div>
+
+<div class="row">
+	<div class="span2">Gender :</div>
+	<div class="span4"> f.text_field :last_name </div>
+</div>
+
+<div class="row">
+	<div class="span2">Email address :</div>
+	<div class="span4"> <%= f.text_field :email %></div>
+</div>
+
+<div class="row">
+	<div class="span2">Password :</div>
+	<div class="span4"> <%= f.password_field :password %></div>
+</div>
+
+<%= f.fields_for :user_profile do |user_profile| %>
+	<div class="row">
+		<div class="span2">Phone Number :</div>
+		<div class="span4"><%= user_profile.text_field :number_mob %></div>
+	</div>
+<% end %>
+<div class="row">
+  <div class="span2">Alternate Number :</div>
+  <div class="span4"> 
+     f.text_field
+  </div>
+</div>
+
+<div class="row">
+  <div class="span2">Contact Preferred Time :</div>
+  <div class="span4"> 
+     f.radio_button
+  </div>
+</div>
+
+<div class="row">
+  <div class="span2">Contact Preferred Method :</div>
+  <div class="span4"> 
+     f.radio_button
+  </div>
+</div>
+
+<div class="row">
+  <div class="span2">Address :</div>
+  <div class="span4"> 
+     f.text_field
+  </div>
+</div>
+
+<div class="row">
+  <div class="span2"></div>
+  <div class="span4"> 
+     f.text_field
+  </div>
+</div>
+
+<div class="row">
+  <div class="span2"></div>
+  <div class="span4"> 
+     f.text_field
+  </div>
+</div>
+
+<div class="row">
+  <div class="span2"></div>
+  <div class="span4"> 
+     f.text_field
+  </div>
+</div>
+
+<div>
+	<%= f.hidden_field :user_type, :value => USER_TYPE_CONTACT %>
+	<%= f.hidden_field :status, :value => USER_STATUS_ACTIVE %>
+</div>
+
+
+<%= f.fields_for :user_companies do |user_company| %>
+	<div class="row">
+      <div class="span2">Company :</div>
+      <div class="span4"><%= user_company.autocomplete_field :company_name, autocomplete_company_name_user_profiles_path, :class => "autocomplete_field", :min_limit => 1, :max_limit => 50, :min_msg => Settings.e_field_mandatory, :max_msg => Settings.e_fieldlength_50, :update_elements => {}, :placeholder => Settings.h_companyname %></div>
+    </div>
+    
+    <div class="row">
+      <div class="span2">TFP Contact :</div>
+      <div class="span4">
+      	<%= user_company.radio_button :clientcontact, 0, :checked => true, :id => "rb_clientcontact_no" %><label for="rb_clientcontact_no"><span></span>No- other employee</label>
+        <%= user_company.radio_button :clientcontact, 1, :id => "rb_clientcontact_yes" %><label for="rb_clientcontact_yes"><span></span>Yes- TFP emplyee</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="span2">Welcome Email :</div>
+      <div class="span4">
+        <%= radio_button_tag "welcome_email", false, "", :id => "rb_welcome_email_no" %><label for="rb_welcome_email_no"><span></span>Do not mail</label>
+        
+        <%= radio_button_tag "welcome_email", true, "", :id => "rb_welcome_email_yes" %><label for="rb_welcome_email_yes"><span></span>Send Welcome Mail</label>
+      </div>
+    </div>
+    
+    <%= f.hidden_field :password, :value => "password" %>
+    <%= f.hidden_field :password_confirmation, :value => "password" %>
+      
+<% end if check_flag == "for_create" %>
+
+
+

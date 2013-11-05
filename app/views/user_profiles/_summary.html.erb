@@ -1,0 +1,200 @@
+<div class="span3" style="background:#1a74c2;">
+    <!--  Profile photo -->
+    <div class="profilepic" id="profile_photo_content">
+         <%= render :partial => "profile_photo", :locals => {:user => @user } %>
+    </div>
+    <h3 class="profilename"><%= @user.first_name.capitalize if @user.first_name.present? %></h3>
+    <hr/>
+    <!--  Profile photo End-->  
+    <!-- candidate left menu --> 
+        <%= render :partial => "layouts/left_menu_candidate", :locals => {:current_nav => 'summary'} %>
+    <!-- end left menu --> 
+</div>
+  <!-- end Left side bar -->
+  
+  
+  
+  
+  
+      
+<div class="span8" id='right_side_menu_div'>
+<% if !session[:is_profile_complete] %>
+	<div class="row">
+		<div class="alert alert-error warning" style="margin-top:25px;"><h4>Your profile is incomplete.</h4><div class="clearfix margin-15"></div>
+			<a href="#" class="button_complete_profile next_link" title="Button to navigate to Profile Settings" path="/user_profiles/complete_profile/" id="next_link""> Complete Profile</a>
+		</div>
+	</div>
+	
+<% else %>
+	
+	<!-- PROFILE SUMMERY -->
+	<div class="row bg_white">
+		<div class="span3"><h2>Profile Summary</h2><% user_profile = @user.user_profile %>
+		<h4><%= @user.first_name.capitalize if @user.first_name.present? %></h4>
+			<div class="row summery-tbl">
+				<div class="td_col2">Email</div>
+				<div class="td_col2"><%= @user.email %></div>
+				<div class="clearfix"></div>
+				<div class="td_col2">Contact Tel.</div>
+				<div class="td_col2"><%= user_profile.number_mob %></div>
+				<div class="clearfix"></div>
+				<div class="td_col2">Current Status</div>
+				<div class="td_col2"><%= (user_profile.employed.present? && user_profile.employed.casecmp("yes") == 0) ? "employed" : "unemployed"  %></div>
+				<div class="clearfix"></div>
+				<div class="td_col2">CV Uploaded</div>
+				<%  cv = @user.cdn_files.where(:file_type => FILE_TYPE_CV).last 
+					no_of_days = (cv.present? ? (Time.now.to_date - cv.created_at.to_date).to_i : 0)
+				%>
+				<div class="td_col2"> <%= (cv.present? ? pluralize(no_of_days, "day") : NOT_AVAILABLE) %> <%= (cv.present? ? "ago" : "") %>  </div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<!-- end PROFILE SUMMERY -->
+
+
+		<!-- PROFILE TEST RESULT VISUAL DATA -->
+		<div class="span4">
+			<table class="table">
+			<tr><th colspan="4">TEST RESULTS</th></tr>
+			<tr><th>Exam Name</th><th>Exam Date</th><th>Marks Achieved</th><th>Test index</th></tr>
+			<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><div class="progress"><div class="bar" style="width: 60%;"></div></div></td></tr>
+			</table>
+		</div>
+		<!-- end PROFILE TEST RESULT VISUAL DATA -->
+		<div class="clearfix margin-20"></div>
+		
+		
+		
+		<div class="row">
+		  
+		<!-- Employment History data -->	  
+		  <div class="span3">
+			<table class="table">
+				<tr><th>Employment History</th></tr>
+				<tr>
+					<td><input type="checkbox" id="c1" name="cc" disabled <%= @user.user_companies.where(:current => true).present? ? "checked" : "" %> /><label for="c1"><span></span>Current Employer</label></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="c2" name="cc" disabled <%= @user.user_profile.salary_current.present? ? "checked" : "" %> /><label for="c2"><span></span>Current Salary</label></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="c3" name="cc" disabled <%= @user.user_profile.salary_target.present? ? "checked" : "" %> /><label for="c3"><span></span>Target Salary</label></td>
+				</tr>
+			</table>
+		  </div>
+		<!-- end Employment History data -->	
+
+
+		<!-- Other Profile status -->
+		  <div class="span2">
+			<table class="table">
+				<tr><th>Other Profile Status</th></tr>
+				<tr>
+					<td><input type="checkbox" id="c4" name="cc" disabled <%= @user.user_qualifications.present? ? "checked" : "" %> /><label for="c4"><span></span>Qualification</label></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="c5" name="cc" disabled <%= @user.user_files.where(:user_file_type => "cv").present? ? "checked" : "" %> /><label for="c5"><span></span>CV</label></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="c6" name="cc" checked disabled /><label for="c6"><span></span>Online Test</label></td>
+				</tr>
+			</table>
+		  </div>
+		<!-- end of Other Profile status -->
+
+		<!-- Skills -->
+		  <div class="span2">
+			<table class="table">
+				<tr><th>Skills</th><tr>
+					<td><input type="checkbox" id="c7" name="cc" disabled <%= @user.user_itskills.present? ? "checked" : "" %> /><label for="c7"><span></span>IT Skills</label></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="c8" name="cc" disabled <%= @user.user_languages.present? ? "checked" : "" %> /><label for="c8"><span></span>Languages</label></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" id="c9" name="cc" disabled <%= @user.user_otherskills.present? ? "checked" : "" %> /><label for="c9"><span></span>Other Skills</label></td>
+				</tr>
+			</table>
+		  </div>
+		  <!-- end Skills -->
+		  
+		  
+		</div>
+	</div>
+<% end %>
+	
+		
+		
+		
+	<div class="row bg_white well">
+		<h3>Position Applications</h3>
+		<table cellpadding="0" cellspacing="0" border="0" class="display" id="position_application">
+			<thead><tr><th><a>Campaign Reference</th><th><a>Applied On</a></th><th><a>Application Deadline Date</a></th><th><a>Campaign Summary</a></th><th><a>Status</a></th></tr></thead>
+			<tbody>
+				<% @user_campaigns.each do |user_campaign| %>
+				<% campaign = user_campaign.campaign %>
+				<tr>
+					<td><%= campaign.reference %></td>
+					<td><%= user_campaign.date.to_date if user_campaign.date.present? %></td>
+					<td><%= campaign.deadline_application %></td>
+					<td><%= campaign.summary %></td>
+					<td>
+						<% if ( user_campaign.status == USER_CAMPAIGN_STATUS_APPLIED ) %>
+							<div class="profilestatus triangle applied">Applied</div>
+						<% elsif ( user_campaign.status == USER_CAMPAIGN_STATUS_REJECTED ) %>
+							<div class="profilestatus triangle rejected"> Rejected</div>
+						<% elsif ( user_campaign.status == USER_CAMPAIGN_STATUS_ACCEPTED ) %>
+							<div class="profilestatus triangle accepted"> Accepted</div>
+						<% else %>
+							<div class="profilestatus triangle waiting"> Waiting </div>
+						<%  end %>
+					</td>  
+				</tr>
+				<% end if @user_campaigns.present? %>
+			</tbody>
+			<tfoot>
+				<tr><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th></tr>
+			</tfoot>
+		</table>
+	</div>
+
+	
+		
+			
+			
+	<div class="row bg_white well">
+		<h3>Exams Pending</h3>
+		<table cellpadding="0" cellspacing="0" border="0" class="display" id="pending_exam">
+			<thead>
+				<tr><th><a>Exam Name</a></th><th><a>Maximum Duration of Exam</a></th><th><a>Status</a></th><th class="sorting_blank"></th></tr>
+			</thead>
+			<tbody>
+				<% @user_exams.each do |user_exam| %>
+				<tr>
+					<td><%= user_exam.exam.name.titleize if user_exam.exam.present? %></td>
+					<td><%= user_exam.exam.rest %> &nbsp; minutes</td>
+					<td><%= user_exam.status %> </td>
+					<td><a class="button_primery_table">Launch Exam</a></td>
+				</tr>
+				<% end if @user_exams.present? %>
+			</tbody>
+			<tfoot><tr><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th></tr></tfoot>
+		</table>
+	</div>
+
+
+
+</div>
+
+
+<script>
+	$(document).ready(function() {
+		$('#pending_exam, #position_application').dataTable({
+			"sPaginationType": "full_numbers",
+			"sScrollY": "200px",
+			"bPaginate": true,
+			"bScrollCollapse": true,
+			"fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+		});
+	});
+</script>

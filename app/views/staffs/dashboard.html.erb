@@ -1,0 +1,54 @@
+
+
+<h3>Dashboard</h3>
+<!-- Start database Summary -->
+        <div class="row bg_white well">
+          <h2>Database Summary</h2>
+          <table cellpadding="0" cellspacing="0" border="0" class="table table-striped" id="database_summary">
+            <thead>
+              <tr align="center">
+                <th><%= link_to("Companies", {:action => "show", :controller => "database_managements", :company_value => "companies_click"})%></th>
+                <th><%= link_to("Qualification Types", {:action => "show", :controller => "database_managements", :type_value => "types_click"})%></th>
+                <th><%= link_to("Qualification Locations", {:action => "show", :controller => "database_managements", :location_value => "locations_click"})%></th>
+                <th><%= link_to("Qualification Subjects", {:action => "show", :controller => "database_managements", :subject_value => "subjects_click"})%></th>
+                <th><%= link_to("Qualification Grades", {:action => "show", :controller => "database_managements", :grade_value => "grades_click"})%></th>
+                <th><%= link_to("IT Skills", {:action => "show", :controller => "database_managements", :itskill_value => "itskills_click"})%></th>
+                <th><%= link_to("Languages", {:action => "show", :controller => "database_managements", :language_value => "languages_click"})%></th> 
+              </tr>
+              
+            </thead>
+            <tbody>
+              <% for i in 0..(@count-1) %>
+              <tr align="center">
+                <td><%= @unconfirmed_companies[i].name if @unconfirmed_companies[i].present? %></td>
+                <td><%= @unconfirmed_qualification_types[i].name if @unconfirmed_qualification_types[i].present? %></td>
+                <td><%= @unconfirmed_qualification_locations[i].name if @unconfirmed_qualification_locations[i].present? %></td>
+                <td><%= @unconfirmed_qualification_subjects[i].name if @unconfirmed_qualification_subjects[i].present? %></td>
+                <td><%= @unconfirmed_qualification_grades[i].name if  @unconfirmed_qualification_grades[i].present? %></td>
+                <td><%= @unconfirmed_itskills[i].name if @unconfirmed_itskills[i].present? %></td>
+                <td><%= @unconfirmed_languages[i].name if @unconfirmed_languages[i].present? %></td>
+              </tr>
+              <% end %>
+              
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </tfoot>
+          </table>
+          
+        </div>
+        <!-- end Database Summary --> 
+<h4>Candidates with Incomplete Profiles</h4>
+
+<!-- < % @candidates_with_incomplete_profile.each do |c| %>
+	< %= c.first_name %>
+	<br />
+< % end %>  -->

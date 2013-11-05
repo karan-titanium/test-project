@@ -1,0 +1,42 @@
+<script>
+    $(document).ready(function(){
+        $('.next_button').click(function(){
+            path = $(this).attr('path'); 
+          //  alert(path);
+            // selectedValue = $('.messageCheckbox:checked').val();
+            $.ajax({
+                async : true,
+                type : 'GET',
+                url : path,
+                success : function(data) {
+                    $('#abc').html(data);
+                },
+                error : function(data) {
+                }
+            });
+
+          return false;  
+        });           
+    });
+    
+</script>
+
+
+
+
+<div  style=" width: 70%;margin-right:40%; margin-left: 0%" >
+    
+<%= link_to "Profile Summary", "#", :path => @path[0], :class => 'next_button'  %> <br />
+<%= link_to "Work Eligability", "#", :path => @path[1], :class => 'next_button'  %> <br />
+<%= link_to "Personal Details", "#", :path => @path[2], :class => 'next_button'  %> <br />
+
+<%= link_to "Employment Details", "#", :path => @path[3], :class => 'next_button'  %> <br />
+<%= link_to "Upload CV", "#", :path => @path[4], :class => 'next_button'  %> <br />
+<%= link_to "Online Test", "#", :path => @path[5], :class => 'next_button'  %> <br />
+
+<%= link_to "Qualifications", "#", :path => @path[6], :class => 'next_button' ,:id => 'qualification' %> <br />
+<%= link_to "Skills", "#", :path => @path[7], :class => 'next_button'  %> <br />
+
+<!--  <%= @path.to_s %>  -->
+    
+</div>

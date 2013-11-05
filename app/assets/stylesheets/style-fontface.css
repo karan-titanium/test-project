@@ -1,0 +1,56 @@
+
+
+@font-face {
+    font-family: 'LaoUIRegular';
+    src: url('fonts-tfp/laoui_0.eot');
+    src: url('fonts-tfp/laoui_0.eot') format('embedded-opentype'),
+         url('fonts-tfp/laoui_0.woff') format('woff'),
+         url('fonts-tfp/laoui_0.ttf') format('truetype'),
+         url('fonts-tfp/laoui_0.svg#LaoUIRegular') format('svg');
+}
+
+@font-face {
+    font-family: 'LaneNarrowRegular';
+    src: url('fonts-tfp/lanenar.eot');
+    src: url('fonts-tfp/lanenar.eot') format('embedded-opentype'),
+         url('fonts-tfp/lanenar.woff') format('woff'),
+         url('fonts-tfp/lanenar.ttf') format('truetype'),
+         url('fonts-tfp/lanenar.svg#LaneNarrowRegular') format('svg');
+}
+
+@font-face {
+    font-family: 'AvenirLT55Roman';
+    src: url('fonts-tfp/AvenirLT55Roman.eot');
+    src: url('fonts-tfp/AvenirLT55Roman.eot') format('embedded-opentype'),
+         url('fonts-tfp/AvenirLT55Roman.woff') format('woff'),
+         url('fonts-tfp/AvenirLT55Roman.ttf') format('truetype'),
+         url('fonts-tfp/AvenirLT55Roman.svg#AvenirLT55Roman') format('svg');
+}
+
+
+@font-face {
+    font-family: 'AvenirLT35LightRegular';
+    src: url('fonts-tfp/avenir_lt_35_light.eot');
+    src: url('fonts-tfp/avenir_lt_35_light.eot') format('embedded-opentype'),
+         url('fonts-tfp/avenir_lt_35_light.woff') format('woff'),
+         url('fonts-tfp/avenir_lt_35_light.ttf') format('truetype'),
+         url('fonts-tfp/avenir_lt_35_light.svg#AvenirLT35LightRegular') format('svg');
+}
+
+@font-face {
+    font-family: 'Museo500';
+    src: url('fonts-tfp/museo500-regular.eot');
+    src: url('fonts-tfp/museo500-regular.eot') format('embedded-opentype'),
+         url('fonts-tfp/museo500-regular.woff') format('woff'),
+         url('fonts-tfp/museo500-regular.ttf') format('truetype'),
+         url('fonts-tfp/museo500-regular.svg#Museo500') format('svg');
+}
+
+@font-face {
+    font-family: 'MuseoSans500';
+    src: url('fonts-tfp/museosans_500.eot');
+    src: url('fonts-tfp/museosans_500.eot') format('embedded-opentype'),
+         url('fonts-tfp/museosans_500.woff') format('woff'),
+         url('fonts-tfp/museosans_500.ttf') format('truetype'),
+         url('fonts-tfp/museosans_500.svg#MuseoSans500') format('svg');
+}

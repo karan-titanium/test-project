@@ -1,0 +1,24 @@
+<%= form_for(resource, :as => resource_name, :validate => true, :url => staff_create_user_path(current_user), :remote => true, :html => { :'data-replace' => 'manage_users_tab' } ) do |f| %>
+  <%= devise_error_messages! %>
+  <div id="user_details_div">
+	  <div><%= f.label :first_name %><br />
+	  <%= f.text_field :first_name, :class => "only_50_alphabets" %></div>
+	  
+	  <div><%= f.label :last_name %><br />
+	  <%= f.text_field :last_name, :class => "only_50_alphabets" %></div>
+	
+	  <div><%= f.label :email %><br />
+	  <%= f.text_field :email, :value => "" %></div>
+	
+	  <div><%= f.label :password %><br />
+	  <%= f.password_field :password, :id => "password", :value => "", :validate => { :presence => true } %></div>
+	
+	  <div><%= f.label :password_confirmation %><br />
+	  <%= f.password_field :password_confirmation, :id => "confirm_password" %></div>
+	  
+	  <div><%= f.hidden_field :user_type, :value => user_type %>
+	  <%= f.hidden_field :status, :value => USER_STATUS_ACTIVE %></div>
+	
+	  <div><%= f.submit "Add User", :class => "close_popup", :onclick => "return validatePassword(this);" %></div>
+  </div>
+<% end %>

@@ -1,0 +1,46 @@
+<script>
+        $(window).load(function() {
+    		$('#questionContent').html('<%= escape_javascript(render 'questions/list') %>');
+        });
+</script>
+<div id="questionContent">
+
+</div>
+<div class="popup_block content" id="add_qualifications">
+    <a href="#" class="avgrund-close"></a>
+
+    <table>
+        <%= form_for(@new_question,:validate => true, :url => {:action =>'create'}) do |f| %>
+
+        <tr>
+            <td>Question Name : </td>
+            <td> <%= f.text_field :name %></td>
+        </tr>
+        <tr>
+            <td>Question Description : </td>
+            <td> <%= f.text_field :description %> </td>
+        </tr>
+         <tr>
+        <td> Difficulty </td>
+        <td> <%= f.select :difficulty, DIFFICULTY_LEVEL %> </td>
+        <td> Category &nbsp;&nbsp;&nbsp; <%= f.select :question_category_id, QuestionCategory.all.collect {|qc| [ qc.name, qc.id ] } %> </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="1"> Text Content </td>
+        <td colspan="3"> <%= f.cktext_area :content, :class  => 'ckeditor', :size => "10x3" %> </td>
+    </tr>
+    <tr>
+        <td colspan="1"> Status </td>
+        <td colspan="3"> <%= f.select :status, QUESTION_STATUS %> </td>
+    </tr>
+        <tr>
+            <td> <%= link_to "Add & Finished", "#" , :id => "add_and_finished", :class => "add_question" %></td>
+        </tr>
+        <% end %>
+
+    </table>
+</div>

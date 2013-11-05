@@ -1,0 +1,187 @@
+
+	
+<script>
+
+	// to find language entered in auto-complete field
+$(document).ready(function(){
+  $(".link_test").click(function() {
+  	
+  	unconfirmed_language_id = $(this).attr("id");
+ 
+  	selectedLanguageName = $(".language_name_" + unconfirmed_language_id).val();
+  	if(selectedLanguageName  == ""){ selectedLanguageName = null;}
+  	
+  	 	
+  	$.ajax({
+				async : true,
+				type : 'GET',
+				url : "/database_managements/change_language_status_to_deleted/" + selectedLanguageName + "/" + unconfirmed_language_id,
+				success : function(data) {
+					$('#database_management_div').html(data);
+					
+					languageFlagValue = $("#languagesflag").text();
+					if( languageFlagValue.match(/true/g) )
+					{
+						$("#warningbox").modal('show');
+					}
+				},
+				error : function(data) 
+				{
+				}
+			});
+			return false;
+   });
+});
+
+	// jQuery - To add data table
+$(document).ready(function() {
+	$('.display').dataTable( {
+		//"aaSorting": [[ 4, "desc" ]]
+		"sPaginationType": "full_numbers",
+		"sScrollY": "280px",
+		"bPaginate": true,
+		"bScrollCollapse": true,
+		"fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+	} );
+} );
+</script>
+
+
+<label id="languagesflag" style="display: none"> <%= languages_flag %> </label>
+
+	<!-- To display the list of Unconfirmed Languages-->
+<div class="row bg_white well">
+        <h2>Unconfirmed Languages</h2>
+        
+	<!-- button named as 'Add New' to add new language-->
+	<button data-toggle="modal" class="button_primery_big pull-right" href="#qualification_language" data-placement="top" title="">
+		Add New
+	</button>
+  
+	<div class="clearfix margin-10"></div>
+    <div style="min-height:100px; max-height:220px; overflow-y:auto;" class="margin-20">
+       
+    	<table class="table">
+    		<% if @unconfirmed_languages.present?%>
+					<% @unconfirmed_languages.each do |language| %>
+					<tr>
+						<td><%= language.name%></td>
+						
+						<td>
+							<%= link_to("Add New", "",:'data_replace' => "database_management_div",:'path' => "/database_managements/change_language_status_to_active/" + language.id.to_s, :class => "button_primery_mini ajax_call") %>
+						</td>
+						
+						<td>
+				 			<%= form_for :user_language do |f|%>
+								<%= f.autocomplete_field :language_name, autocomplete_language_name_database_managements_path ,:size => 20, :class => "small language_name_" + language.id.to_s%>
+							<%end%>										 	
+						</td>
+						
+						<td>
+							<%= link_to("Link", "#", :class => "link_test button_primery_mini", :id  => language.id)%>
+						</td>
+					</tr>
+					<% end %>
+			<% else %> 
+					<tr>
+						<td><p align="center"><%= Settings.m_NoRecords%></p></td>
+					</tr>
+					<tr><td>&nbsp;</td></tr>
+		    <% end %>
+		</table>
+	</div>
+	<div class="clearfix margin-10"></div>
+</div>
+
+
+<div class="row bg_white well">
+	<!-- To display the list of all(non-deleted) Languages-->
+	<h2>Languages</h2>
+    
+    <!-- start Languages table -->
+		<table cellpadding="0" cellspacing="0" border="0" class="display" id="language">
+				<thead>
+					<tr>
+						<th><a>Language Name</a></th>
+						<th><a>Status</a></th>
+					</tr>
+				</thead>
+		
+				<tbody>
+					<% @languages.each do |language| %>
+					<%if language.status != LANGUAGE_STATUS_DELETED && language.status != LANGUAGE_STATUS_UNCONFIRMED %>
+						<tr>
+							<td><%= language.name%></td>
+							<td><%= language.status%></td>
+						</tr>
+					<% end %>
+					<% end %>
+				</tbody>
+		</table>
+		<div class="clearfix margin-10"></div>
+</div>
+
+
+	<!-- Modal Definitions to add new Language -->
+<div id="qualification_language" class="modal modal-qualification hide fade" data-width="760">
+	 <%= form_for(Language.new ,:validate => true, :url => {:action =>'create_language', :controller => "database_managements"}, :remote => true, :html => {:'data-replace' => "database_management_div"}) do |language_form| %>
+	 
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Languages</h3>
+  	</div>
+  	
+ 	<div class="modal-body">         
+			<div class="row">
+				<div class="span2 txt_highlight">Name :</div>
+		      	<div class="span4"> 
+		      	
+		      	<%= language_form.text_field :name, :class => "language_class", :placeholder => Settings.h_candidate_language, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title => "t_language_name" %> 
+		      	</div>
+		    </div>   
+	            
+	     	<div class="row">
+		      	<div class="span2 txt_highlight">Status :</div>
+		      	<div class="span4"> 
+		        <span data-toggle="tooltip" data-placement="left" title="t_status"><%= language_form.select :status, options_for_select(LANGUAGE_STATUS_LIST.invert), :include_blank => Settings.h_status %></span>
+		      	</div>
+	    	</div>      		
+	            
+	        <div class="clearfix margin-20"></div>	
+		    <div class="row">
+				<div class="span3">
+				<%= language_form.submit "Add and Finish", :class => "button_primery_modal" %>
+				<!-- <a href="#" id= "add_and_finished" class="button_primery_modal add_qualification">Add & Finished</a> -->
+				</div>
+					
+				<div class="span3">
+				<%= language_form.submit "Add & Enter Another", :class => "button_primery_modal"%>
+				<!-- <a href="#" id= "add_and_enter_another" class="button_primery_modal add_qualification">Add & Enter Another</a> -->
+				</div>
+			</div>
+	</div>
+    <% end %>
+        
+</div>
+
+
+
+<div id="warningbox" class="modal hide fade" data-width="960">
+
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error warningbox" style="margin-top:25px;"> 
+          	<h4>Warning box</h4>
+            <div class="clearfix margin-15"></div>
+            <p>
+            	<%= Settings.e_linkLanguage%>
+            </p> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of warning box -->
+
+

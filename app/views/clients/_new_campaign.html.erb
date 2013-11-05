@@ -1,0 +1,249 @@
+<%= form_for(@campaign, :url => {:action => "campaigns"},:validate => true, :remote => true, :html => {:'data-replace' => "client_content"}) do |f| %>
+<div class="row bg_white well">
+          <h2>New Campaign</h2>
+          <div class="row">
+            <div class="span3 txt_highlight">Campaign Name :</div>
+            <div class="span4">
+                <%= f.text_field :campaign_name,:placeholder => "P",:title =>"T", :"data-toggle" => "tooltip", :"data-placement" => "left" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span3 txt_highlight">Job Reference :</div>
+            <div class="span4">
+                <%= f.text_field :reference,:placeholder => "P",:title =>"T", :"data-toggle" => "tooltip", :"data-placement" => "left" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span3 txt_highlight">Job Title :</div>
+            <div class="span4">
+                <%= f.text_field :title,:placeholder => "P",:title =>"T", :"data-toggle" => "tooltip", :"data-placement" => "left" %>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="span3 txt_highlight">Job Summary :</div>
+            <div class="span4">
+                <%= f.text_area :summary, :rows => 2, :placeholder => "P",:title =>"T", :"data-toggle" => "tooltip", :"data-placement" => "left" %>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="span3 txt_highlight">Job Description :</div>
+            <div class="span4">
+                <%= f.text_area :details, :rows => 2, :placeholder => "P" ,:title =>"T", :"data-toggle" => "tooltip", :"data-placement" => "left" %>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="span3 txt_highlight">Application Deadline :</div>
+            
+            <div class="span4 input-append date dp1" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+                <%= f.text_field :deadline_application, :style => "width:308px", :readonly => true, :placeholder => Settings.h_candidate_empstdate %>
+                  <span class="add-on"><i class="icon-calendar"></i></span> 
+            </div>
+            
+          </div>
+          
+          <div class="row">
+            <div class="span3 txt_highlight">Forward Deadline :</div>
+            <div class="span4 input-append date dp2" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+                <%= f.text_field :deadline_forward, :style => "width:308px", :readonly => true, :placeholder => Settings.h_candidate_empstdate %>
+                  <span class="add-on"><i class="icon-calendar"></i></span> 
+            </div>
+          </div>
+
+</div>
+
+<div class="row bg_white well">
+             
+          <div class="row">
+            <h2>Required Traits</h2>
+            <table cellpadding="0" cellspacing="0" border="0" class="table display" >
+              <tbody>
+                <tr>
+                  <td><a class="button_remove_table"></a></td>
+                  <td>Trait Name</td>
+                  <td style="width:30%">
+                    <div id="green" class="slider" style="display:inline-block;"></div>
+                    </td>
+                   <td><label class="space_5">20%</label></td>
+                  <td><input type="button" data-toggle="modal" class="button_help"  href="#description" data-placement="top" title="" ></td>
+                </tr>
+                <tr>
+                  <td><a class="button_remove_table"></a></td>
+                  <td>Trait Name</td>
+                  <td>
+                    <div id="green" class="slider" style="display:inline-block;"></div>
+                    </td>
+                   <td><label class="space_5">60%</label></td>
+                  <td><input type="button" data-toggle="modal" class="button_help"  href="#description" data-placement="top" title="" ></td>
+                </tr>
+                <tr>
+                  <td><a class="button_remove_table"></a></td>
+                  <td>Trait Name</td>
+                  <td>
+                    <div id="green" class="slider" style="display:inline-block;"></div>
+                   </td>
+                   <td><label class="space_5">80%</label></td>
+                  <td><input type="button" data-toggle="modal" class="button_help"  href="#description" data-placement="top" title="" ></td>
+                </tr>
+              </tbody>
+              <tfoot style="display:none;">
+                <tr>
+                  <th style="border-bottom:none;">&nbsp;</th>
+                  <th style="border-bottom:none;">&nbsp;</th>
+                  <th style="border-bottom:none;">&nbsp;</th>
+                  <th style="border-bottom:none;">&nbsp;</th>
+                  <th style="border-bottom:none;">&nbsp;</th>
+                </tr>
+              </tfoot>
+            </table>
+            
+          </div>
+          <div class="row">
+            <div class="span7">
+                
+            
+            <button class="button_primery pull-right" href="#" title="" >Add</button>
+            
+            <select name="" class="small pull-right  space_5">
+              <option>Select Trait</option>
+            </select>
+          </div>
+          <div class="clearfix margin-40"></div>
+          <div class="row">
+            <button class="button_primery_big position_center" href="#" title="" >Create Campaign</button>
+          </div>
+        </div>
+      </div>
+
+
+    <div class="row bg_white well">
+        <div class="row">
+            <h2>Required Traits</h2>
+    <div class='all_traits' id='all_traits_div'>
+            <table cellpadding="0" cellspacing="0" border="0" class="table display" >
+              <tbody>
+        <% f.fields_for :campaign_traits do |ct| %>
+        <%= render 'campaign_trait_fields',f: ct %>
+        <% end %>
+            <%= link_to_add_trait_fields "add",f,:campaign_traits %>
+            <%= select :trait, :id, @traits.map{ |trait| [trait.name, trait.id] },:class => "small, pull-right, space_5",:prompt => "Select Trait" %>
+    </tbody>
+    
+    </table>
+    </div>
+    
+    </div>
+<!--     // -->
+    <div class="row">
+            <div class="span7">
+                
+            
+                <%= f.hidden_field :status,:value => CAMPAIGN_STATUS_DRAFT  %>
+          </div>
+          <div class="clearfix margin-40"></div>
+          <div class="row">
+              <%= f.submit "Create Campaign", :class => "button_primery_big position_center" %>
+          </div>
+        </div>
+<!--     // -->
+    
+    <div id='no_trait_error'></div>
+
+    <div id="temp"></div>
+    
+    <div class=" span5 nav-userdashboard position_center">
+        <%= f.hidden_field :status,:value => CAMPAIGN_STATUS_DRAFT  %>
+<!--         < %= f.submit "  Create Campaign  ", :class => "button_primery" %> -->
+    </div>
+
+</div>
+    <% end %>
+<%= render :partial => "tooltip_in_dynamic_form" %>
+<script>
+    $('form[data-validate]').validate();
+    $('.dp1, .dp2').datepicker().on('changeDate', function(){
+          $(this).datepicker('hide');
+     });
+</script>
+
+<script>
+var mySelect = $('#trait_id');
+
+$('form').on('click', '.add_trait_fields', function(event) {
+    
+  var total_sliders = $('.trait_class').length
+  if($("#trait_id").val()==''){
+      $('#no_trait_error').html("Please select Trait")
+  }else{
+      
+  var regexp, time;
+  time = new Date().getTime();
+  regexp = new RegExp($(this).data('id'), 'g');
+  // regexp2 = new RegExp($(this).data('trait_id'), 'g');
+  $('#no_trait_error').html('')
+  $(this).before($(this).data('fields').replace(regexp, time));
+  //This line Adds trait id to the trait fields
+  $("#campaign_campaign_traits_attributes_" + time +"_trait_id").val($("#trait_id").val());
+  var lable_text = $("option:selected", $("#trait_id")).text()
+  $('label[for="campaign_campaign_traits_attributes_' + time + '_trait_name"]').html(lable_text);
+  // This line removes trait from drop down
+  $('#trait_id option:selected').remove();
+  }
+  return event.preventDefault();
+});
+
+$('form').on('click', '.remove_fields', function(event) {
+
+  $(this).prev('input[type=hidden]').val(true);
+  // alert($(this).closest('tr').children('.trait_name').first('label').text())
+  // This line adds removed trait to drop down
+  $("#trait_id").append('<option value="'+$(this).closest('tr').children('.trait_id').val()+'">'+$(this).closest('tr').children('.trait_name').first('label').text()+'</option>');
+  
+  sliderHandler($(this));
+  $(this).closest('tr').remove();
+  return event.preventDefault();
+});
+
+$(document).on("change", ".trait_class", function(){
+    sliderHandler($(this));
+});
+
+function sliderHandler(current){
+    changeID = current.attr("id");
+    newVal = current.val();
+    noCount = $(".trait_class").length;
+    totalWeight = noCount* 50
+    
+    var weight = 0;
+    $('#all_traits_div').children( ".fieldset_child").each(function(){
+         weight =  parseInt($(this).find(".trait_class").val()) + weight ;
+    });
+    // $("#temp").append(weight + "<br />");
+    diff = (totalWeight - weight)
+    
+    changeVal = diff / ( noCount - 1 );
+    if ( (noCount - 1) != 0 ){
+        $('#all_traits_div').children( ".fieldset_child").each(function(){
+                 newVal = parseInt( $(this).find(".trait_class").val())  + changeVal
+                 newVal = (newVal).toFixed(2);
+                 if( newVal < 0 ){
+                    newVal = 0;    
+                 }
+                   $(this).find(".trait_class").not("#" + changeID).val(newVal);
+                   $(this).find(".trait_value").html(newVal);
+         });
+       }else{
+           $(".trait_value").html(newVal);
+       }
+}
+</script>
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+<script>
+    $(document).ready(function() {
+    	
+        question_part_type = $('.question_part_select').children(':selected').val().toString();
+        var id_arr = $('.question_part_select').attr('id').split('_');
+        // alert(id_arr);
+        var uniqueNumber;
+        id_arr.forEach(function(item) {
+            // inject unique number assigned by nested form in a variable
+            if ($.isNumeric(item)) {
+                uniqueNumber = item;
+            }
+        });
+        ren_td_1 = 'firsttd_' + question_part_type + '_' + uniqueNumber.toString();
+        ren_td_2 = 'secondtd_' + question_part_type + '_' + uniqueNumber.toString();
+        $('#firsttd').attr('id', ren_td_1);
+        $('#secondtd').attr('id', ren_td_2);
+
+        if (question_part_type == 'text') {
+        	alert("hiii");
+            $("#" + ren_td_1).hide();
+            $("#" + ren_td_2).hide();
+            $('.add_answer').hide();
+        }
+
+    }); 
+</script>
+
+<table class="fields">
+    <tr>
+        <td id="firsttd"> Answer </td>
+        <td id="secondtd"><%= f.text_field :content%></td>
+        <td> Points </td>
+        <td><%= f.number_field :points %></td>
+        <td><%= link_to_remove_fields "x", f %></td>
+    </tr>
+</table>
+

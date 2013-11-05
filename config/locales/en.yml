@@ -1,0 +1,18 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Email address is mandatory. Please enter a valid email address."
+              taken: "This account is already in use. Please use another email id."
+              invalid: "Incorrect Email ID. Please enter a valid email id."
+            password:
+              blank: "is a mandatory field. Please enter Password."
+              confirmation: "and Reconfirm Password are mandatory fields. They should match each other."
+            password_confirmation:
+              blank: "and Reconfirm Password are mandatory fields. They should match each other."

@@ -1,0 +1,14 @@
+<% @question.cdn_files.each do |file| %>
+
+<div style="margin: 5px;">
+    <!-- < % = builder.object.inspect %> -->
+    <%= image_tag(file.cf_filename_url(:thumb)) %>
+    <div>
+        <%= file.question_file.title %>
+        <!-- < % = builder.check_box :_destroy, :method => :delete %> < %= file.label :X %> -->
+        <%= link_to :Remove,"#",:path => "questions/remove_files/#{file.id}" , :class => "remove_file"%>
+    </div>
+  
+</div>
+
+<% end %></br> 

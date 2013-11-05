@@ -1,0 +1,17 @@
+<tr class="fieldset_child">
+    <td><%= link_to "","#",:class => "remove_fields button_remove_table" %></td>
+    <td align="center" class="trait_name">
+        <% if f.object.trait.present? %>
+           <label><%= f.object.trait.name  %></label>  
+        <% else %>
+            <%= f.label :trait_name, 'trait_name' %>
+        <% end %>
+    </td>
+    <td style="width:30%">
+        <%= f.range_field :weight, :in => 0..100, :step => 1, :class => 'trait_class' %>
+    </td>
+    <td><label class="space_5 trait_value"><%=  f.object.weight.present? ? f.object.weight : 50 %> </label>%</td>
+    <td><input type="button" class="button_help"  data-placement="top" title="<%= f.object.trait.description if f.object.trait.present? %>" ></td>
+    <%= f.hidden_field :_destroy %>
+    <%= f.hidden_field :trait_id , :class => 'trait_id' %>
+</tr>

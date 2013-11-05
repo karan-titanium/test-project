@@ -1,0 +1,16 @@
+<div  class='fields'>
+    <table>
+        <tr>
+            <td> <%= f.file_field :cf_filename %></td>
+        	<%= f.fields_for :question_file_attributes do |q| %>
+            	<td> Set Title</td>
+            	<td> <%= q.text_field :title %></td>
+            	<td><%= q.hidden_field :question_id, :value => @question.id %></td>
+            	<td><%= q.hidden_field :order, :value => "1" %></td>
+            <% end %> 
+            
+            <td> <%= link_to_remove_fields "remove", f %> </td>
+        </tr>
+    </table>
+
+</div>

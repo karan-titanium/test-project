@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class UserProfilesController - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/user_profiles_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-dashboard">#dashboard</a>
+    
+    <li><a href="#method-i-employment_details">#employment_details</a>
+    
+    <li><a href="#method-i-online_test">#online_test</a>
+    
+    <li><a href="#method-i-personal_details">#personal_details</a>
+    
+    <li><a href="#method-i-qualifications">#qualifications</a>
+    
+    <li><a href="#method-i-redirect_user">#redirect_user</a>
+    
+    <li><a href="#method-i-set_user">#set_user</a>
+    
+    <li><a href="#method-i-skills">#skills</a>
+    
+    <li><a href="#method-i-summary">#summary</a>
+    
+    <li><a href="#method-i-update_employment_details">#update_employment_details</a>
+    
+    <li><a href="#method-i-update_online_test">#update_online_test</a>
+    
+    <li><a href="#method-i-update_personal_details">#update_personal_details</a>
+    
+    <li><a href="#method-i-update_profile_summary">#update_profile_summary</a>
+    
+    <li><a href="#method-i-update_quali">#update_quali</a>
+    
+    <li><a href="#method-i-update_qualifications">#update_qualifications</a>
+    
+    <li><a href="#method-i-update_skills">#update_skills</a>
+    
+    <li><a href="#method-i-update_upload_cv">#update_upload_cv</a>
+    
+    <li><a href="#method-i-update_work_eligibility">#update_work_eligibility</a>
+    
+    <li><a href="#method-i-upload_cv">#upload_cv</a>
+    
+    <li><a href="#method-i-work_eligibility">#work_eligibility</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Campaign.html">Campaign</a>
+  
+    <li><a href="./CampaignExam.html">CampaignExam</a>
+  
+    <li><a href="./CampaignLink.html">CampaignLink</a>
+  
+    <li><a href="./CampaignLinkClick.html">CampaignLinkClick</a>
+  
+    <li><a href="./CampaignTrait.html">CampaignTrait</a>
+  
+    <li><a href="./CdnFile.html">CdnFile</a>
+  
+    <li><a href="./CompaniesController.html">CompaniesController</a>
+  
+    <li><a href="./CompaniesHelper.html">CompaniesHelper</a>
+  
+    <li><a href="./Company.html">Company</a>
+  
+    <li><a href="./ConfirmationsController.html">ConfirmationsController</a>
+  
+    <li><a href="./ConfirmationsHelper.html">ConfirmationsHelper</a>
+  
+    <li><a href="./ContactAttachment.html">ContactAttachment</a>
+  
+    <li><a href="./ContactLog.html">ContactLog</a>
+  
+    <li><a href="./Exam.html">Exam</a>
+  
+    <li><a href="./ExamTest.html">ExamTest</a>
+  
+    <li><a href="./ExamsController.html">ExamsController</a>
+  
+    <li><a href="./ExamsHelper.html">ExamsHelper</a>
+  
+    <li><a href="./Interview.html">Interview</a>
+  
+    <li><a href="./Itskill.html">Itskill</a>
+  
+    <li><a href="./Language.html">Language</a>
+  
+    <li><a href="./LogSystem.html">LogSystem</a>
+  
+    <li><a href="./Note.html">Note</a>
+  
+    <li><a href="./Permission.html">Permission</a>
+  
+    <li><a href="./QualificationGrade.html">QualificationGrade</a>
+  
+    <li><a href="./QualificationLocation.html">QualificationLocation</a>
+  
+    <li><a href="./QualificationSubject.html">QualificationSubject</a>
+  
+    <li><a href="./QualificationType.html">QualificationType</a>
+  
+    <li><a href="./Question.html">Question</a>
+  
+    <li><a href="./QuestionCategory.html">QuestionCategory</a>
+  
+    <li><a href="./QuestionFile.html">QuestionFile</a>
+  
+    <li><a href="./QuestionOption.html">QuestionOption</a>
+  
+    <li><a href="./QuestionPart.html">QuestionPart</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./RegistrationsHelper.html">RegistrationsHelper</a>
+  
+    <li><a href="./Role.html">Role</a>
+  
+    <li><a href="./RolePermission.html">RolePermission</a>
+  
+    <li><a href="./RoleUser.html">RoleUser</a>
+  
+    <li><a href="./Service.html">Service</a>
+  
+    <li><a href="./ServicesController.html">ServicesController</a>
+  
+    <li><a href="./ServicesHelper.html">ServicesHelper</a>
+  
+    <li><a href="./SessionsController.html">SessionsController</a>
+  
+    <li><a href="./SessionsHelper.html">SessionsHelper</a>
+  
+    <li><a href="./SettingCategory.html">SettingCategory</a>
+  
+    <li><a href="./StaffsController.html">StaffsController</a>
+  
+    <li><a href="./StaffsHelper.html">StaffsHelper</a>
+  
+    <li><a href="./StaticPagesController.html">StaticPagesController</a>
+  
+    <li><a href="./StaticPagesHelper.html">StaticPagesHelper</a>
+  
+    <li><a href="./SystemSetting.html">SystemSetting</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./TestQuestion.html">TestQuestion</a>
+  
+    <li><a href="./Trait.html">Trait</a>
+  
+    <li><a href="./TranscriptRequest.html">TranscriptRequest</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserAnswer.html">UserAnswer</a>
+  
+    <li><a href="./UserCampaign.html">UserCampaign</a>
+  
+    <li><a href="./UserCompany.html">UserCompany</a>
+  
+    <li><a href="./UserExam.html">UserExam</a>
+  
+    <li><a href="./UserFile.html">UserFile</a>
+  
+    <li><a href="./UserItskill.html">UserItskill</a>
+  
+    <li><a href="./UserLanguage.html">UserLanguage</a>
+  
+    <li><a href="./UserMailer.html">UserMailer</a>
+  
+    <li><a href="./UserOtherskill.html">UserOtherskill</a>
+  
+    <li><a href="./UserProfile.html">UserProfile</a>
+  
+    <li><a href="./UserProfilesController.html">UserProfilesController</a>
+  
+    <li><a href="./UserProfilesHelper.html">UserProfilesHelper</a>
+  
+    <li><a href="./UserQualification.html">UserQualification</a>
+  
+    <li><a href="./UserTrait.html">UserTrait</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class UserProfilesController</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-dashboard" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dashboard</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dashboard-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dashboard</span>
+  <span class="ruby-comment"># This method checks whether user profile is complete or not.</span>
+  <span class="ruby-comment"># if completed it sets session[:is_profile_complete] to true else false.</span>
+  <span class="ruby-comment"># if session[:is_profile_complete] is true we will display profile summary section in view. </span>
+  <span class="ruby-comment"># else please complete profile section will be displayed   </span>
+   
+  <span class="ruby-identifier">session</span>[<span class="ruby-value">:is_profile_complete</span>] = <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dashboard-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dashboard-method -->
+
+    
+      <div id="method-i-employment_details" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">employment_details</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="employment_details-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">employment_details</span>
+   <span class="ruby-comment"># it takes as input parameters containing from fields related to personal details of the user,</span>
+  <span class="ruby-comment"># updates those fields in user and user_profiles table using nested models concept </span>
+  <span class="ruby-comment"># and renders employment details partial if updated successfully else renders back personal details partial</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'employment_details'</span>   
+  <span class="ruby-keyword">else</span>
+   <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'personal_details'</span>   
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- employment_details-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- employment_details-method -->
+
+    
+      <div id="method-i-online_test" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">online_test</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="online_test-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">online_test</span>
+  <span class="ruby-comment"># it takes as input parameters containing from fields related to upload cv of the user,</span>
+  <span class="ruby-comment"># updates those fields in cdn files, user_files table using nested models concept </span>
+  <span class="ruby-comment"># and renders online partial if updated successfully else renders back employment details partial</span>
+  
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'online_test'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- online_test-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- online_test-method -->
+
+    
+      <div id="method-i-personal_details" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">personal_details</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="personal_details-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">personal_details</span>
+  <span class="ruby-comment"># it takes as input parameters containing from fields related to work eligibility,</span>
+  <span class="ruby-comment"># updates those fields in user_profiles table using nested models concept </span>
+  <span class="ruby-comment"># and renders personal_details partial if updated successfully else renders back work_eligibility partial</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'personal_details'</span>   
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'work_eligibility'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- personal_details-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- personal_details-method -->
+
+    
+      <div id="method-i-qualifications" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">qualifications</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="qualifications-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">qualifications</span>
+  <span class="ruby-ivar">@user_qualifications</span> = <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">user_qualifications</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@user_qualification</span> = <span class="ruby-constant">UserQualification</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@qualification_type</span> = <span class="ruby-constant">QualificationType</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'qualifications'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- qualifications-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- qualifications-method -->
+
+    
+      <div id="method-i-redirect_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">redirect_user</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>layout “candidate” , only: [:dashboard, :profile_summary] layout
+“application”, only: [:dashboard]</p>
+          
+
+          
+          <div class="method-source-code" id="redirect_user-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">redirect_user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">user_type</span> <span class="ruby-operator">==</span> <span class="ruby-constant">USER_TYPE_CONTACT</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">user_companies</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_dashboard_path</span> 
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">user_companies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">user_company</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_company</span>.<span class="ruby-identifier">clientcontact?</span>
+          <span class="ruby-identifier">render</span>(<span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;logged in as client--------- client controller not added&quot;</span>) <span class="ruby-keyword">and</span> <span class="ruby-keyword">return</span> <span class="ruby-comment">#TODO : replace with client dashboard action</span>
+          <span class="ruby-keyword">break</span>                  
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">user_dashboard_path</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">user_type</span> <span class="ruby-operator">==</span> <span class="ruby-constant">USER_TYPE_STAFF</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">staff_dashboard_path</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:text</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;user_type not set for user&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- redirect_user-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- redirect_user-method -->
+
+    
+      <div id="method-i-set_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_user</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_user-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 228</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_user</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>
+      <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">current_user</span>
+      <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">user_profile</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">build_user_profile</span> 
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-ivar">@path</span> = {<span class="ruby-value">:summary</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_profiles_summary_path</span>, 
+              <span class="ruby-value">:work_eligibility</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_profiles_work_eligibility_path</span>,
+              <span class="ruby-value">:personal_details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_profiles_personal_details_path</span>,
+              <span class="ruby-value">:employment_details</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_profiles_employment_details_path</span>,
+              <span class="ruby-value">:upload_cv</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_profiles_upload_cv_path</span>,
+              <span class="ruby-value">:online_test</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_profiles_online_test_path</span>,
+              <span class="ruby-value">:qualifications</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_profiles_qualifications_path</span>,
+              <span class="ruby-value">:skills</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_profiles_skills_path</span>
+      }
+    
+    <span class="ruby-comment"># @path = [ user_profiles_summary_path, 0</span>
+              <span class="ruby-comment"># user_profiles_work_eligibility_path,1</span>
+              <span class="ruby-comment"># user_profiles_personal_details_path,2</span>
+              <span class="ruby-comment"># user_profiles_employment_details_path,3</span>
+              <span class="ruby-comment"># user_profiles_upload_cv_path,4</span>
+              <span class="ruby-comment"># user_profiles_online_test_path,5</span>
+              <span class="ruby-comment"># user_profiles_qualifications_path,6</span>
+              <span class="ruby-comment"># user_profiles_skills_path] 7</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_user-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_user-method -->
+
+    
+      <div id="method-i-skills" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">skills</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="skills-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">skills</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'skills'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- skills-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- skills-method -->
+
+    
+      <div id="method-i-summary" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">summary</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>def profile_summary</p>
+
+<p>render :partial =&gt;‘profile_summary’ end</p>
+          
+
+          
+          <div class="method-source-code" id="summary-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">summary</span>
+  <span class="ruby-comment"># it renders profile summary partial on view through ajax response</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'summary'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- summary-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- summary-method -->
+
+    
+      <div id="method-i-update_employment_details" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_employment_details</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_employment_details-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_employment_details</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Next&quot;</span> 
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:upload_cv</span>]
+    <span class="ruby-keyword">else</span> <span class="ruby-comment">#back</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:personal_details</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:employment_details</span>]
+  <span class="ruby-keyword">end</span>    
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_employment_details-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_employment_details-method -->
+
+    
+      <div id="method-i-update_online_test" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_online_test</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_online_test-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 189</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_online_test</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Next&quot;</span> 
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:qualifications</span>]
+    <span class="ruby-keyword">else</span> <span class="ruby-comment">#back</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:upload_cv</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:online_test</span>]
+  <span class="ruby-keyword">end</span> 
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_online_test-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_online_test-method -->
+
+    
+      <div id="method-i-update_personal_details" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_personal_details</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_personal_details-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 146</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_personal_details</span>
+  <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:userId</span>])
+  <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">user_profile</span>.<span class="ruby-identifier">passport</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:selectedValue</span>]
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:data</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">save</span> 
+    <span class="ruby-comment"># redirect_to @path[2+1]</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'/user_profiles/employment_details'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># if User.find(params[:userId]).update_attributes()</span>
+    <span class="ruby-comment"># if params[:commit] == &quot;Next&quot; </span>
+      <span class="ruby-comment"># redirect_to @path[2+1]</span>
+    <span class="ruby-comment"># else #back</span>
+      <span class="ruby-comment"># redirect_to @path[2-1]</span>
+    <span class="ruby-comment"># end</span>
+  <span class="ruby-comment"># else</span>
+    <span class="ruby-comment"># render @path[2]</span>
+  <span class="ruby-comment"># end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_personal_details-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_personal_details-method -->
+
+    
+      <div id="method-i-update_profile_summary" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_profile_summary</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>UPDATE ACTIONS
+############################################################################################3</p>
+          
+
+          
+          <div class="method-source-code" id="update_profile_summary-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_profile_summary</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Next&quot;</span> 
+      <span class="ruby-comment"># redirect_to @path[:work_eligibility]</span>
+    <span class="ruby-keyword">else</span> <span class="ruby-comment">#back</span>
+      <span class="ruby-comment"># redirect_to @path[:upload_cv]</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:profile_summary</span>]
+  <span class="ruby-keyword">end</span> 
+  
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_profile_summary-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_profile_summary-method -->
+
+    
+      <div id="method-i-update_quali" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_quali</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_quali-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 138</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_quali</span>
+  <span class="ruby-comment"># binding.pry    </span>
+    <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">user_qualifications</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">UserQualification</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:year</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:year</span>])
+    <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">nothing</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-comment"># binding.pry </span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_quali-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_quali-method -->
+
+    
+      <div id="method-i-update_qualifications" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_qualifications</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_qualifications-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 201</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_qualifications</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Next&quot;</span> 
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:skills</span>]
+    <span class="ruby-keyword">else</span> <span class="ruby-comment">#back</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:online_test</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:qualifications</span>]
+  <span class="ruby-keyword">end</span> 
+  
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_qualifications-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_qualifications-method -->
+
+    
+      <div id="method-i-update_skills" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_skills</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_skills-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_skills</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Finish&quot;</span> 
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:summary</span>]
+    <span class="ruby-keyword">else</span> <span class="ruby-comment">#back</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:qualifications</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:skills</span>]
+  <span class="ruby-keyword">end</span> 
+  
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_skills-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_skills-method -->
+
+    
+      <div id="method-i-update_upload_cv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_upload_cv</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_upload_cv-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 177</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_upload_cv</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Next&quot;</span> 
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:online_test</span>]
+    <span class="ruby-keyword">else</span> <span class="ruby-comment">#back</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:employment_details</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:upload_cv</span>]
+  <span class="ruby-keyword">end</span>  
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_upload_cv-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_upload_cv-method -->
+
+    
+      <div id="method-i-update_work_eligibility" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_work_eligibility</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_work_eligibility-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_work_eligibility</span>
+  <span class="ruby-identifier">binding</span>.<span class="ruby-identifier">pry</span> 
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;Next&quot;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:personal_details</span>]
+    <span class="ruby-keyword">else</span> <span class="ruby-comment">#back</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:profile_summary</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span> <span class="ruby-comment">#if not updated</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-ivar">@path</span>[<span class="ruby-value">:work_eligibility</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_work_eligibility-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_work_eligibility-method -->
+
+    
+      <div id="method-i-upload_cv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">upload_cv</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="upload_cv-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 79</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">upload_cv</span>
+  <span class="ruby-comment"># it takes as input parameters containing from fields related to upload employment details of the user,</span>
+  <span class="ruby-comment"># updates those fields in user_companies and companies table using nested models concept </span>
+  <span class="ruby-comment"># and renders upload cv  partial if updated successfully else renders employment details partial</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:user</span>])
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'upload_cv'</span>   
+  <span class="ruby-keyword">else</span>
+   <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'employment_details'</span>   
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- upload_cv-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- upload_cv-method -->
+
+    
+      <div id="method-i-work_eligibility" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">work_eligibility</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="work_eligibility-source">
+            <pre><span class="ruby-comment"># File app/controllers/user_profiles_controller.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">work_eligibility</span>
+  <span class="ruby-comment"># it renders work eligibility partial on view through ajax response</span>
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'work_eligibility'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- work_eligibility-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- work_eligibility-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

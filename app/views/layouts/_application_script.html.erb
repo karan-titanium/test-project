@@ -1,0 +1,140 @@
+<script type="text/javascript">
+
+    $(document).on("click", function(){
+        /*********************************************************************************************************************************
+            Convenience for forms or links that return HTML from a remote ajax call.
+            The returned markup will be inserted into the element id specified.
+        **********************************************************************************************************************************/
+        $('[data-remote][data-replace]').on('ajax:success', function(event, data) {
+            var target = $(this).data('replace');
+            $('#' + target).html(data);
+        });
+            
+            
+        $('form[data-validate]').validate();            // Client side validation
+        
+            
+        $('form').areYouSure();     // to show alert to user when user click on any link without saving his/her details
+                            
+        
+        displayTooltip();  // Function call to display tooltip
+    });
+
+
+    $(document).on("click",".ajax_call", function(){
+            dataReplace = $(this).attr('data_replace');
+            path = $(this).attr('path');
+            varConfirmed = true;
+            if($('form').hasClass('dirty')) {
+                if (confirm('You have unsaved changes!', "asdasd", "asdsd","asd")) {
+                    varConfirmed = true;        
+                }else{
+                    varConfirmed = false;
+                }
+            }
+            if(varConfirmed){
+                $.ajax({
+                    async : true,
+                    type : 'GET',
+                    url : path,
+                    complete: function(jqXHR, textStatus) {
+                        switch (jqXHR.status) {
+                            case 200:
+                                $('#' + dataReplace).html(jqXHR.responseText);
+                                break;
+                            // case 404:
+                                // alert("404 received!");
+                                // break;
+                            case 401:
+                                location.reload();
+                                $("#warning_timeout").click();
+                                break;
+                            default:
+                                $('#' + dataReplace).html('<h1 style="color:red">Unable to load this page. <br /> '+jqXHR.status+' '+ textStatus +'</h1>');
+                        }
+                    }
+                    
+                });    
+            }
+            return false;       
+    });
+
+
+    // Script for file upload extension and Size validation
+    function validateFiles(inputFile) {
+      var maxExceededMessage = "<%= Settings.e_userprofile_Cvsize %>";
+      var extErrorMessage = "<%= Settings.e_userprofile_Cvformat %>";
+      var allowedExtension = $(inputFile).attr('supported_formate').split(" ");
+      var fileType = $(inputFile).attr('file_type');
+     
+      var extName;
+      var maxFileSize = $(inputFile).data('max-file-size');
+      var sizeExceeded = false;
+      var extError = false;
+      var fileName; 
+      
+      $.each(inputFile.files, function() {
+        if (this.size && maxFileSize && this.size > parseInt(maxFileSize)) {sizeExceeded=true;};
+        fileName = this.name ;
+        extName = this.name.split('.').pop();
+        if ($.inArray(extName, allowedExtension) == -1) {extError=true;};
+      });
+      
+      if (extError) {
+        if(fileType == "image"){$('#file_errors').text("Only JPG JPEG PDF TIFF GIF BMP PNG file format supported. Please upload photo in one of these formats.");}else{$('#file_errors').text(extErrorMessage);}
+      }
+      if (sizeExceeded) {
+        if(fileType == "image"){$('#file_errors').text("Photo cannot be more than 10MB. Please upload a photo within the size limit.");}else{$('#file_errors').text(maxExceededMessage);}
+      }
+      if(extError || sizeExceeded ){
+        $(inputFile).val('');
+        $('#file_errors').addClass('message');
+        $('#uploaded_file_name').text(''); 
+      }else{
+        $('#file_errors').text('');
+        $('#file_errors').removeClass('message');
+        $('#uploaded_file_name').text(fileName);
+        if(fileType == "cv"){ $('.selected_cv_div').css('display', 'block'); }
+      }
+      
+    }
+    
+
+    function validatePassword (current) {
+        pwd = $(current).parents("#user_details_div").find("#password").val();
+        rePwd = $(current).parents("#user_details_div").find("#confirm_password").val(); 
+        
+        if(pwd != rePwd) {
+            alert("Password & Retype Password should match");
+            return false;
+        }
+        else
+            return true;
+    }
+    
+    
+    function displayTooltip () {
+        $('textarea').tooltip({ /*or use any other selector, class, ID*/
+            trigger: "hover"
+        });
+        
+        $('input[type=text]').tooltip({ /*or use any other selector, class, ID*/
+            trigger: "hover"
+        });
+    
+        $('input[type=email]').tooltip({ /*or use any other selector, class, ID*/
+            trigger: "hover"
+        });
+    
+        $('input[type=password]').tooltip({ /*or use any other selector, class, ID*/
+            trigger: "hover"
+        });
+        
+        $("span").tooltip({ /*this is for span selector don't remove this*/
+            trigger: "hover"
+        });
+       
+    }
+    
+
+</script>

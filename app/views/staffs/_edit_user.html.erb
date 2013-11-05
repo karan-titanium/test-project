@@ -1,0 +1,20 @@
+<%= form_for(staff_user, :validate => true, :url => {:controller => "staffs", :action => "edit_user", :u_id => staff_user.id}, :remote => true, :html => { :'data-replace' => 'manage_users_tab' } ) do |f| %>
+  <div id="user_details_div">
+	  <%= f.label :first_name, 'First Name' %>:
+	  <%= f.text_field :first_name, :class => "only_50_alphabets" %><br />
+	  
+	  <%= f.label :last_name, 'Last Name' %>:
+	  <%= f.text_field :last_name, :class => "only_50_alphabets" %><br />
+	  
+	  <%= f.label :email, 'Email Address' %>:
+	  <%= f.email_field :email %><br />
+	  
+	  <%= f.label :password, 'Password' %>:
+	  <%= f.password_field :password, :id => "password", :value => "" %><br />
+	  
+	  <%= f.label :password_confirmation, 'Retype Password' %>:
+	  <%= f.password_field :password_confirmation, :id => "confirm_password" %><br />
+	  
+	  <%= f.submit "Save", :class => "close_popup", :onclick => "return validatePassword(this);" %>
+  </div>
+<% end %>

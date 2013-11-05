@@ -1,0 +1,49 @@
+
+<!-- <script>
+    $(document).ready(function(){
+        if ("<%= devise_error_messages!.present? ? "true" : "false" %>" == "true"){
+        $("#warning1").click();
+        }
+      });
+</script> -->
+<!-- Header -->
+<%= render :partial => "layouts/header" , :locals => {:title => "Signup Confirmation"} %>
+<!-- End Header --> 
+
+<!--Start Signup Confirmation-->
+<div id="login" class="page">
+  <div class="container">
+    <div class="row bg_white">
+      <div class="span10" style="margin:0 auto; float:none;">
+        <div class="title-page">
+          <h2 class="title">Thank You</h2>
+          <h3 class="title-description"></h3>
+        </div>
+        <P><%= Settings.c_CandidateConfirmation %></P>
+        <div class="span2" style="margin:0 auto; float:none;"> 
+            <a href="<%= new_user_registration_path %>" class="btn_back_signup" title="Go Previus page">Back</a> </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Signup Confirmation--> 
+
+<div style="display: none">
+<a href="#warningbox1" id="warning1" data-toggle="modal" title="Link to Settings page" class="button_primery_big" data-placement="top" id="">Warning Box</a>
+</div>
+
+<div id="warningbox1" class="modal hide fade" data-width="960">
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error warningbox" style="margin-top:25px;"> 
+            <h4>Warning box</h4>
+            <div class="clearfix margin-15"></div>
+            <p id = "warning_msg">
+                <%=  resource.errors.full_messages.first %> 
+            </p> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>

@@ -1,0 +1,41 @@
+<h2> Selected Tests </h2>
+<table border="1px" width="80%">
+    <thead style="background-color: #CCCCCC;">
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <td>Edit</td>
+        </tr>
+    </thead>
+    <tbody >
+        <% @selected_tests.each do |test| %>
+        <tr class="<%= cycle("odd", "even") -%>">
+            <td> <%= test.name %> </td>
+            <td> <%= test.description %> </td>
+            <td><%= link_to :remove,"#" ,:path =>"exams/remove_test/#{test.id}", :class => "remove_test", :'data-exam_id' => @exam.id  %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<br /><br /><br /><br /><br /><br /><br />
+
+
+<h2> Available tests </h2>
+<table border="1px" width="80%">
+    <thead style="background-color: #CCCCCC;">
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <td>Edit</td>
+        </tr>
+    </thead>
+    <tbody >
+        <% @available_tests.each do |test| %>
+        <tr class="<%= cycle("odd", "even") -%>">
+            <td> <%= test.name %> </td>
+            <td> <%= test.description %> </td>
+            <td><%= link_to :Add,"#" ,:path => "exams/add_test/#{test.id}", :class => "add_test", :'data-exam_id' => @exam.id  %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

@@ -1,0 +1,345 @@
+<div class="row bg_white well">
+          <h2>Candidate Profile</h2>
+          <div class="tt">
+            <div class="tr">
+              <div class="td td_col_20">
+                 <% if (photo_id =  @candidate.user_profile.photo).present? %>
+                    <% cdn_file = CdnFile.find(photo_id) %>
+                    <% if cdn_file.file_type == 'image_url' %>
+                        <%= image_tag(cdn_file.ext, :class => "img-circle", :style => "width: 150px; height: 150px;") %>
+                    <% else %>
+                        <%= image_tag(cdn_file.cf_filename_url(:thumb), :class => "img-circle", :style => "width: 150px; height: 150px;") %>
+                    <% end %>   
+                <% else %>
+                    <%= image_tag("MainImage.jpg", :class => "img-circle", :style => "width: 150px; height: 150px;") %>
+                <% end %>
+              </div>
+              <!-- end Left col -->
+              <div class="td td_col_60">
+                  <div class="ttin">
+                    <div class="tr">
+                      <div class="td_col_40 txt_highlight">Candidate Name :</div>
+                      <div class="td_col_60"><%= @candidate.full_name %></div>
+                    </div>
+                    <div class="tr">
+                      <div class="td_col_40 txt_highlight">Candidate Reference :</div>
+                      <div class="td_col_60">***</div>
+                    </div>
+                    <div class="tr">
+                      <div class="td_col_40 txt_highlight">Eligibility to work in the UK :</div>
+                      <div class="td_col_60">
+                          <% if @candidate.user_profile.eligableuk == 'yes' %>
+                          <%= image_tag 'icon/icon-checked.png'  %>
+                          <% else %>
+                          <%= image_tag 'icon/icon_cross_green.png'  %>
+                          <% end %>
+                      </div>
+                    </div>
+                    <div class="tr">
+                      <div class="td_col_40 txt_highlight">Employment Status :</div>
+                      <div class="td_col_60">Currently Employed or Not Employed</div>
+                    </div>
+                    <div class="tr">
+                      <div class="td_col_40 txt_highlight">Test Index :</div>
+                      <div class="td_col_60">***</div>
+                    </div>
+                  <!-- end Center Inner table --> 
+                </div>
+              </div>
+              <!-- end Center col -->
+              <div class="td td_col_20" style=" vertical-align:top;">
+                <div class="ttin">
+                  <div class="tr">
+                    <div class="td td_col_100">
+                      <button data-toggle="modal" class="button_primery_mini icn_print" href="" data-placement="top" title="" >Print</button>
+                    </div>
+                  </div>
+                  <div class="tr">
+                    <div class="td td_col_100">
+                      <button data-toggle="modal" class="button_primery_mini icn_pdf" href="" data-placement="top" title="">PDF</button>
+                      </r3>
+                    </div>
+                  </div>
+                  <div class="tr">
+                    <div class="td td_col_100">
+                      <button data-toggle="modal" class="button_primery_mini icn_mail" href="" data-placement="top" title="">Email</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- end Right Inner table --> 
+              </div>
+              <!-- end Right col --> 
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="row bg_white well">
+            <h2>Traits</h2>
+            <table cellpadding="0" cellspacing="0" border="0" class="table" >
+              <tbody>
+                <% @candidate.user_traits.select { |ut| ut.trait.status == TRAIT_STATUS_PUBLIC }.each do |ut| %>
+                    <tr>
+                      <td><%= ut.trait.name %></td>
+                      <td style="width:30%"><div class="progress">
+                            <div class="bar" style="width: <%= ut.score %>%;"></div>
+                        </div></td>
+                        <td><label class="space_5"><%= ut.score %>%</label></td>
+                      <td><input type="button" data-toggle="modal" class="button_help" data-placement="top" title="<%= ut.trait.description %>"></td>
+                    </tr>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th style="border-bottom:none;">&nbsp;</th>
+                  <th style="border-bottom:none;">&nbsp;</th>
+                  <th style="border-bottom:none;">&nbsp;</th>
+                  <th style="border-bottom:none;">&nbsp;</th>
+                </tr>
+              </tfoot>
+            </table>
+        
+        </div>
+        
+        <div class="row bg_white well">
+            <h2>Interview</h2>
+            <div class="clearfix"></div>
+            <% @interviews.each do |interview| %>
+            <div class="span4">
+                <div class="row"><span class="txt_highlight">
+                    <% if interview.interview_type == INTERVIEW_TYPE_PHONE %>
+                        <%= "Phone Interview"  %>
+                    <% elsif  interview.interview_type == INTERVIEW_TYPE_FACETOFACE %>
+                        <%= "Face to face Interview" %>
+                    <% else %>
+                        <%= "Interview" %>
+                    <% end %></span>
+                </div>
+                <div class="row"><label><span class="txt_highlight">Date : <%= interview.date.to_date %>  </span></label></div>
+                <div class="row"><label><span class="txt_highlight">Interviewer : <%= interview.user_interviewer.full_name %></span></label></div>
+                <div class="row"><label><span class="txt_highlight">  </span></label></div>
+            </div>
+            <div class="span3">
+            <a href="#notes<%= interview.id %>" data-toggle="modal" data-placement="top" class="button_primery_modal margin-10 icn_view">View Notes</a>
+            <% if interview.audiofile.present? %>
+<!--                 < %= link_to '', interview.cf_filename_url, :target => "_blank", :class => 'button_download' %> -->
+            <a href="#downloadaudio" class="button_primery_modal margin-10 icn_dnld" data-toggle="modal" data-placement="top">Download Audio file</a>
+                <% if interview.transcript.present? %>
+                <a href="#dnldtranscript" class="button_primery_modal icn_dnld" data-toggle="modal" data-placement="top">Download Transcript</a>
+                <% elsif interview.transcript_request.present? %>
+                <a class="button_primery_modal margin-10 icn_info" data-placement="top" disabled="disabled">Transcript Requested</a>                
+                <% else %>
+                <a href="#requesttranscript" class="button_primery_modal margin-10 icn_info" data-toggle="modal" data-placement="top">Request Transcript</a>
+                <% end %>
+            <% end %>
+            </div>
+            
+            <div class="clearfix" style="margin: 15px"></div>
+            
+            <!-- Start model body FOR Notes -->
+            <div id="notes<%= interview.id %>" class="modal hide fade" data-width="760">
+                <div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        			<h3>Notes</h3>
+        		</div>
+        		<div class="modal-body">
+        			<textarea name="" cols="" rows="" placeholder="notes" class="position_center" style="height:200px; width:80%;"><%= interview.notes %></textarea>
+        			<div class="clearfix margin-15"></div>
+        		</div>
+    		<!-- end model body -->
+    		</div>
+            
+            <% end %>
+        </div>
+
+        <div class="row bg_white well">
+          <div class="row">
+            <h2>Exams</h2>
+            <div style="height:190px; overflow-y:scroll;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Exam</th>
+                    <th>Description</th>
+                    <th>Result</th>
+                    <th>Index</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+</div>
+
+
+
+<script>
+    $('form[data-validate]').validate();
+    $('.dp1').datepicker().on('changeDate', function(){
+          $(this).datepicker('hide');
+     }); 
+</script>
+<script>
+var mySelect = $('#trait_id');
+
+$('form').on('click', '.add_fields', function(event) {
+    
+  var total_sliders = $('.trait_class').length
+  if($("#trait_id").val()==''){
+      $('#no_trait_error').html("Please select Trait")
+  }else{
+      
+  var regexp, time;
+  time = new Date().getTime();
+  regexp = new RegExp($(this).data('id'), 'g');
+  // regexp2 = new RegExp($(this).data('trait_id'), 'g');
+  $('#no_trait_error').html('')
+  $(this).before($(this).data('fields').replace(regexp, time));
+  $("#campaign_campaign_traits_attributes_" + time +"_trait_id").val($("#trait_id").val());
+  var lable_text = $("option:selected", $("#trait_id")).text()
+  $('label[for="campaign_campaign_traits_attributes_' + time + '_trait_name"]').html(lable_text);
+  // This line removes trait from drop down
+  $('#trait_id option:selected').remove();
+  }
+  return event.preventDefault();
+});
+
+$('form').on('click', '.remove_fields', function(event) {
+
+  $(this).prev('input[type=hidden]').val(true);
+  // alert($(this).closest('fieldset').children().first('div').html())
+  // This line adds removed trait to drop down
+  $("#trait_id").append('<option value="'+$(this).closest('fieldset').children('.trait_id').val()+'">'+$(this).closest('fieldset').children().first().html()+'</option>');
+  
+  // sliderHandler($(this));
+  $(this).closest('fieldset').hide();
+  return event.preventDefault();
+});
+
+$(document).on("change", ".trait_class", function(){
+    sliderHandler($(this));
+});
+
+function sliderHandler(current){
+    changeID = current.attr("id");
+    newVal = current.val();
+    noCount = $(".trait_class:visible").length;
+    totalWeight = noCount* 50
+    
+    var weight = 0;
+    $('#all_traits_div').children( ".fieldset_child").each(function(){
+         weight =  parseInt($(this).find(".trait_class").val()) + weight ;
+    });
+    // $("#temp").append(weight + "<br />");
+    diff = (totalWeight - weight)
+    
+    changeVal = diff / ( noCount - 1 );
+    if ( (noCount - 1) != 0 ){
+        $('#all_traits_div').children( ".fieldset_child").each(function(){
+                 newVal = parseInt( $(this).find(".trait_class").val())  + changeVal
+                 newVal = (newVal).toFixed(2);
+                 if( newVal < 0 ){
+                    newVal = 0;    
+                 }
+                   $(this).find(".trait_class").not("#" + changeID).val(newVal);
+                   $(this).find(".trait_value").html(newVal);
+         });
+       }else{
+           $(".trait_value").html(newVal);
+       }
+}
+</script>
+
+<!-- Modal Definitions (testdescription) -->
+<div id="description" class="modal hide fade" data-width="760">
+          <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Description</h3>
+  </div>
+          <div class="modal-body">
+                <p>Discription</p>
+            <div class="clearfix margin-15"></div>
+         </div> <!-- end model body --> 
+        </div>
+<!-- end model of description -->
+
+<!-- Modal Definitions (downloadaudio) -->
+<div id="downloadaudio" class="modal hide fade" data-width="760">
+          <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Click on download to save the audiofile.</h3>
+  </div>
+          <div class="modal-body">
+                <button class="button_primery anchor_to_button position_center">Download</button>
+            <div class="clearfix margin-15"></div>
+         </div> <!-- end model body --> 
+        </div>
+<!-- end model of downloadaudio -->
+
+
+<!-- Modal Definitions (requesttranscript) -->
+<div id="dnldtranscript" class="modal hide fade" data-width="760">
+          <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Download Transcript</h3>
+  </div>
+          <div class="modal-body">
+                <button class="button_primery anchor_to_button position_center">Download</button>
+            <div class="clearfix margin-15"></div>
+         </div> <!-- end model body --> 
+        </div>
+<!-- end model of requesttranscript -->
+
+<!-- Modal Definitions (information box) -->
+<div id="requesttranscript" class="modal hide fade" data-width="960">
+
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error informationbox" style="margin-top:25px;"> 
+            <h4>Request Transcript</h4>
+            <div class="clearfix margin-15"></div>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+            </p> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of information box -->
+
+

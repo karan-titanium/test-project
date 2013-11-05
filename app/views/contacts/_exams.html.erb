@@ -1,0 +1,63 @@
+<div class="row bg_white well">
+	<table class="table">
+		<thead>
+			<th>Date</th>
+			<th>Exam</th>
+			<th>Result (in %)</th>
+			<th>Average (in %)</th>
+			<th>Index</th>
+			<th class="center">Retake</th>
+			<th class="center">View</th>
+		</thead>
+		<% user_exams.each do | user_exam | %>
+		<tr>
+			<td><%= user_exam.date_end.to_date if user_exam.date_end %></td>
+			<td><%= link_to user_exam.exam.name, '' %></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><%= link_to '', :url => { :action => '' }, :remote => true, :class => "button_edit_table" %></td>
+			<td>
+			    <% path = '/contacts/edit_user_exam/' + user_exam.id.to_s + '/' + current_user.id.to_s %>
+			    <a href="#answer" data-toggle="modal" data-placement="top" class="button_view_table ajax_call" path=<%= path %> data_replace='user_exam_view' ></a>
+			</td>
+		</tr>
+		<% end if user_exams.present? %>
+	</table>
+</div>
+
+
+
+<!-- 
+<table>
+    <tr>
+        <th>Date </th> <th>Name </th><th>Result</th><th>Average</th><th>index</th><th>Retake</th><th>View</th>
+    </tr>
+    < % user_exams.each do | user_exam | %>
+    <tr>
+        <td>< %= user_exam.date_end.to_date if user_exam.date_end %></td>
+        <td>< %= user_exam.exam.name %></td>
+        <td>< %= 'TODO' %></td>
+        <td>< %= 'TODO' %></td>
+        <td>< %= 'TODO' %></td>
+        <td>< %= link_to 'retake', :url => { :action => '' }, :remote => true %></td>
+        <td>
+            < %= link_to 'view', '', :'path' => '/contacts/edit_user_exam/' + user_exam.id.to_s + '/' + current_user.id.to_s, :'data-replace' => 'user_exam_view', :class => 'ajax_call' %>
+        </td>
+    </tr>
+    < % end if user_exams.present? %>
+</table> -->
+
+
+<!-- Modal Definitions (answer) -->
+<div id="answer" class="modal hide fade" data-width="760">
+	<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Answer</h3>
+	</div>
+	<div class="modal-body" id='user_exam_view'><p>Answer</p>
+		<div class="clearfix margin-15"></div>
+	</div>
+	<!-- end model body -->
+</div>
+<!-- end model of answer -->
+    

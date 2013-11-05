@@ -1,0 +1,38 @@
+<div class="row bg_white well" id="contact_campaigns_list">
+	<button data-toggle="modal" class="button_primery_big pull-right" href="#link_to_campaign" data-placement="top" title="" >
+		Link to Campagins
+	</button>
+	<div class="clearfix margin-20"></div>
+	<div style="height:216px; overflow-y:scroll;">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Created</th>
+					<th>Activated</th>
+					<th>Name</th>
+					<th>Status</th>
+					<th>Candidates Applied</th>
+					<th>Candidates Forwarded</th>
+					<th>View</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<% contact_campaigns.each do |user_campaign| %>
+				<% campaign = user_campaign.campaign %>
+				<tr>
+					<td><%= campaign.created_at.strftime("%d/%m/%Y") %></td>
+					<td><%= campaign.date_activated.strftime("%d/%m/%Y")  if campaign.date_activated.present? %></td>
+					<td><%= campaign.campaign_name %></td>
+					<td><%= campaign.status %></td>
+					<td><%= campaign.candidates_applied.count %></td>
+					<td><%= campaign.candidates_forwarded.count %></td>
+					<td><a class="button_view_table" href="#"></a></td>
+					<!-- <td><a class="button_view_table" href="< %= campaign_path(campaign.id) %>"></a></td> TODO: -->
+				</tr>
+				<% end if contact_campaigns.present? %>
+
+			</tbody>
+		</table>
+	</div>
+</div>

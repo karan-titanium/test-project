@@ -1,0 +1,91 @@
+<div class="span3" style="background:#1a74c2;">
+    <!--  Profile photo -->
+    <div class="profilepic" id="profile_photo_content">
+         <%= render :partial => "profile_photo", :locals => {:user => @user } %>
+    </div>
+    <h3 class="profilename"><%= @user.first_name.capitalize if @user.first_name.present? %></h3>
+    <hr/>
+    <!--  Profile photo End-->  
+    <!-- candidate left menu --> 
+        <%= render :partial => "layouts/left_menu_candidate", :locals => {:current_nav => 'upload_cv'} %>
+    <!-- end left menu --> 
+</div>
+  <!-- end Left side bar -->
+      
+      
+      
+      
+<div class="span8" id='right_side_menu_div'>
+	<div class="row bg_white well">
+		<h2>Upload your CV</h2>
+		<P><%= Settings.c_UploadCV  %></P>
+		<div class="selected_cv_div" style="display: none">
+			<h3>Selected CV : <span id="uploaded_file_name"></span></h3>
+		</div>
+	</div>
+	
+	 <div class="row position_center" style="text-align: center;">    
+            <%= form_for(CdnFile.new, :validate => true, :url => {:action => "online_test"}, :remote => true ) do |f| %>
+                <span id="uploaded_file_name"></span>
+               
+                	<div class="span3"></div>
+                	<div class="span3">
+                		<input type="button" value="Upload" class="button_primery pull-left upload_button_to_display button_upload " />
+                		<%= f.file_field :cf_filename, :onchange =>"validateFiles(this);", :data => {:max_file_size => 20.megabytes}, :'supported_formate' => FILE_CV_SUPPORTED_FORMATS, :id => "upload_logo", :'file_type' => FILE_TYPE_CV, :class => "original_upload_button" %>
+                	</div>
+                <br /><br />
+                <div class="field_with_errors"><label id="file_errors"></label></div>
+                <%= f.hidden_field :file_type, :"value" => FILE_TYPE_CV %>
+	       		<%= f.submit 'Submit', :id => 'upload_cv_button', :style => "display:none;" %>    
+            <% end %>
+    </div>
+	
+	<!-- <div>
+		<a class="button_primery position_center button_upload" >Upload</a>
+	</div>
+	
+	<div class="field_with_errors">
+		<label class="< %= (@cdn_file.present? && @cdn_file.errors.present?) ? 'message' : '' %>" id="file_errors">
+			< %= @cdn_file.errors.messages[:cf_filename].first if( @cdn_file.present? && @cdn_file.errors.present? )  %>
+		</label>
+	</div>
+		
+	<div style="display: none">
+	 < %= form_for(CdnFile.new, :validate => true, :url => {:action => "online_test"}, :remote => true ) do |f| %>
+	       < %= f.file_field :cf_filename, :id => 'browse_cv_button', :onchange =>"validateFiles(this);", :data => {:max_file_size => 20.megabytes}, :'supported_formate' => 'doc docx pdf rtf', :'file_type' => FILE_TYPE_CV %>
+	       < %= f.hidden_field :file_type, :"value" => FILE_TYPE_CV %>
+	       < %= f.submit 'Submit', :id => 'upload_cv_button' %>
+	 < % end %>
+	</div> -->  
+
+	<div class="row bg_white well">
+		<h2>Current CV's</h2>
+		<div class="row">
+			<div class="span1">
+				<!-- <img class="media-object" src="assets/images/icon/icon_pdf.png"> -->
+				<%= image_tag("icon/icon_pdf.png") %>
+			</div>
+			<% if (user_files = @user.user_files.where(:user_file_type => FILE_TYPE_CV)).present? %>
+			<% cdn_file = user_files.last.cdn_file %>
+			<div class="span5">
+				<h3><%= cdn_file.cf_filename.to_s.split('/').last if cdn_file.cf_filename.present? %></h3>
+				<p>
+					Uploaded  <%= cdn_file.created_at.to_date %>
+				</p>
+			</div>
+			<div class="span1">
+				<!-- < %= link_to "Click Here", dowload_cv_user_user_profiles_path(@user)  % > -->
+				<%= link_to '', cdn_file.cf_filename_url, :target => "_blank", :class => 'button_download' %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+
+	<div class=" span5 nav-userdashboard position_center">
+		<a class="button_primery button_back side_links" id="next_link" path=<%= @path[:employment_details] %> >Back</a>
+	    <a class="button_primery button_next" onclick="$('#upload_cv_button').click();">Next</a>
+	</div>
+	
+</div>
+
+<%= render :partial => "tooltip_in_dynamic_form" %>

@@ -1,0 +1,22 @@
+<div href="#" id="ppc" style="height:inherit; display:block;" data-toggle="popover" title="" data-content="" onclick="">
+	<% if (photo_id =  user.user_profile.photo).present? %>
+		<% cdn_file = CdnFile.find(photo_id) %>
+		<% if cdn_file.file_type == 'image_url' %>
+			<%= image_tag(cdn_file.ext, :class => "img-circle", :style => "width: 160px; height: 160px;") %>
+		<% else %>
+			<%= image_tag(cdn_file.cf_filename_url(:thumb), :class => "img-circle", :style => "width: 160px; height: 160px;") %>
+		<% end %>	
+	<% else %>
+	<%= image_tag("MainImage.jpg", :class => "img-circle", :style => "width: 160px; height: 160px;") %>
+	<% end %>
+</div>
+<script>
+var divRef = $('#ppc');
+
+divRef.popover({trigger: ''})
+        .one('click', function() {
+            divRef.popover('destroy')
+                .popover({ trigger: 'click'})
+                .popover('show');
+        });
+</script>

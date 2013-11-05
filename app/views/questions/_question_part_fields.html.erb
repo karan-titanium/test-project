@@ -1,0 +1,65 @@
+
+
+<div id="parent_div" class="fields" style="border: 1px solid #CCCCCC">
+    <h1> Question Part </h1>
+    <table width="60%">
+        <tr>
+            <td><%= link_to_remove_fields "x", f %></td>
+            <td align="right"> Question type </td>
+            <td> <%= f.select :question_part_type, QUESTION_PART_TYPE,{},{:class=>"question_part_select", :"data-question_id" => @question.id}  %> </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td> Question Part Text </td>
+            <td><%= f.text_area :content, :rows => '3', :cols => '70', :class => "txtarea" %></td>
+        </tr>
+        <tr>
+            <td colspan="2"> Answer Options: </td>
+        </tr>
+    </table>
+
+    <div id="multiple", style="display: none;">
+        Multiple
+        <!-- < %= @f %> -->
+        <div>
+            <table>
+                <tr>
+                    <td colspan="2"> 
+                    	<%= f.fields_for :question_options do |builder| %> 
+                    	 <!-- < % if builder.object.new_record? %> -->
+                    	 	<%= render "question_option_fields", :f => builder %> 
+                    	 <!-- < % end %> --> 
+                    	<% end %> </td>
+                </tr>
+            </table>
+            <%= link_to_add_fields "Add Answers", f, :question_options %>
+        </div>
+    </div>
+
+    <div id="select" style="display:none;">
+        Select
+        <table>
+            <tr>
+                <td colspan="2"> <%= f.fields_for :question_options do |builder| %> <!-- < % if builder.object.new_record? %> --> <%= render "question_option_fields", :f => builder %> <!-- < % end %> --> <% end %> </td>
+            </tr>
+        </table>
+        <%= link_to_add_fields "Add Answers", f, :question_options %>
+    </div>
+
+    <div id="text" style="display:none;">
+        Text
+        <table>
+            <tr>
+                <td colspan="2"> 
+                    	<%= f.fields_for :question_options do |builder| %> 
+                    	 <!-- < % if builder.object.new_record? %> -->
+                    	 	<%= render "question_option_fields", :f => builder %> 
+                    	 <!-- < % end %> --> 
+                    	<% end %> </td>
+            </tr>
+        </table>
+        <p class="add_answer"><%= link_to_add_fields "Add Answers", f, :question_options %></p>
+    </div>
+
+</div>

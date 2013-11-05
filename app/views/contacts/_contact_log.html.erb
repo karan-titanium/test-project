@@ -1,0 +1,157 @@
+Contact Log
+
+<div class="row bg_white well"> 
+    <div class="row margin-10" style="padding-top:5px; padding-right:5px; ">
+        <button data-toggle="modal" class="button_primery_big pull-right margin-5" href="#newcontactlog" data-placement="top" title="" >New Entry</button>
+        <div class="clearfix"></div>
+        <div class="span3">From
+          <div class="input-append date" id="dp1" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+            <input class="span2 add-on" size="16" type="text" value="12-02-2012" readonly>
+          </div>
+        </div>
+        <div class="span2">To
+          <div class="input-append date" id="dp2" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+            <input class="span2 add-on" size="16" type="text" value="12-02-2012" readonly>
+            
+          </div>
+        </div>
+    </div>
+    
+    
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="contactlog">
+        <thead>
+          <tr>
+            <th><a>Date</a></th>
+            <th><a>TFP Staff</a></th>
+            <th><a>Subject</a></th>
+            <th><a>Method</a></th>
+            <th><a>Campaign</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% contact_logs.each do |cl| %>
+              <tr>
+                <td><a data-toggle="modal" class="" href="#contactlogdetails_<%= cl.id %>" data-placement="top" title=""><%= cl.created_at.strftime("%d/%m/%Y") %></a></td>
+                <td><a data-toggle="modal" class="" href="#contactlogdetails_<%= cl.id %>" data-placement="top" title=""><%= User.find(cl.from).full_name  if cl.from.present? %></a></td>
+                <td><a data-toggle="modal" class="" href="#contactlogdetails_<%= cl.id %>" data-placement="top" title=""><%= cl.subject %></a></td>
+                <td><a data-toggle="modal" class="" href="#contactlogdetails_<%= cl.id %>" data-placement="top" title=""><%= cl.method %></a></td>
+                <td><a data-toggle="modal" class="" href="#contactlogdetails_<%= cl.id %>" data-placement="top" title=""><%= Campaign.find(cl.campaign_id).campaign_name   if cl.campaign_id.present? %></a></td>
+              </tr>
+          <% end if contact_logs.present? %>
+        </tbody>
+        <tfoot>
+          <tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#contactlog').dataTable( {
+            "aaSorting": [[ 4, "desc" ]],
+            "sPaginationType": "full_numbers",
+            "sScrollY": "200px",
+            "bPaginate": true,
+            "bScrollCollapse": true
+        } );
+    } );
+    
+    $('.dp1, .dp2').datepicker().on('changeDate', function(){
+        $(this).datepicker('hide');
+    });
+</script> 
+
+
+
+<!-- Modal Definitions (newcontactlog) -->
+    <div id="newcontactlog" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>New Contact Log</h3>
+      </div>
+      <div class="modal-body">
+        <%= render :partial => "new_contact_log_form", :locals => {:contact => contact, :from_page => COMPANY_CONTACT_LOG, :campaigns => campaigns} %>
+        <div class="clearfix margin-20"></div>
+      </div>
+      <!-- end model body --> 
+    </div>
+<!-- end model of newcontactlog -->
+
+
+<% contact_logs.each do |cl| %>
+    <!-- Modal Definitions (contactlogdetails) -->
+        <div id="contactlogdetails_<%= cl.id %>" class="modal modal-big hide fade" data-width="760">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Contact Log Details</h3>
+          </div>
+          <div class="modal-body">
+            <!-- <div class="row">
+              <div class="span2">Contact Id :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <input name="skillstype" type="text" value="contact Id">
+                </a> </div>
+            </div> -->
+            <div class="row">
+              <div class="span2">Date :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <%= text_field_tag :created_at, cl.created_at.strftime("%d/%m/%Y"), :readonly => true %>
+                </a> </div>
+            </div>
+            <div class="row">
+              <div class="span2">From :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <%= text_field_tag :from, User.find(cl.from).full_name, :readonly => true %>
+                </a> </div>
+            </div>
+            <div class="row">
+              <div class="span2">To :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <%= text_field_tag :created_at, User.find(cl.to).full_name, :readonly => true %>
+                </a> </div>
+            </div>
+            <div class="row">
+              <div class="span2">Campiagn :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <%= text_field_tag :created_at, cl.campaign.present? ? Campaign.find(cl.campaign).campaign_name : "" , :readonly => true %>
+                </a> </div>
+            </div>
+            <div class="row">
+              <div class="span2">Method :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <%= text_field_tag :method, cl.method, :readonly => true %>
+                <!-- < %= select_tag :method, options_for_select(CONTACT_LOG_METHOD_LIST, :selected => cl.method), :prompt => "Select Method", :disabled => true %> -->
+                </a> </div>
+            </div>
+            <div class="row">
+              <div class="span2">Date of Contact :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <%= text_field_tag :created_at, cl.datecontact.strftime("%d/%m/%Y"), :readonly => true %>
+                </a> </div>
+            </div>
+            <div class="row">
+              <div class="span2">Subject :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <%= text_area_tag :created_at, cl.subject, :readonly => true %>
+                </a> </div>
+            </div>
+            <div class="row">
+              <div class="span2">Details :</div>
+              <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+                <%= text_area_tag :created_at, cl.details, :rows => 4, :readonly => true %>
+                </a></div>
+            </div>
+            <div class="clearfix margin-20"></div>
+          </div>
+          <!-- end model body --> 
+        </div>
+    <!-- end model of contact log details -->
+<% end if contact_logs.present? %>

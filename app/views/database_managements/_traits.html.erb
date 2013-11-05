@@ -1,0 +1,250 @@
+
+<script>
+
+	// jQuery - To delete trait
+function remove_trait_func(current){	
+		traitID = $(current).attr('id');
+		$.ajax({
+			async : true,
+			type : 'GET',
+			url : "/database_managements/remove_trait/" + traitID,
+			success : function(data) {
+				$('#database_management_div').html(data);
+				
+				traitFlagValue = $("#traitsflag").text();
+				if( traitFlagValue.match(/true/g) ){
+					$("#warningbox").modal('show');
+				}
+			},
+			error : function(data) {
+				//alert("errors");
+			}
+		});
+		return false;
+}
+
+	// jQuery - To add data table
+$(document).ready(function() {
+	$('.display').dataTable( {
+	//"aaSorting": [[ 4, "desc" ]]
+	"sPaginationType": "full_numbers",
+	"sScrollY": "300px",
+	"bPaginate": true,
+	"bScrollCollapse": true,
+	"fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+	});
+});
+</script>
+
+
+<label id="traitsflag" style="display: none"> <%= traits_flag %> </label>
+
+<div class="row bg_white well">
+<!-- To display the list of all(non-deleted) Traits-->
+	<h2>Traits</h2>
+	
+	<!-- button named as 'Add New' to add new trait-->
+	<button data-toggle="modal" class="button_primery_big pull-right" href="#newtrait" data-placement="top" title="">
+		Add New Trait
+	</button>
+	
+	<div class="clearfix margin-20"></div>	
+    <!-- start Traits table -->
+		<table cellpadding="0" cellspacing="0" border="0" class="display" id="trait-type">
+			<thead>
+				<tr>
+					<th><a>Trait</a></th>
+					<th><a>Public</a></th>
+					<th><a>Internal</a></th>
+					<th><a>Link to Questions</a></th>	
+					<th><a>Description</a></th>
+					<th><a>Manage</a></th>		
+				</tr>
+			</thead>
+		
+			<tbody>
+				<% @traits.each do |trait| %>
+				<% if trait.status != TRAIT_STATUS_DELETED %>
+					<tr>
+						<td><%= trait.name%></td>
+						
+						<td><% if trait.status == TRAIT_STATUS_PUBLIC %>
+						<%= image_tag("icon/icon-checked.png", :class => "img-circle", :style => "width: 18px; height: 13px;") %>
+						<% end %></td>
+						
+						<td><% if trait.status == TRAIT_STATUS_INTERNAL %>
+						<%= image_tag("icon/icon-checked.png", :class => "img-circle", :style => "width: 18px; height: 13px;") %>
+						<% end %></td> 
+						
+						<td><%if QuestionCategory.where(:status => QUESTION_CATEGORY_STATUS_ACTIVE).collect(&:trait_id).include?(trait.id)%>
+							<% QuestionCategory.where(:trait_id => trait.id).each do |n|%>
+							<%= n.name %><br />
+							<% end %>
+							<% end %>
+						</td>
+						<!-- <td> < %= QuestionCategory.where(:trait_id => trait.id).each { |n| n.name } if QuestionCategory.where(:status => QUESTION_CATEGORY_STATUS_ACTIVE).collect(&:trait_id).include?(trait.id) %></td> -->
+						<!-- <td> < %= QuestionCategory.find(:all,:conditions => ["trait_id = ? ", trait.id]).first.name if QuestionCategory.where(:status => QUESTION_CATEGORY_STATUS_ACTIVE).collect(&:trait_id).include?(trait.id) %> </td>  -->
+						<!-- <td>< %= QuestionCategory.select("name").where(:trait_id => trait.id) if QuestionCategory.where(:status => QUESTION_CATEGORY_STATUS_ACTIVE).collect(&:trait_id).include?(trait.id)%></td>  -->
+
+						<td><%= trait.description%></td>
+						
+						<td><%= link_to("", "",:'data_replace' => "edit_traits_form",:'path' => "/database_managements/edit_trait_type/" + trait.id.to_s, :class => "ajax_call button_view_table disply_inline", :'data-toggle' => "modal", :'data-placement' => "top" , :'href' => "#edittrait") %>							
+							&nbsp; <%= link_to "", "", :id => trait.id, :class => "button_remove_table disply_inline", :onclick => "return remove_trait_func(this)" %>
+						</td>
+					</tr>
+				<% end %>
+				<% end %>
+			</tbody>
+		</table>
+</div>
+
+
+
+
+
+    <!--  For future reference -->
+
+
+<!-- <div class="row well">
+    <button data-toggle="modal" class="button_primery_big pull-right" href="#newtrait" data-placement="top" title="">
+        Add New Trait
+    </button>
+    <div class="row clearfix" style="min-height: 100px; max-height: 500px; overflow-y: auto">
+    < % @traits.each do | trait | %>      
+          <div class="row bg_white">
+            <div class="row">
+                
+                <div class="span4">
+                    <h3>< %= trait.name %></h3>
+                </div>
+                <div class="span3">
+                    < %= link_to("", "",:'data_replace' => "edit_traits_form",:'path' => "/database_managements/edit_trait_type/" + trait.id.to_s, :class => "ajax_call button_view_table disply_inline pull-right", :'data-toggle' => "modal", :'data-placement' => "top" , :'href' => "#edittrait") %>   &nbsp;                         
+                    < %= link_to "", "", :id => trait.id, :class => "button_remove_table disply_inline pull-right", :onclick => "return remove_trait_func(this)" %>
+                </div>    
+            </div>
+            <div class="row">
+                <div class="span2">Type :</div>
+                 <div class="span5">< %= trait.status %></div>    
+            </div>
+            <div class="row">
+                <div class="span2">Question link :</div>
+                 <div class="span5">< %= trait.question_categories.where(:status => QUESTION_CATEGORY_STATUS_ACTIVE).pluck(:name).join(', ') %></div>    
+            </div>
+            
+            <div class="row">
+                <div class="span2">Description :</div>
+                <div class="span5">
+                    <textarea>< %= trait.description %></textarea>
+                </div>    
+            </div>
+        </div>
+    < % end %>    
+    </div>
+</div> -->
+
+
+
+
+    <!-- End   -->
+
+
+
+
+
+
+	<!-- Modal Definitions to add new Qualification Type-->
+<div id="newtrait" class="modal modal-qualification hide fade" data-width="760">
+	<%= form_for(Trait.new ,:validate => true, :url => {:action =>'create_trait', :controller => "database_managements"}, :class => 'ays-ignore', :remote => true, :html => {:'data-replace' => "database_management_div"}) do |trait_form| %>
+	 																																																			
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>New Traits</h3>
+	</div>
+	
+	<div class="modal-body">
+		    <div class="row">
+		        <div class="span2 txt_highlight">Name :</div>
+				<div class="span4"> 
+			    <%= trait_form.text_field :name, :class => "trait_class", :placeholder => Settings.h_traitname, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title => "t_traitname" %> 
+			    </div>
+	    	</div>
+		    
+	        <div class="row">
+			    <div class="span2 txt_highlight">Status :</div>
+			    <div class="span4"> 
+			   <span data-toggle="tooltip" data-placement="left" title="t_traitstatus"><%= trait_form.select :status, options_for_select(TRAIT_STATUS_LIST.invert), :include_blank => Settings.h_traitstatus %></span> 
+			  	</div>
+	    	</div>	
+	        
+	        <div class="row">
+			    <div class="span2 txt_highlight">Description :</div>
+			    <div class="span4"> 
+			    <%= trait_form.text_field :description, :class => "trait_class",:placeholder => Settings.h_traitdescription, :'data-toggle' => "tooltip", :'data-placement' => "left" , :title => "t_traitdescription" %> 
+			  	</div>
+	    	</div>	
+	    	
+	        <div class="clearfix margin-20"></div>	
+			<div class="row">
+				<div class="span3">
+				<%= trait_form.submit "Add & Finish", :class => "button_primery_modal" %>
+				<!-- <a href="#" id= "add_and_finished" class="button_primery_modal add_qualification">Add & Finished</a> -->
+				</div>
+				
+				<div class="span3">
+				<%= trait_form.submit "Add & Enter Another", :class => "button_primery_modal" %>
+				<!-- <a href="#" id= "add_and_enter_another" class="button_primery_modal add_qualification">Add & Enter Another</a> -->
+				</div>
+			</div>
+	</div>
+    <% end %>
+    
+</div>
+
+
+<!-- Modal Definitions (edit trait) -->
+<div id="edittrait" class="modal modal-qualification hide fade" data-width="760">
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Edit Traits</h3>
+  </div>
+  <div class="modal-body" id="edit_traits_form">
+    
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of manage trait -->
+
+
+<!--Script for tooltip-->
+<script>
+	$('input[type=text]').tooltip({ /*or use any other selector, class, ID*/
+	trigger: "hover"
+});
+// $('input[type=select]').tooltip({ /*or use any other selector, class, ID*/
+	// trigger: "hover"
+// });
+
+</script>
+
+
+<div id="warningbox" class="modal hide fade" data-width="960">
+
+  <div class="modal-body">
+    <div class="row">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="alert alert-error warningbox" style="margin-top:25px;"> 
+          	<h4>Warning box</h4>
+            <div class="clearfix margin-15"></div>
+            <p>
+            	<%= Settings.e_DeleteFailed%>
+            </p> 
+            </div>
+        </div>
+  </div>
+  <!-- end model body --> 
+</div>
+<!-- end model of warning box -->
+
+
+

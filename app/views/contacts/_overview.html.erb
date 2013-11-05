@@ -1,0 +1,221 @@
+
+
+<!-- Modal Definitions (updatedetails) -->
+    <div id="updatedetails" class="modal modal-big hide fade" >
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Contact Update Details</h3>
+        </div>
+        <div class="modal-body">
+        	<%= form_for(contact, :url => {:action => "update_contact", :contact_id => contact.id}, :validate => true, :remote => true, :html => {:'data-replace' => "contact_profile_section_div"}) do |f| %>
+				<%= render :partial => "fields_for_contact", :locals => { :f => f, :check_flag => "for_update" } %>
+				<div class="clearfix margin-20"></div>
+				<div class="row">
+					<div class="span6">
+						<%= f.submit "Save", :class => "button_primery_big position_center" %>
+					</div>
+				</div>        		
+        	<% end %>
+        </div>
+    </div>
+<!-- end model of updatedetails -->
+
+
+
+
+
+
+
+
+<!-- Modal Definitions (LinkCampaign) -->
+    <div id="link_to_campaign" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>New Campaign</h3>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+<!-- end model of newcampaign -->
+
+
+
+
+
+
+
+<!-- Modal Definitions (contactentry) -->
+    <div id="contactentry" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3>New Contact</h3></div>
+      <div class="modal-body">
+      	<%= form_for(User.new, :url => {:action => "create_contact"}, :validate => true) do |f| %>
+      		<%= render :partial => "fields_for_contact", :locals => { :f => f, :check_flag => "for_create" } %>
+				<div class="clearfix margin-20"></div>
+				<div class="row">
+					<div class="span6"><%= f.submit "Create Contact", :class => "button_primery_big position_center" %></div>
+				</div>
+      	<% end %>
+      </div>
+    </div>
+<!-- end model of contactentry -->
+
+
+
+
+
+
+<div class="row bg_white well">
+    <div class="tt">
+         <div class="tr">
+            <div class="td td_col_20">
+                <div class="company_logo_wraper">
+                    <div class="companyid"> CONTACT ID : <%= contact.id %> </div>
+                    <div class="company_logo">
+                      <!-- < % if company.logo_small.present? %> -->
+                        <!-- < %= image_tag company.logo_small.present? ? Cdn_file.find(company.logo_small).filename : nil, :alt => "Logo Company" %> -->
+                      <!-- < % end %>   -->
+                    </div>
+                </div>
+            </div><!-- end Left col -->
+            <div class="td td_col_60">
+                <div class="tr">
+                    <div class="td_col_100">
+                        <a href="#" data-toggle="tooltip" data-placement="right">
+                            <label><%= contact.first_name + ' ' + contact.last_name  %></label>
+                        </a>
+                    </div>
+                </div>
+                
+                <% user_profile = contact.user_profile %>
+                <div class="tr">
+                    <div class="ttin">
+                        <div class="tr">
+                            <div class="td_col_40">Email :</div>
+                            <div class="td_col_60"><%= contact.email %></div>
+                        </div>
+                         <div class="tr">
+                            <div class="td_col_40">Company Name:</div>
+                            <div class="td_col_60">user_profile.company_name  </div>
+                        </div>
+                        <div class="tr">
+                            <div class="td_col_40">Phone Number:</div>
+                            <div class="td_col_60"><%= user_profile.number_mob  if user_profile.present? %></div>
+                        </div>
+                        <div class="tr">
+                            <div class="td_col_40">Alternate Phone :</div>
+                            <div class="td_col_60"><%= user_profile.number_alt if user_profile.present? %></div>
+                        </div>
+                        <div class="tr">
+                            <div class="td_col_40">Contact Method :</div>
+                            <div class="td_col_60"><%= user_profile.contact_method if user_profile.present? %></div>
+                        </div>
+                        <div class="tr">
+                            <div class="td_col_40">Contact Time :</div>
+                            <div class="td_col_60"><%= user_profile.contact_time if user_profile.present? && user_profile.contact_time.present? %></div>
+                        </div>
+                    </div><!-- end Center Inner table -->
+                </div>
+            </div><!-- end Center col -->
+            <div class="td td_col_20" style=" vertical-align:top;">
+                <div class="ttin">
+                    <div class="tr"><div class="td td_col_100">
+                        <button data-toggle="modal" class="button_primery_mini" href="#updatedetails" data-placement="top" title="" >Update Details</button>
+                    </div></div>
+                    
+                    <div class="tr"><div class="td td_col_100">
+                         <%= form_for(contact, :url => {:controller => "contacts", :action => "update_status", :id => contact.id}, :validate => true, :html => {:class => "display_inline", :remote => true}) do |f| %>
+                             <%= f.select :status, options_for_select(USER_STATUS_LIST, contact.status), {}, :onchange => "$(this).closest('form').submit();", :class => "mini" %>
+                        <% end %>
+                    </div></div>
+                    
+                    <div class="tr"><div class="td td_col_100">
+                        <button data-toggle="modal" class="button_primery_mini" href="#newcampaign" data-placement="top" title="">New Campaign</button>
+                    </r3></div></div>
+                    <div class="tr"><div class="td td_col_100">
+                        <button data-toggle="modal" class="button_primery_mini" href="#contactentry" data-placement="top" title="">Contact Entry</button>
+                    </div></div>
+                </div><!-- end Right Inner table -->
+            </div><!-- end Right col -->
+        </div>
+    </div>
+</div>
+
+
+<div class="row bg_white well">
+  <h2>Campaign Summary</h2>
+  <div style="min-height:116px; max-height:216px;  overflow-y:scroll;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Campaign Name</th>
+            <th>Client</th>
+            <th>No. of Candidates applied</th>
+            <th>No. of Candidates Forwarded</th>
+          </tr>
+        </thead>
+        <tbody>
+            <!-- < % active_campaigns.each do |campaign| %>
+              <tr>
+                <td>< %= campaign.campaign_name %></td>
+                <td> 
+                <td>< %= campaign.candidates_applied.count %></td>
+                <td>< %= campaign.candidates_forwarded_or_rejected.count %></td>
+              </tr>
+            < % end  if active_campaigns.present? %> -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tfoot>
+      </table>
+  </div>
+</div>
+      
+      
+      
+<div class="row bg_white well">
+    <h2>Notes</h2>
+ 
+    <div style="min-height:116px; max-height:216px; overflow-y:scroll; ">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Done By</th>
+                <th>Date</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- < % company_notes.each do |note| %>
+                  <tr>
+                    <td>< %= note.user.full_name  if note.user.present? %></td>
+                    <td>< %= note.created_at.strftime("%d/%m/%Y") %></td>
+                    <td>< %= note.note %></td>
+                  </tr>
+              < % end  if company_notes.present? %> -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="clearfix margin-20"></div>
+    <div class="recordnotes">
+        <!-- < %= form_for(Note.new, :url => {:controller => "companies", :action => "create_note"}, :validate => true, :html => {:remote => true, :'data-replace' => 'company_profile_section_div'}) do |f| %>
+            <div class="span5">
+                < %= f.text_field :note, :class => "txtarea_max margin_top_7" %>
+                < %= f.hidden_field :table, :value => TABLE_COMPANIES %>
+                < %= f.hidden_field :table_col, :value => "id" %>
+                < %= f.hidden_field :table_id, :value => company.id %>
+                < %= f.hidden_field :user_id, :value => current_user.id %>
+            </div>
+            <div class="span2">
+                < %= f.submit "Record Note", :class => "button_recordnote anchor_to_button" %>
+            </div>
+        < % end %> -->
+      <div class="clearfix"></div>
+    </div>
+    
+</div>

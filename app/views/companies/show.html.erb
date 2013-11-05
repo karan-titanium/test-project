@@ -1,0 +1,19 @@
+<!-- start Company Profile page -->
+    <div class="row bg_white well">
+        <div class="row" style="font-size:18px;" >
+            <div class="span3">
+                <%= @company.name %>
+            </div>
+            <div class="span3">
+                <%= form_tag({:controller => "companies", :action => "render_company_profile_section", :company_id => @company.id}, {:remote => true, :'data-replace' => 'company_profile_section_div', :class => "display_inline"})  do %>
+                    <%= select_tag :profile_section, options_for_select(COMPANY_PROFILE_SECTIONS.invert), :onchange => "$(this).closest('form').submit();" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+        
+    <div id="company_profile_section_div">
+        <!-- Here contents are loaded dynamically -->
+        <%= render :partial => "overview", :locals => {:company => @company, :company_notes => @company_notes, :active_campaigns => @active_campaigns} %>
+    </div>
+<!-- End Company Profile page --> 

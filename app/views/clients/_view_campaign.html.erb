@@ -1,0 +1,138 @@
+<div class="row bg_white well">
+          <h2>View Campaign</h2>
+          <% campaign = @campaign %>
+          <div class="row">
+            <div class="span3 txt_highlight">Campaign Name :</div>
+            <div class="span4"><label><%= campaign.campaign_name.capitalize %></label></div>
+          </div>
+          
+          <div class="row">
+            <div class="span3 txt_highlight">Campaign Reference :</div>
+            <div class="span4"><label> <%= campaign.reference %> </label></div>
+          </div>
+          
+          <div class="row">
+            <div class="span3 txt_highlight">Date Created :</div>
+            <div class="span4"><label> <%= campaign.created_at.to_date %> </label></div>
+          </div>
+          
+          <div class="row">
+            <div class="span3 txt_highlight">Position Title :</div>
+            <div class="span4"><label> <%= campaign.title.capitalize %> </label></div>
+          </div>
+          
+          <div class="row">
+            <div class="span3 txt_highlight">Camapign Status :</div>
+            <div class="span4"><label> <%= campaign.status.capitalize %> </label></div>
+          </div>
+          
+          <div class="row">
+            <div class="span3 txt_highlight">Job Summary :</div>
+            <div class="span4">
+                <%= text_area_tag :summary, campaign.summary, :class => 'auto', :disabled => true %>
+            </div>
+          </div>
+          
+          <div class="row margin-20">
+            <div class="span3 txt_highlight">Job Details :</div>
+            <div class="span4">
+                <%= text_area_tag :details, campaign.details, :class => 'auto', :disabled => true %>                
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="span3 position_center"><a href="#viewtraits" class="button_primery_modal" data-toggle="modal" data-placement="top">View  Requested Traits</a></div>
+          </div>
+</div>
+
+<% @uc_hash.each do |uc_hash| %>
+<div class="row bg_white well">
+          <h2>
+            <label>
+              <%= "Candidates to Review" if uc_hash.first == :forwarded %>
+              <%= "Accepted Candidates" if uc_hash.first == :accepted %>
+              <%= "Rejected Candidates" if uc_hash.first == :rejected %>  
+             </label>
+          </h2>
+          <% uc_hash.last.each do |uc| candidate = uc.user %>
+          <% if candidate.user_profile.present? %>
+          <div class="row margin-20">
+            <div class="span1">
+                <% if (photo_id =  candidate.user_profile.photo).present? %>
+                    <% cdn_file = CdnFile.find(photo_id) %>
+                    <% if cdn_file.file_type == 'image_url' %>
+                        <%= image_tag(cdn_file.ext, :class => "img-circle", :style => "width: 75px; height: 75px;") %>
+                    <% else %>
+                        <%= image_tag(cdn_file.cf_filename_url(:thumb), :class => "img-circle", :style => "width: 75px; height: 75px;") %>
+                    <% end %>   
+                <% else %>
+                <%= image_tag("MainImage.jpg", :class => "img-circle", :style => "width: 75px; height: 75px;") %>
+                <% end %>                
+            </div>
+            <div class="span3">
+                
+                <div class="row">Candidate Name: <%= candidate.full_name %></div>
+                <div class="row">Test Index : </div>
+                
+            </div>
+            <div class="span3">
+                <div class="row">
+                 <span class="txt_highlight space_5">Applied On :</span><label><%= uc.date.to_date if uc.date.present? %></label>
+
+                </div>
+                <div class="row">
+                <span class="txt_highlight space_5">Matched On :</span><label><%= uc.date_forwarded.to_date if uc.date_forwarded.present? %></label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+                <div class="row">
+            <%= link_to "View Profile","",:class => 'button_primery position_center ajax_call',:data_replace => 'client_content', :path=> '/client/view_candidate/'+candidate.id.to_s+'/'+campaign.id.to_s %>
+                </div>
+          </div>
+          <% end %>
+          <% end %>
+</div>
+<% end %>
+<div id="viewtraits" class="modal modal-qualification hide fade" data-width="760">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Requested Traits</h3>
+  </div>
+  <div class="modal-body">
+    <div class="span5 position_center">
+      <div style="height:190px; overflow-y:scroll;">
+        <table cellpadding="0" cellspacing="0" border="0" class="table" >
+          <tbody>
+              <br />
+              <% @campaign_traits.each do |ct| %>
+            <tr>
+              <td><%= ct.trait.name %></td>
+              <td><div class="progress">
+                    <div class="bar" style="width: <%= ct.weight %>%;"></div>
+                </div>
+                </td>
+               <td><label class="space_5"><%= ct.weight %>%</label></td>
+              
+            </tr>
+            <% end %>
+
+          </tbody>
+          <tfoot>
+            
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- end model body --> 
+</div>     
+
+<script>
+    $(".button_primery").on("click", function() {
+    $("body").scrollTop(0);
+});
+</script>
+
+
+
+

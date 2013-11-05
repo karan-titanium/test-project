@@ -1,0 +1,45 @@
+<%= form_for ContactLog.new, :url => {:action => "create_contact_log"}, :validate => true, :html => {:remote => true, :'data-replace' => 'contact_profile_section_div'}, :class => 'ays-ignore' do |f| %>
+    <div class="row">
+      <div class="span2">To :</div>
+      <div class="span4">
+        <%= f.hidden_field :to, :value => contact.id %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Campiagn :</div>
+      <div class="span4"> 
+        <%= f.collection_select :campaign_id, campaigns, :id, :campaign_name, :prompt => "Select Campaign" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Method :</div>
+      <div class="span4"> 
+        <%= f.select :method, options_for_select(CONTACT_LOG_METHOD_LIST), :prompt => "Select Method" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Date of Contact :</div>
+       <div class="span4 input-append date dp1" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+		<%= f.text_field :datecontact, :style => "width:308px", :placeholder => Settings.h_candidate_empstdate, :class => "add-on" %> 
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Subject :</div>
+      <div class="span4"> 
+        <%= f.text_area :subject, :rows => 3, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_contactlog_subject %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Details :</div>
+      <div class="span4">
+        <%= f.text_area :details, :rows => 6, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_contactlog_details %>
+      </div>
+    </div>
+    
+    <%= f.hidden_field :from, :value => current_user.present? ? current_user.id : nil %>
+    <%= hidden_field_tag :from_page, from_page %>
+    <div class="clearfix margin-20"></div>
+    <div class="row">
+      <div class="span6"> <%= f.submit "Save", :class => "button_primery_big position_center" %><!-- <a href="#" class="button_primery_mini position_center">Save</a> --> </div>
+    </div>
+<% end %>

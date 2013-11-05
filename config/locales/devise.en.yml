@@ -1,0 +1,64 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+en:
+  tfp:
+   information:
+      user_details_mail: "Thank you for contacting us. Our support team will revert back soon."
+  devise:
+    confirmations:
+      confirmed: "Your account has been successfully confirmed. You are now logged in."
+      send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes"
+      send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
+    failure:
+      user_deleted: "Your account  has been deleted. Please contact TFP staff team."
+      already_authenticated: "You are already signed in."
+      invalid: "Invalid username or password. Please enter valid credentials."
+      invalid_token: "Your activation link has either expired or used in the past. Please request a new one."
+      locked: "Your account is locked."
+      inactive: "Your account is inactive. Please contact TFP staff team."
+      not_found_in_database: "You are not a registered User! Please click on Sign Up Link to register."
+      timeout: "Your session expired, please sign in again to continue."
+      unauthenticated: "You need to sign in or sign up before continuing."
+      unconfirmed: "This account is pending. Activation email already sent. Please activate your account."
+    mailer:
+      confirmation_instructions:
+        subject: "Please confirm your TFP account"
+      reset_password_instructions:
+        subject: "Reset password instructions"
+      unlock_instructions:
+        subject: "Unlock Instructions"
+    omniauth_callbacks:
+      failure: "We could not authenticate you from %{kind} because \"%{reason}\"."
+      success: "Successfully authenticated from %{kind} account."
+    passwords:
+      no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
+      send_instructions: "You will receive an email with instructions about how to reset your password in a few minutes."
+      send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
+      updated: "Your password has been changed successfully."
+      updated_not_active: "Your password has been changed successfully."
+    registrations:
+      destroyed: "Bye! Your account was successfully cancelled. We hope to see you again soon."
+      signed_up: "Welcome! You have signed up successfully."
+      signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
+      signed_up_but_locked: "You have signed up successfully. However, we could not sign you in because your account is locked."
+      signed_up_but_unconfirmed: "You will receive an email with instructions about how to confirm your account in a few minutes"
+      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
+      updated: "You updated your account successfully."
+    sessions:
+      signed_in: "Welcome! You have succesfully logged in."
+      signed_out: "You have logged out successfully."
+    unlocks:
+      send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."
+      send_paranoid_instructions: "If your account exists, you will receive an email with instructions about how to unlock it in a few minutes."
+      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+  errors:
+    messages:
+      already_confirmed: "Your account has been confirmed, please try logging in."
+      confirmation_period_expired: "Account should be confirmed within %{period}, please request a new one"
+      expired: "has expired, please request a new one"
+      not_found: "not found"
+      not_locked: "was not locked"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"
+  

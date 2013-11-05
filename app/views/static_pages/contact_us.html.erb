@@ -1,0 +1,205 @@
+<div id="contact">
+          <div class='contactinfo_div'>
+<!--               <%= image_tag("MainImage-home.jpg", :alt => "Main Welcome Screen") %> -->
+    <div class="row position_center">
+              <div class="span6 position_center">
+        
+                <div id="contactdetails">
+        	<div class="row_contactdetails">
+            	<div class="contact1"></div>
+            	<div class="contactinfo_1"><%= Settings.c_ContactTFP_No %>
+                </div>
+            </div>
+            
+            <div class="row_contactdetails">
+            	<div class="contact2"></div>
+            	<div class="contactinfo_1"><%= Settings.c_ContactTFP_Email %>
+                </div>
+            </div>
+            
+            <div class="row_contactdetails">
+            	<div class="contact3"></div>
+            	<div class="contactinfo_1"><%= Settings.c_ContactTFP_AddressLine1 %>
+                </div>
+            </div>
+            
+            <div class="row_contactdetails">
+            	<div class="contact4">
+               	    <a class="inline btn_mapdisplay" data-toggle="modal" style="color:#fff;" href="#responsive" data-placement="top" title="<%= Settings.t_contactus_locationmap %>">
+                	</a>
+          	    </div>
+            	<div class="contactinfo_1"><%= Settings.c_ContactTFP_AddressLine2 %>
+                </div>
+            </div>
+        </div>
+                
+                
+        
+    <!---start contact form -->
+    <div class="contactformwraper">
+    
+         <%= form_tag user_details_mailer_path do %>
+          <!--<a href="#" data-toggle="tooltip" data-placement="top" title="<%= Settings.t_contactus_name %>" >-->
+		  
+         <%= text_field("user", "name", :size => "20",:id => "user_name",:tabindex => 1, :placeholder => Settings.h_contactus_name, :autofocus => true, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => Settings.t_contactus_name) %><div id="name_div"> </div>
+		 
+		 <!--</a>-->
+          
+		  <!--<a href="#" data-toggle="tooltip" data-placement="top" title="<%= Settings.t_contactus_emailid %>" >-->
+         
+		 <%= email_field("user", "email", :size => "620", :id => "user_email", :tabindex => 2, :placeholder => Settings.h_candidate_emailaddress, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => Settings.t_contactus_emailid) %> <div id="email_div"> </div> 
+		 
+		<!-- </a>-->
+          
+		  <!--<a href="#" data-toggle="tooltip" data-placement="top" title="<%= Settings.t_contactus_phonenumber %>" >-->
+         
+		 <%= text_field("user", "phone", :size => "20", :id => "user_phone", :tabindex => 3, :placeholder => Settings.h_candidate_mobilenumber, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => Settings.t_contactus_phonenumber ) %> <div id="phone_div"> </div> 
+		 
+		<!-- </a>-->
+          
+		  <!--<a href="#" data-toggle="tooltip" data-placement="top" title="<%= Settings.t_contactus_message %>" >-->
+         
+		 <%= text_area("user", "message", :size => "20", :id => "user_message", :tabindex => 4, :placeholder => Settings.h_contactus_message, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => Settings.t_contactus_message) %> <div id="message_div"> </div>
+		 
+		<!-- </a>-->
+         
+         <%= submit_tag "Submit" , :onclick => "return validateform();",:tabindex => 5, :class => "button_primery position_center anchor_to_button" %>
+         <% end %>
+    </div>
+        
+    <!-- end contact form --> 
+      </div>
+            </div>
+    <div class="clearfix"></div>
+  </div>
+          <div class="container">
+    <div class="row bg_white" id="site-entry" >
+              <div class="span6 position_center">
+        <div class="span4 position_center"> </div>
+        <nav id="entry">
+                  <ul>
+            <li><%=link_to "<span>Candidate Signup</span>".html_safe, new_user_registration_path %></li>
+            <li><%=link_to "<span>Client Info</span>".html_safe, client_info_path %></li>
+            
+          </ul>
+                </nav>
+      </div>
+              <!--end span6--> 
+            </div>
+  </div>
+        </div>
+<!--End Contact--> 
+<div style="display: none">
+    <div id="error_user_name" >
+        <%= Settings.e_contact_us_error_user_name %><br />
+    </div>
+    <div id="error_email_phone">
+        <%= Settings.e_contact_us_error_email_phone %><br />
+    </div>
+    <div id="error_user_email">
+        <%= Settings.e_contact_us_error_user_email %><br />
+    </div>
+    <div id="error_user_phone">
+        <%= Settings.e_contact_us_error_user_phone  %><br />
+    </div>
+    <div id="error_user_message">
+        <%= Settings.e_contact_us_error_user_message %><br />
+    </div>
+</div>
+
+<!-- Modal Definitions (Google map) -->
+<div id="responsive" class="modal hide fade" tabindex="-1" data-width="760">
+          <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Location of our office</h3>
+  </div>
+          <div class="modal-body" style="height:450px;">
+    <iframe width="100%" height="100%" id="googleMap" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.in/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=123+E+Rd,+London,+UK&amp;aq=0&amp;oq=123+east+street+london+w3+5BQ&amp;sll=51.5306,-0.086882&amp;sspn=0.007489,0.021136&amp;ie=UTF8&amp;hq=&amp;hnear=123+St+Paul's+Rd,+London+N1+2LP,+United+Kingdom&amp;t=m&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
+  </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function(){
+        //Examples of how to assign the Colorbox event to elements
+        // $(".vimeo").colorbox({iframe:true, innerWidth:500, innerHeight:409});
+        // $(".iframe").colorbox({iframe:true, width:"845", height:"430"});
+        // $(".inline").colorbox({inline:true, width:"845", height:"430"});
+
+	});
+	function sizeFrame() {
+		var F = document.getElementById("googleMap");
+		if (F.contentDocument) {
+			F.height = F.contentDocument.documentElement.scrollHeight + 30;
+			//FF 3.0.11, Opera 9.63, and Chrome
+		} else {
+			F.height = F.contentWindow.document.body.scrollHeight + 30;
+			//IE6, IE7 and Chrome
+		}
+	}
+	window.onload = sizeFrame;
+//-->
+    $(document).ready()
+    function validateform() {
+        var email = document.getElementById('user_email').value;
+        var phone = document.getElementById('user_phone').value;
+        var name = document.getElementById('user_name').value;
+        var message = document.getElementById('user_message').value;
+        var phone_regex=new RegExp(/^(\+44)?\s?\(?0\)?[12358]\d\s?\d\)?\s?\d\)?(\s?\d){6}|^(\+44)?\s?\(?0\)?7[5789]\d\s?\d\)?\s?\d\)?(\s?\d){5}$/);
+        var atpos = email.indexOf("@");
+        var dotpos = email.lastIndexOf(".");
+        if (name == "") {
+            $("#warning").click();
+           $("#warning_msg").html($('#error_user_name').html());
+            return false;
+        } else if (email == "" && phone == "") {
+            $("#warning").click();
+            $("#warning_msg").html($('#error_email_phone').html());
+            return false;
+        } else if ( (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length) && email != "" ) {
+            $("#warning").click();
+            $("#warning_msg").html($('#error_user_email').html());
+            return false;
+        }else if (!phone_regex.test(phone) && phone != ""){
+            $("#warning").click();
+            $("#warning_msg").html($('#error_user_phone').html());
+            return false;
+        }else if (message == "") {
+            $("#warning").click();
+            $("#warning_msg").html($('#error_user_message').html());
+            return false;
+        }
+    }
+</script>
+<!-- end model of Google map -->
+
+<script>
+$(document).ready(function(){
+        $('input[type=text]').tooltip({ /*or use any other selector, class, ID*/
+            trigger: "hover"
+        });
+        $('input[type=email]').tooltip({ /*or use any other selector, class, ID*/
+            trigger: "hover"
+        });
+        $('input[type=password]').tooltip({ /*or use any other selector, class, ID*/
+            trigger: "hover"
+        });
+		$('textarea').tooltip({ /*or use any other selector, class, ID*/
+            trigger: "hover"
+        });
+		 $('input[type=button]').tooltip({ /*or use any other selector, class, ID*/
+            trigger: "hover"
+        });
+        $('a').tooltip({ /*or use any other selector, class, ID*/
+            placement:"top",
+            trigger: "hover"
+        });
+});        
+
+</script>
+
+
+<% if current_user.present? %>
+	<%= render :partial => "/user_profiles/change_password", :locals => {:user => current_user } %>
+<% end %>

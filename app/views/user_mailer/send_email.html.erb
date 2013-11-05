@@ -1,0 +1,13 @@
+<p> Dear Raj/Karan,</p>
+
+<% case @email_object[:template]; when "contact_us" %>
+
+<%= render :partial => 'contact_us' %>
+
+<% when "other" %>
+in other case
+
+<% else %>
+in else case
+
+<% end %>

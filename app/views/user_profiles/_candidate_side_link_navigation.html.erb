@@ -1,0 +1,27 @@
+
+<!-- start left menu -->
+	<a class="btnlm  btnlm-icon  btnlm-txt side_links" href="" path=<%= @path[:summary] %> >
+	    <i class="icon-profilesummery <%= (session[:is_profile_complete] ? 'icon-completedprofile' : '') %> <%= (current_nav.casecmp('summary') == 0 ) ? 'current' : '' %>"></i><span class="<%= (current_nav.casecmp('summary') == 0 ) ? 'current' : '' %>">Profile Summary</span>
+	</a>
+	<a class="btnlm  btnlm-icon  btnlm-txt side_links" href="" path=<%= @path[:work_eligibility] %>>
+		<i class="icon-workeligibility <%= (work_eligibility_completely_filled? @user) ? "icon-completedprofile" : "" %> <%= (current_nav.casecmp('work_eligibility') == 0 ) ? 'current' : '' %>"></i><span class="<%= (current_nav.casecmp('work_eligibility') == 0 ) ? 'current' : '' %>" >Work Eligibility</span>
+	</a> 
+	<a class="btnlm  btnlm-icon  btnlm-txt side_links" href="" path=<%= @path[:personal_details] %>>
+		<i class="icon-personaldetails <%= (personal_details_completely_filled? @user) ? "icon-completedprofile" : "" %> <%= (current_nav.casecmp('personal_details') == 0 ) ? 'current' : '' %>"></i><span class="<%= (current_nav.casecmp('personal_details') == 0 ) ? 'current' : '' %>" >Personal Details</span>
+	</a> 
+	<a class="btnlm  btnlm-icon  btnlm-txt side_links" href="" id="employment_details" path=<%= @path[:employment_details] %>>
+		<i class="icon-employmentdetails <%= (employment_details_completely_filled? @user) ? "icon-completedprofile" : "" %> <%= (current_nav.casecmp('employment_details') == 0 ) ? 'current' : '' %>"></i><span class="<%= (current_nav.casecmp('employment_details') == 0 ) ? 'current' : '' %>" >Employment Details</span>
+	</a> 
+	<a class="btnlm  btnlm-icon  btnlm-txt side_links" href="" path=<%= @path[:upload_cv] %>>
+		<i class="icon-uploadcv <%= (upload_cv_completely_filled? @user) ? "icon-completedprofile" : "" %> <%= (current_nav.casecmp('upload_cv') == 0 ) ? 'current' : '' %>"></i><span class="<%= (current_nav.casecmp('upload_cv') == 0 ) ? 'current' : '' %> ">Upload CV</span>
+	</a> 
+	<a class="btnlm  btnlm-icon  btnlm-txt side_links" href="" path=<%= @path[:online_test] %>>
+		<i class="icon-onlinetest <%= (online_test_completely_filled? @user) ? "icon-completedprofile" : "" %> <%= (current_nav.casecmp('online_test') == 0 ) ? 'current' : '' %>"></i><span class="<%= (current_nav.casecmp('online_test') == 0 ) ? 'current' : '' %> ">Online Test</span>
+	</a>
+	<a class="btnlm  btnlm-icon  btnlm-txt side_links" href="" id="qualification" path=<%= @path[:qualifications] %>>
+		<i class="icon-qualifications <%= (qualification_completely_filled? @user) ? "icon-completedprofile" : "" %> <%= (current_nav.casecmp('qualifications') == 0 ) ? 'current' : '' %>"></i><span class="<%= (current_nav.casecmp('qualifications') == 0 ) ? 'current' : '' %> ">Qualifications</span>
+	</a> 
+	<a class="btnlm  btnlm-icon  btnlm-txt side_links" href="" id="skills" path=<%= @path[:skills] %>>
+		<i class="icon-skills <%= (skills_completely_filled? @user) ? "icon-completedprofile" : "" %> <%= (current_nav.casecmp('skills') == 0 ) ? 'current' : '' %>"></i><span class="<%= (current_nav.casecmp('skills') == 0 ) ? 'current' : '' %> ">Skills</span>
+	</a> 
+<!-- end left menu -->

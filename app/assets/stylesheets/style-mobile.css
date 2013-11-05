@@ -1,0 +1,288 @@
+@media (max-width:380px) {
+	#clientinfo .welcomeoverlay {
+	margin-left:0px!important;
+	width:100%!important;
+	overflow-y:scroll!important;
+	height:184px!important;
+}
+}
+@media (min-width:101px) and (max-width:480px) {
+.body {
+	line-height:20px;
+}
+
+.row{
+	padding-left: 10px!important;
+    padding-right: 10px!important;
+	}
+
+.title-page {
+	line-height:35px;
+}
+
+.PageTitle{
+    font-size: 5vh;
+}
+
+table{
+	font-size:3vh;
+	line-height:normal!important;
+	}
+.container {
+	margin-top:0!important;
+}
+.profilestatus {
+	display:inline-block;
+	width:100%;
+	height:30px!important;
+	text-align:center;
+	color:#fff;
+	font-size:16px;
+	background-image : url(images/icon/indicator_application_status_Up.png)!important;
+	background-position:left center;
+	background-repeat:no-repeat;
+}
+
+.alert-danger, .alert-error {
+	background:#fff url(images/icon/icon_alert.png) center 5px no-repeat!important;
+	color:#999!important;
+	font-size:7vh;
+	text-align:center;
+	border:2px solid #57BEA3;
+	padding-left:10px!important;
+}
+.btn_signup1, .btn_login1 {
+	width:163px!important;
+	margin:5px auto!important;
+}
+.companybrand {
+	clear:both!important;
+}
+.User_Referance {
+	float:none!important;
+	margin:0 auto 20px auto!important;
+	display:block!important;
+	clear:both!important;
+	text-align:center;
+}
+.companyname {
+	display:block;
+	clear:both;
+	text-align:center;
+}
+.companylogo {
+	margin:0 auto!important;
+}
+.logo-fix {
+	width:100%!important;
+	display:block!important;
+	margin-left:-20px!important;
+	position:relative;
+}
+input[type="text"], input[type="password"], input[type="email"], textarea {
+	width:95%!important;
+}
+#login input[type="text"], input[type="password"] {
+	width: 95%!important;
+}
+.btn-register-wraper {
+	width:100%!important;
+}
+.btn_register {
+	width:100%!important;
+	height : 34px;
+	padding-top:5px;
+	padding-left:0!important;
+}
+.signin_google, .signin_linkedin {
+	width:75%!important;
+	font-size:18px!important;
+	height : 35px!important;
+	line-height:35px!important;
+	padding:5px 0 0 60px;
+}
+.signin_google {
+	background : #59bca7 url(images/icon/icon_signin_google_small.png) no-repeat!important;
+}
+.signin_google:hover {
+	background : #1A645D url(images/icon/icon_signin_google_small.png) no-repeat!important;
+}
+.signin_linkedin {
+	background : #59bca7 url(images/icon/icon_signin_linkedin_small.png) no-repeat!important;
+}
+.signin_linkedin:hover {
+	background : #1A645D url(images/icon/icon_signin_linkedin_small.png) no-repeat!important;
+}
+.contactinfo_div {
+	width:100%;
+	font-size : 16px;
+	line-height : 40px;
+}
+#site-entry #entry ul li {
+	margin-left:0px!important;
+}
+.btn_login, .btn_forgotten, .button_primery {
+	width:100%!important;
+	height : 34px;
+	padding-top:5px;
+	padding-left:0px!important;
+	margin-left:0!important;
+}
+.welcome_div {
+	height:250px!important;
+	
+}
+.welcome_div img {
+	width:100%!important;
+	min-width:322px!important;
+	height:inherit!important;
+}
+.welcomeoverlay .title {
+	font-size:20px!important;
+	line-height:20px!important;
+	margin:10px auto 5px auto!important;
+}
+.welcomeoverlay {
+	margin-left:0px!important;
+	width:100%!important;
+}
+#clientinfo .span9 {
+	width:100%!important;
+}
+.welcomeoverlay p {
+	font-size:1.3vh!important;
+	line-height:1.8vh!important;
+}
+#nav-clientinfo ul li a {
+	width:115px!important;
+	height:115px!important;
+}
+#nav-clientinfo ul li a span {
+	width:74%!important;
+	display:block;
+	 padding-top: 22px!important;
+	 line-height:25px!important;
+	font-size:14px!important;
+}
+#social-area #social ul li:first-child, #social-area #social ul li {
+	margin:0!important;
+}
+#social-area #social ul li a {
+	width:45px!important;
+	height:45px!important;
+}
+
+
+#entry-about ul {
+    min-width:300px;
+}
+
+#entry-about {
+	background:url(images/bg_line_aboutus_small.png) center no-repeat!important;
+}
+#entry-about ul li a {
+	width: 65px!important;
+	height: 65px!important;
+	border-radius:52px;
+	margin:0!important;
+}
+#entry-about ul >:first-child a span {
+	padding-top:18px!important;
+}
+#entry-about ul li a span {
+	width: 100%!important;
+	height: 100%!important;
+	font-size:11px!important;
+	display:table!important;
+	line-height:15px!important;
+	vertical-align:middle;
+	padding-top:25px!important;
+}
+.container {
+	min-width:300px;
+}
+.welcome_div {
+	min-width:300px!important;
+}
+#social-area #social ul li a span {
+    line-height: 40px!important;
+}
+
+.joiningborder {
+	margin-left:auto!important;
+	margin-right:auto!important;
+	margin-top:-30px!important;
+	width:81%!important;
+	min-width:200px!important;
+	height:50px!important;
+}
+#entry-home ul li:first-child {
+	margin: 0 0 0 -28px!important;
+}
+#entry-home ul li:last-child {
+	margin: 0 0 0 173px!important;
+}
+#entry-home ul li a {
+	width: 52px!important;
+	height: 52px!important;
+	border-radius:52px;
+	margin:0!important;
+}
+#entry-home ul >:first-child a span {
+	padding-top:16px!important;
+}
+#entry-home ul li a span {
+	width: 100%!important;
+	height: 100%!important;
+	font-size:2vh!important;
+	display:table!important;
+	line-height:15px!important;
+	vertical-align:middle;
+	padding-top:20px!important;
+}
+
+.alert,
+.alert h4 {
+	font-size:4vh;
+	
+}
+
+.alert h4 {
+  	margin: 0;
+	font-weight:bold;
+}
+
+#entry a {
+	width: 90px!important;
+	height: 90px!important;
+	border-radius:45px!important;
+	
+}
+
+#entry a span {
+	width: 90px!important;
+	height: 90px!important;
+	font-size: 14px!important;
+	line-height: 20px!important;
+}
+
+
+.companybrand h1, h2 {
+	display:block;
+	text-align:center;
+	width:100%!important;
+	margin:0!important;
+}
+
+.companybrand h1 {
+	color:#000!important;
+	font-size:3vh!important;
+}
+.companybrand h2 {
+	color:#808080!important;
+	font-size:2vh!important;
+}
+
+
+}
+

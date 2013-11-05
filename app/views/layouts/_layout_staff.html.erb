@@ -1,0 +1,23 @@
+<!-- Header -->
+<%= render :partial => "layouts/header_staff" %>
+<!-- End Header -->
+<!--Start Staff Interface Contents-->
+    <div id="Dashboard-staff" class="page">
+      <div class="container ">
+        <div class="span12 width_fix" style="margin:0 auto; float:none;">  <!-- TODO: -->
+          <div class="span3" style="background:#1a74c2;">
+            <!-- start left menu --> 
+                <%= render :partial => "layouts/left_menu_staff" %>
+            <!-- end left menu --> 
+          </div>
+          <!-- end Left side bar -->
+          
+          <div class="span8"> 
+            <%= yield %>
+          </div>
+        </div>
+        <!-- end right side content area -->
+        <div class="clearfix"></div>
+      </div>
+    </div>
+<!--End Staff Interface Contents--> 

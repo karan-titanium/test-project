@@ -1,0 +1,91 @@
+<div class="row bg_white well">
+	<h2>Company Details</h2>
+	<%= form_for(@company, :url => {:action => "company_details"}, :validate => true, :remote => true, :html => {:'data-replace' => "client_content"}) do |f| %>
+	<div class="row">
+		<div class="span2">
+			Company Name :
+		</div>
+		<div class="span4">
+			<a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here"> <%= f.text_field :name %> </a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span2">
+			Phone :
+		</div>
+		<div class="span4">
+			<a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here"> <%= f.text_field :phone %> </a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span2">
+			Website :
+		</div>
+		<div class="span4">
+			<a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here"> <%= f.text_field :website %> </a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span2">
+			Address :
+		</div>
+		<div class="span4">
+			<a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here"> <%= f.text_field :address_line1, :placeholder => "Line 1" %> </a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span2"></div>
+		<div class="span4">
+			<a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here"> <%= f.text_field :address_line2, :placeholder => "Line 2" %> </a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span2"></div>
+		<div class="span4">
+			<a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here"> <%= f.text_field :address_town, :placeholder => "Town" %> </a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span2"></div>
+		<div class="span4">
+			<a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here"> <%= f.select :address_country, options_for_select(COUNTRY_LIST, :selected => @company.address_country), :prompt => "Select Country" %> </a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span2"></div>
+		<div class="span4">
+			<a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here"> <%= f.text_field :address_postcode, :placeholder => "Postcode" %> </a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span2">
+			Profile :
+		</div>
+		<div class="span4">
+			<a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here"> <%= f.text_area :profile, :rows => 8 %> </a>
+		</div>
+	</div>
+	<div class=" span5 nav-userdashboard position_center">
+		<%= f.submit " Save ", :class => "button_primery " %>
+	</div>
+
+	<div class="clearfix margin-20"></div>
+
+	<% end %>
+</div>
+<%= render :partial => "tooltip_in_dynamic_form" %>
+<script>
+    $('form[data-validate]').validate();
+    $('.dp1').datepicker(); 
+</script>
+<!-- < % company = Company.new %> -->
+<!-- < % company.cdn_files.build %> -->
+

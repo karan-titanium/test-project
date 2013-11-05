@@ -1,0 +1,158 @@
+<%= form_for(@user, :validate => true, :url => {:action =>'profile'}, :remote => true, :html => {:'data-replace' => "client_content"}) do |user_form| %>
+    <div class="row bg_white well"><h2>Your Profile</h2>
+        <div class="row">
+            <div class="span2 txt_highlight">Your Name :</div>
+            <div class="span5">
+                <%= user_form.text_field :first_name, :placeholder => Settings.h_candidate_fname, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => '' %> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="span2"></div>
+            <div class="span5">
+                  <%= user_form.text_field :last_name, :placeholder => Settings.h_candidate_lname, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => '' %> 
+            </div>
+        </div>
+        <div class="clearfix margin-10"></div>
+            <%= user_form.fields_for :user_profile do |profile_form| %>
+                <div class="row">
+                    <div class="span2 txt_highlight">D.O.B.</div>
+                    <div class="span5 input-append date dp1" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+                        <%= profile_form.text_field :date_of_birth, :value => ((dob = profile_form.object.date_of_birth).present? ? dob.strftime("%d-%m-%Y") : "") , :style => "width:308px", :readonly => true, :class => "add-on", :placeholder => Settings.h_candidate_empstdate %>
+                    </div>
+                    <div class="clearfix margin-10"></div>
+        
+                    <div class="row">
+                        <div class="span2 txt_highlight">Gender :</div>
+                        <div class="span5">
+                            <%= profile_form.radio_button :gender,"male", :id => "r1", :checked => true %>
+                            <label for="r1"><span></span>Male</label>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="span2"></div>
+                        <div class="span5">
+                            <%= profile_form.radio_button :gender,"female", :id => "r2" %>
+                            <label for="r2"><span></span>Female</label>
+                        </div>
+                    </div>
+        
+                    <div class="clearfix margin-10"></div>
+                    <div class="row">
+                        <div class="span2 txt_highlight">Email Address :</div>
+                        <div class="span5">
+                            <%= user_form.text_field :email, :placeholder =>  Settings.h_candidate_emailaddress, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => '' %>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="span2 txt_highlight">Mobile Phone Number :</div>
+                        <div class="span5">
+                            <%= profile_form.text_field :number_mob, :placeholder => Settings.h_candidate_mobilenumber, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => '' %> 
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="span2 txt_highlight">Alt Phone Number :</div>
+                        <div class="span5">
+                            <%= profile_form.text_field :number_alt, :placeholder =>  Settings.h_candidate_alternativenumber, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => '' %>
+                        </div>
+                    </div>
+        
+                    <div class="clearfix margin-10"></div>
+                    <div class="row">
+                        <div class="span2 txt_highlight">Prefered Contact Method :</div>
+                        <div class="span2">
+                            <%= profile_form.radio_button :contact_method, "email", :id => "r3", :checked => true %> <label for="r3"><span></span>Email</label>
+                        </div>
+                        <div class="span2">
+                            <%= profile_form.radio_button :contact_method, "mobile", :id => "r4" %> <label for="r4"><span></span>Mobile</label>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="span2"></div>
+                        <div class="span2">
+                            <%= profile_form.radio_button :contact_method, "alt_phone", :id => "r5" %> <label for="r5"><span></span>Alt Phone</label>
+                        </div>
+        
+                        <div class="span2">
+                            <%= profile_form.radio_button :contact_method, "sms", :id => "r6" %> <label for="r6"><span></span>SMS</label>
+                        </div>
+                    </div>
+        
+                    <div class="clearfix margin-10"></div>
+                    <div class="row">
+                        <div class="span2 txt_highlight">Prefered Contact Times :</div>
+                        <div class="span2">
+                            <%= check_box_tag "contact_time[]", "morning", profile_form.object.contact_time.include?("morning"), :id => "c1" %> <label for="c1"><span></span>Morning</label>
+                        </div>
+                        <div class="span2">
+                            <%= check_box_tag "contact_time[]", "afternoon", profile_form.object.contact_time.include?("afternoon"), :id => "c2" %>
+                            <label for="c2"><span></span>Afternoon</label>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="span2"></div>
+                        <div class="span2">
+                            <%= check_box_tag "contact_time[]", "evening", profile_form.object.contact_time.include?("evening"), :id => "c3" %> <label for="c3"><span></span>Evening</label>
+                        </div>
+                        <div class="span2">
+                        </div>
+                    </div>
+        
+                    <div class="clearfix margin-10"></div>
+                    <div class="row">
+                        <div class="span2 txt_highlight">Address :</div>
+                        <div class="span5">
+                            <%= profile_form.text_field :address_line1, :placeholder => Settings.h_candidate_addressline1  %> 
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="span2"></div>
+                        <div class="span5">
+                            <%= profile_form.text_field :address_line2, :placeholder => Settings.h_candidate_addressline2 %>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="span2"></div>
+                        <div class="span5">
+                            <%= profile_form.text_field :address_town, :placeholder => Settings.h_candidate_addressline3 %> 
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="span2"></div>
+                        <div class="span5">
+                            <%= profile_form.select :address_country, options_for_select(COUNTRY_LIST), :prompt => Settings.h_candidate_addressline4 %>
+                        </div>
+                    </div>
+        
+                    <div class="row margin-20">
+                        <div class="span2"></div>
+                        <div class="span5">
+                            <%= profile_form.text_field :address_postcode %> 
+                        </div>
+                    </div>
+                    <% end %>
+                    <div class="row"><div class="span2 position_center"><%= user_form.submit "Save",:class => 'button_primery' %></div></div>
+                </div>
+        
+        <% end %>
+    </div>
+
+</div>
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- < %= render :partial => "error_message_modal", :locals => {:user => @user} % > -->
+
+<%= render :partial => "tooltip_in_dynamic_form" %>
+<script>
+    $('form[data-validate]').validate();
+    $('.dp1').datepicker().on('changeDate', function(){
+          $(this).datepicker('hide');
+     }); 
+</script>

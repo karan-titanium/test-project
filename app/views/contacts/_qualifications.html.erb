@@ -1,0 +1,42 @@
+Qualifications
+
+<div class="row bg_white well">
+    <div class="tr"> 
+        <button data-toggle="modal" class="button_primery_mini" href="#qualification" data-placement="top" title="" >Add Qualification</button>
+        <table border="2px">
+            <tr>
+                <th>Year</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Subject</th>
+                <th>Grade</th>
+                <th>Action</th>
+            </tr>
+            <% contact.user_qualifications.each do |user_quali| %>
+            <tr>
+                <td><%= user_quali.year %></td>
+                <td><%= user_quali.qualification_type.name if user_quali.qualification_type.present? %></td>
+                <td><%= user_quali.qualification_location.name if user_quali.qualification_location.present? %></td>
+                <td><%= user_quali.qualification_subject.name if user_quali.qualification_subject.present? %></td>
+                <td><%= user_quali.qualification_grade.name if user_quali.qualification_grade.present? %></td>
+                <td></td>
+            </tr>
+            <% end %>
+        </table>
+    </div>      
+</div>
+
+
+
+
+<!-- Modal Definitions (qualification) -->
+    <div id="qualification" class="modal modal-big hide fade" data-width="760">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Qualification</h3>
+      </div>
+      <div class="modal-body">
+        <%= render :partial => "qualification_form", :locals => {:grades => grades} %>
+      </div>
+    </div>
+<!-- end model of qualification -->

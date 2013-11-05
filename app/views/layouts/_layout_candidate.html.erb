@@ -1,0 +1,14 @@
+<!-- Header -->
+    <%= render :partial => "layouts/header" , :locals => {:title => 'Candidate dashboard'} %>
+<!-- End Header -->
+<!--Start Candidate Interface Contents-->
+    <div id="Dashboard-staff" class="page">
+      <div class="container ">
+        <div class="span12 width_fix" style="margin:0 auto; float:none;">  <!-- TODO: -->
+            <%= yield %>
+        </div>
+        <!-- end right side content area -->
+        <div class="clearfix"></div>
+      </div>
+    </div>
+<!--End Staff Interface Contents--> 

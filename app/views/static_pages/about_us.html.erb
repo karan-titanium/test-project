@@ -1,0 +1,35 @@
+
+<!--Start About Us-->
+<div id="about">
+  <div class="welcome_div">
+      <%= image_tag("MainImage-CI.jpg", :alt => "Main Welcome Screen") %>
+    <div class="welcomeoverlay">
+      <div class="row">
+        <div class="span8 position_center text-center">
+          <div class="title-page" >
+            <h1 class="title">About Us</h1>
+          </div>
+          <P><%= Settings.c_AboutUs.html_safe %></P>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row bg_white" id="site-entry-about">
+      <div class="span8 position_center">
+        <nav id="entry-about">
+          <ul>
+            <li><%=link_to "<span>Candidate Signup</span>".html_safe, new_user_registration_path %></li>
+            <li><%=link_to "<span>Client Info</span>".html_safe, client_info_path %></li>
+            <li><%=link_to "<span>Contact Us</span>".html_safe, contact_us_path %></li>
+          </ul>
+        </nav>
+      </div>
+      <!--end span7--> 
+    </div>
+  </div>
+</div>
+<!-- End About Us --> 
+<% if current_user.present? %>
+	<%= render :partial => "/user_profiles/change_password", :locals => {:user => current_user } %>
+<% end %>	

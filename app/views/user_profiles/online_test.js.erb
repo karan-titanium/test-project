@@ -1,0 +1,5 @@
+"<% if (@cdn_file.present? && @cdn_file.errors.messages.present?) %>"
+	$('#user_profile_content').html("<%=j render partial: 'user_profiles/upload_cv', :locals => { :cdn_file => @cdn_file } %>")
+"<% else %>"
+	$('#user_profile_content').html("<%=j render partial: 'user_profiles/online_test', :locals => {:user_exams => @user_exams}  %>")
+"<% end %>"

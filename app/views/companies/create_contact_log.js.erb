@@ -1,0 +1,9 @@
+<% if @from_page == COMPANY_OVERVIEW %>
+    $('#company_profile_section_div').html("<%= escape_javascript render :partial => "companies/overview", :locals => @overview_locals %>");
+<% elsif @from_page == COMPANY_CONTACT_LOG %>
+    $('#company_profile_section_div').html("<%= escape_javascript render :partial => "companies/contact_log", :locals => @contact_log_locals  %>");
+<% end %>
+
+$(document).ready(function(event){
+    $('.modal-backdrop').remove();
+});

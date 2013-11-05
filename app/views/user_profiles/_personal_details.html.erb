@@ -1,0 +1,180 @@
+<div class="span3" style="background:#1a74c2;">
+  <!--  Profile photo -->
+    <div class="profilepic" id="profile_photo_content">
+         <%= render :partial => "profile_photo", :locals => {:user => @user } %>
+    </div>
+    <h3 class="profilename"><%= @user.first_name.capitalize if @user.first_name.present? %></h3>
+    <hr/>
+  <!--  Profile photo End-->  
+  <!-- candidate left menu --> 
+        <%= render :partial => "layouts/left_menu_candidate", :locals => {:current_nav => 'personal_details'} %>
+  <!-- end left menu --> 
+</div>
+
+
+      
+<div class="span8" id='right_side_menu_div'>
+	<%= form_for(@user, :validate => true, :url => {:action =>'employment_details'}, :remote => true, :html => {:'data-replace' => "user_profile_content"}) do |user_form| %>
+	<div class="row bg_white well"><h2>Personal Details</h2>
+		<div class="row">
+			<div class="span2 txt_highlight">Your Name :</div>
+			<div class="span5">
+				<%= user_form.text_field :first_name, :placeholder => Settings.h_candidate_fname, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => 't_fname' %> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2"></div>
+			<div class="span5">
+				  <%= user_form.text_field :last_name, :placeholder => Settings.h_candidate_lname, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => 't_lname' %> 
+			</div>
+		</div>
+		<div class="clearfix margin-10"></div>
+			<%= user_form.fields_for :user_profile do |profile_form| %>
+				<div class="row">
+					<div class="span2 txt_highlight">D.O.B.</div>
+					<div class="span5 input-append date dp1" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+						<%= profile_form.text_field :date_of_birth, :value => ((dob = profile_form.object.date_of_birth).present? ? dob.strftime("%d-%m-%Y") : "") , :style => "width:308px", :readonly => true, :placeholder => Settings.h_candidate_empstdate %>
+						  <span class="add-on" data-toggle = "tooltip" data-placement = "right" title = 't_candidate_dob' ><i class="icon-calendar"></i></span>
+					</div>
+					<div class="clearfix margin-10"></div>
+		
+					<div class="row">
+						<div class="span2 txt_highlight">Gender :</div>
+						<div class="span5">
+							<%= profile_form.radio_button :gender,"male", :id => "r1", :checked => true %>
+							<label for="r1"><span></span>Male</label>
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="span2"></div>
+						<div class="span5">
+							<%= profile_form.radio_button :gender,"female", :id => "r2" %>
+							<label for="r2"><span></span>Female</label>
+						</div>
+					</div>
+		
+					<div class="clearfix margin-10"></div>
+					<div class="row">
+						<div class="span2 txt_highlight">Email Address :</div>
+						<div class="span5">
+							<%= user_form.text_field :email, :placeholder =>  Settings.h_candidate_emailaddress, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => 't_emailid' %>
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="span2 txt_highlight">Mobile Phone Number :</div>
+						<div class="span5">
+							<%= profile_form.text_field :number_mob, :placeholder => Settings.h_candidate_mobilenumber, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => 't_mobilenumber' %> 
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="span2 txt_highlight">Alt Phone Number :</div>
+						<div class="span5">
+							<%= profile_form.text_field :number_alt, :placeholder =>  Settings.h_candidate_alternativenumber, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => 't_phonenumber' %>
+						</div>
+					</div>
+		
+					<div class="clearfix margin-10"></div>
+					<div class="row">
+						<div class="span2 txt_highlight">Prefered Contact Method :</div>
+						<div class="span2">
+							<%= profile_form.radio_button :contact_method, "email", :id => "r3", :checked => true %> <label for="r3"><span></span>Email</label>
+						</div>
+						<div class="span2">
+							<%= profile_form.radio_button :contact_method, "mobile", :id => "r4" %> <label for="r4"><span></span>Mobile</label>
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="span2"></div>
+						<div class="span2">
+							<%= profile_form.radio_button :contact_method, "alt_phone", :id => "r5" %> <label for="r5"><span></span>Alt Phone</label>
+						</div>
+		
+						<div class="span2">
+							<%= profile_form.radio_button :contact_method, "sms", :id => "r6" %> <label for="r6"><span></span>SMS</label>
+						</div>
+					</div>
+		
+					<div class="clearfix margin-10"></div>
+					<div class="row">
+						<div class="span2 txt_highlight">Prefered Contact Times :</div>
+						<div class="span2">
+							<%= check_box_tag "contact_time[]", "morning", profile_form.object.contact_time.include?("morning"), :id => "c1" %> <label for="c1"><span></span>Morning</label>
+						</div>
+						<div class="span2">
+							<%= check_box_tag "contact_time[]", "afternoon", profile_form.object.contact_time.include?("afternoon"), :id => "c2" %>
+							<label for="c2"><span></span>Afternoon</label>
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="span2"></div>
+						<div class="span2">
+							<%= check_box_tag "contact_time[]", "evening", profile_form.object.contact_time.include?("evening"), :id => "c3" %> <label for="c3"><span></span>Evening</label>
+						</div>
+						<div class="span2">
+						</div>
+					</div>
+		
+					<div class="clearfix margin-10"></div>
+					<div class="row">
+						<div class="span2 txt_highlight">Address :</div>
+						<div class="span5">
+							<%= profile_form.text_field :address_line1, :placeholder => Settings.h_candidate_addressline1, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => "t_addressline1"  %> 
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="span2"></div>
+						<div class="span5">
+							<%= profile_form.text_field :address_line2, :placeholder => Settings.h_candidate_addressline2, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => "t_addressline2" %>
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="span2"></div>
+						<div class="span5">
+							<%= profile_form.text_field :address_town, :placeholder => Settings.h_candidate_addressline3, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => "t_town" %> 
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="span2"></div>
+						<div class="span5">
+							<span data-toggle = "tooltip" data-placement = "right" title = 't_country'>
+							<%= profile_form.select :address_country, options_for_select(COUNTRY_LIST), :prompt => Settings.h_candidate_addressline4 %>
+							</span>
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="span2"></div>
+						<div class="span5">
+							<%= profile_form.text_field :address_postcode, :'data-toggle' => "tooltip", :'data-placement' => "right" , :title => "t_postcode" %> 
+						</div>
+					</div>
+					<% end %>
+				</div>
+
+		<div class=" span5 nav-userdashboard position_center">
+			<a class="button_primery button_back side_links" path=<%= @path[:work_eligibility] %> id="next_link">Back</a>
+			<%= user_form.submit "Next", :class => "button_primery button_next1" %>
+			<!-- <a class="button_primery button_next next_link" path=< %= @path[:employment_details] %> id="next_link">Next</a> -->
+		</div>
+		<% end %>
+	</div>
+
+</div>
+
+<script>
+	$('form[data-validate]').validate();
+	 $('.dp1').datepicker().on('changeDate', function(ev){
+     	$(ev.target).find('input').change().focusout();
+     	$(this).datepicker('hide');
+     });
+     
+     displayTooltip();  // Function call to display tooltip
+</script>

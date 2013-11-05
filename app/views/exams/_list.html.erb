@@ -1,0 +1,64 @@
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('#qualification_data_table').dataTable({
+            "sPaginationType" : "full_numbers",
+            "sScrollY" : "200px",
+            "bPaginate" : true,
+            "bScrollCollapse" : true
+        });
+        $('form[data-validate]').validate();
+        // alert("Hii");
+        //for Client side validation should work on ajax generated form
+    });
+
+    // this is for client side validation should be work on twitter bootstrap modal
+    // $('.modal').on('shown', function() {
+        // $(ClientSideValidations.selectors.forms).validate();
+    // });
+    // end of script for client side validation
+</script>
+<div class="span8">
+
+    <div class="row bg_white well">
+        <h2>Exams</h2>
+
+        <button data-toggle="modal" class="button_primery_big pull-right" href="#add_exam" data-placement="top" title="">
+            Add Exam
+        </button>
+        <div>
+            Exams List
+        </div>
+        <!-- < % = link_to "New Question", "#", :class => "new_question_link", :id => "new_question_link" % > -->
+
+        <div id='examList'>
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id="qualification_data_table">
+                <thead>
+                    <tr>
+                        <th><a>Name</a></th>
+                        <th><a>Status</a></th>
+                        <th><a>Action</a></th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <% @exams.each do |exam| %>
+                    <tr>
+                        <td> <%= exam.name %> </td>
+                        <td> <%= exam.description %> </td>
+                        <td><%= link_to :Edit,"#" ,:path => URI::escape(edit_exam_path(exam.id)), :class => "edit_exam"  %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+
+            <style>
+                .even {
+                    background-color: #CCCCFF;
+                }
+
+                .odd {
+                    background-color: #FFCC99;
+                }
+            </style>
+        </div>
+    </div>
+</div>

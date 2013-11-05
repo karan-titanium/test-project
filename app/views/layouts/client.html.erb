@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if (IE 9)]><html class="no-js ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en-US"> <!--<![endif]-->
+
+
+<head>    
+   
+<!-- Meta Tags -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="description" content="Insert Your Site Description" />
+           
+<!-- Mobile Specifics -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="HandheldFriendly" content="true"/>
+<meta name="MobileOptimized" content="320"/>
+
+<!-- Mobile Internet Explorer ClearType Technology -->
+<!--[if IEMobile]>  <meta http-equiv="cleartype" content="on">  <![endif]-->
+ <%= csrf_meta_tags %>
+	<%= stylesheet_link_tag "application", :media => "all" %>
+    <!-- Custome Stylesheet based on TFP Mockups-->
+    <%= stylesheet_link_tag "Custome_tfp", :media => "all" %>
+    <%= stylesheet_link_tag "style-custome-radio-checkbox" %>
+    <!-- Bootstrap -->
+    <%= stylesheet_link_tag "bootstrap.min", :media => "all" %>
+    
+    <!-- Main Style -->
+    <%= stylesheet_link_tag "main", :media => "all" %>
+    
+    <!-- FancyBox -->
+    <%= stylesheet_link_tag "fancybox/jquery.fancybox", :media => "all" %>
+    
+    <!-- Font Icons -->
+    <%= stylesheet_link_tag "fonts", :media => "all" %>
+    
+    <!-- Shortcodes -->
+    <%= stylesheet_link_tag "shortcodes", :media => "all" %>
+    
+    <!-- Responsive -->
+    <%= stylesheet_link_tag "bootstrap-responsive.min", :media => "all" %>
+    <%= stylesheet_link_tag "responsive", :media => "all" %>
+   
+    
+    <!-- Supersized -->
+    <%= stylesheet_link_tag "supersized", :media => "all" %>
+    <%= stylesheet_link_tag "supersized.shutter", :media => "all" %>
+    
+    <!-- Fav Icon -->
+    <link rel="shortcut icon" href="#">
+    <link rel="apple-touch-icon" href="#">
+    <link rel="apple-touch-icon" sizes="114x114" href="#">
+    <link rel="apple-touch-icon" sizes="72x72" href="#">
+    <link rel="apple-touch-icon" sizes="144x144" href="#">
+    
+    <!-- Modernizr -->
+    <%= javascript_include_tag "modernizr" %>
+    
+    <!-- Data Table -->
+    <%= stylesheet_link_tag "data_table" %>
+    <%= stylesheet_link_tag "jquery-ui-1.9.2.custom", "jquery.Jcrop" %>    
+</head>
+
+<body>
+	
+<!-- Header -->
+<header>
+  <div class="sticky-nav"> <a id="mobile-nav" class="menu-nav" href="#menu-nav"></a>
+    <%= render :partial => "layouts/header", :locals => {:title => "Client Dashboard"} %>
+    <h1 class="PageTitle">Client Dashboard</h1>
+  </div>
+</header>
+<!-- End Header -->     
+<!-- Js --> 
+
+<%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" %><!-- jQuery Core -->
+<%= javascript_include_tag  "rails.validations", "jquery-ui-1.9.2.custom", "rails", "jquery.remotipart","jquery.iframe-transport",  "autocomplete-rails" %>
+<%= javascript_include_tag "bootstrap.min" %><!-- Bootstrap --> 
+<%= javascript_include_tag "supersized.3.2.7.min" %><!-- Slider --> 
+<%= javascript_include_tag "waypoints" %> <!-- WayPoints --> 
+<%= javascript_include_tag "waypoints-sticky" %><!-- Waypoints for Header --> 
+<%= javascript_include_tag "jquery.isotope" %><!-- Isotope Filter --> 
+<%= javascript_include_tag "jquery.fancybox.pack" %> <!-- Fancybox --> 
+<%= javascript_include_tag "jquery.fancybox-media" %> <!-- Fancybox for Media --> 
+<%= javascript_include_tag "jquery.tweet" %> <!-- Tweet --> 
+<%= javascript_include_tag "plugins" %><!-- Contains: jPreloader, jQuery Easing, jQuery ScrollTo, jQuery One Page Navi --> 
+<%= javascript_include_tag "main" %><!-- Default JS -->
+<%= javascript_include_tag "bootstrap-popover"%>
+<%= javascript_include_tag "jquery.dataTables" %>
+<%= javascript_include_tag "bootstrap-datepicker" %>
+<%= javascript_include_tag "custom-datepicker" %>
+<%= javascript_include_tag "tfp_client" %>
+<%= javascript_include_tag "jquery.Jcrop", "cdn_files" %>
+
+<!-- End Js -->
+
+<!--Start page content-->
+<%= yield %>        
+<!--End page content--> 
+    
+<!-- Footer -->
+<%= render :partial => "layouts/footer" %>
+<!-- End Footer -->
+
+</body>
+</html>
+

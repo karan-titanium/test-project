@@ -1,0 +1,65 @@
+<div class="span3" style="background:#1a74c2;">
+    <!--  Profile photo -->
+    <div class="profilepic" id="profile_photo_content">
+         <%= render :partial => "profile_photo", :locals => {:user => @user } %>
+    </div>
+    <h3 class="profilename"><%= @user.first_name.capitalize if @user.first_name.present? %></h3>
+    <hr/>
+    <!--  Profile photo End-->  
+    <!-- candidate left menu --> 
+        <%= render :partial => "layouts/left_menu_candidate", :locals => {:current_nav => 'online_test'} %>
+    <!-- end left menu --> 
+</div>
+  <!-- end Left side bar -->
+      
+<div class="span8" id='right_side_menu_div'>
+	<div class="row bg_white well">
+		<h2>Online Test</h2>
+		<P>
+			<%= Settings.c_OnlineTest  %>
+		</P>
+	</div>
+	<div class="row bg_white well">
+		<h2>Exams in your Queue</h2>
+		<table cellpadding="0" cellspacing="0" border="0" class="display" id="exam_queue">
+			<thead>
+				<tr>
+					<th><a>Exam Name</a></th>
+					<th><a>Maximum Duration of Exam</a></th>
+					<th class="sorting_blank"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% user_exams.each do |user_exam| %>
+				<tr>
+					<td><%= user_exam.exam.name.titleize if user_exam.exam.present? %></td>
+					<td><%= user_exam.exam.rest %> &nbsp; minutes</td>
+					<td><a class="button_primery_table">Launch Exam</a></td>
+				</tr>
+				<% end if user_exams.present? %>
+			</tbody>
+
+			<tfoot><tr><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<div class=" span5 nav-userdashboard position_center">
+		<a class="button_primery button_back side_links" id="next_link" path=<%= @path[:upload_cv] %> >Back</a>
+		<a class="button_primery button_next side_links" path=<%= @path[:qualifications] %> >Next</a>
+	</div>
+	<!-- end nav-userdashboard -->
+   
+</div>
+
+<script>
+	$(document).ready(function() {
+		$('#exam_queue').dataTable({
+			"sPaginationType": "full_numbers",
+			"sScrollY": "200px",
+			"bPaginate": true,
+			"bScrollCollapse": true,
+			"fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+		});
+	});
+</script>

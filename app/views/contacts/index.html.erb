@@ -1,0 +1,128 @@
+
+	
+
+<div class="row bg_white well">
+    <div class="row" style="font-size:18px;">Search Filters :
+          <p class="field switch pull-right">
+            <label class="cb-enable" id="search_enable"><span>Enable</span></label>
+            <label class="cb-disable selected" id="search_disable"><span>Disable</span></label>
+          </p>
+    </div>
+</div>
+
+
+
+
+
+<div class="row bg_white well" id="search_filters_div" style="display: block">
+	<div class="row" style="font-size:18px;">
+		<div class="span2">
+			<%= select_tag "", options_for_select( ["Qualification", "Diving Licence", "Sex"] ), :class => "query_builder category_query_builder" ,:next_list => "operator_query_builder" %>
+		</div>
+		<div  class="span2">
+			<%= select_tag "", options_for_select(["Less than", "Greater than", "Is", "Not"]) %>
+		</div>
+		<div  class="span2">
+			<%= select_tag "", options_for_select(["Male", "Female"]), :style => "width:150px" %>
+		</div>
+		<%= link_to "test", "", :id => "test_call" %>
+		
+<p>
+  <%= select_tag "", options_for_select([]), :id => "gallery_sub_section_id", :prompt => "select"  %>
+</p>
+	</div>	
+</div>
+
+
+
+
+
+
+
+<div class="row bg_white well" id="contacts_right_div">
+	<h2>Contact Database</h2>&nbsp;&nbsp;&nbsp;
+	<%= link_to("New Contact", "", :'data_replace' => "contacts_right_div", :'path' => new_contact_path, :class => 'ajax_call button_primery_mini') %>
+	<table cellpadding="0" cellspacing="0" border="0" class="display" id="contact_database">
+		<thead><tr><th><a>Name</a></th><th><a>Email</a></th><th><a>Phone Number</a></th><th><a>Employed At</a></th><th><a>Type</a></th><th><a>Test Score</a></th></tr></thead>
+		<tbody>
+			<% @contacts.each do |contact| %>
+			<tr>
+				<td><%= link_to contact.full_name, contact_path(contact.id)  %></td>
+				<td><%= link_to contact.email, contact_path(contact.id) %></td>
+				<td><%= contact.user_profile.number_mob if contact.user_profile.present? %></td>
+				<td><%= ( user_comp = contact.user_companies.where(:current => true).first ).present? ? user_comp.company.name : CONTACT_UNEMPLOYED %></td>
+				<td><%= ( user_comp = contact.user_companies.where(:clientcontact => true).first ).present? ? CONTACT_TYPE_CLIENT_CONTACT : CONTACT_TYPE_CANDIDATE %></td>
+				<td><%= "TODO" %></td>
+			</tr>
+			<% end if @contacts.present? %>
+		</tbody>
+		<tfoot><tr><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th><th>&nbsp;</th></tr></tfoot>
+	</table>
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+	
+	$(document).ready(function(){
+		
+		
+		$('#contact_database').dataTable({
+			"sPaginationType": "full_numbers",
+			"sScrollY": "200px",
+			"bPaginate": true,
+			"bScrollCollapse": true,
+			"fnDrawCallback": function(){ $('.first, .next, .previous, .last').each(function() { $(this).text('.'); });}
+		});
+		
+		
+		
+		$("#search_enable").click(function(){
+			$("#search_disable").removeClass("selected");
+			$(this).addClass("selected");
+			$("#search_filters_div").show(200);
+		});
+		
+		
+		$("#search_disable").click(function(){
+			$("#search_enable").removeClass("selected");
+			$(this).addClass("selected");
+			$("#search_filters_div").hide(200);
+		});
+		
+		
+		// $("#test_call").click(function(){
+		$('#query_builder').change(function() {	
+			$.ajax({
+                    async : true,
+                    type : 'GET',
+                    url : "/contacts/test_action/4",
+                    success: function(data) {
+               			// Clear all options from sub category select 
+                        $("select#gallery_sub_section_id option").remove();
+                        //put in a empty default line
+                        var row = "<option value=\"" + "" + "\">" + "" + "</option>";
+                        $(row).appendTo("select#gallery_sub_section_id");                        
+                        // Fill sub category select 
+                        $.each(data, function(i, j){
+                            row = "<option value=\"" + j.id + "\">" + j.name + "</option>";   
+                            $(row).appendTo("select#gallery_sub_section_id");                     
+                        });
+               			
+               		},
+               		error: function(data) {
+               			alert("error");
+               		}     	
+            });
+			return false;	
+		});
+		
+	});
+	
+</script>

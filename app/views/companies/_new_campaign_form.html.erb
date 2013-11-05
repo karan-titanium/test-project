@@ -1,0 +1,98 @@
+<!-- < %= form_for(Campaign.new, :validate => true, :url => {:controller => "companies", :action => "create_campaign"}) do |f| %>
+    < %= f.label :campaign_name %> < %= f.text_field :campaign_name %>
+    < %= f.label :reference %> < %= f.text_field :reference %>
+    < %= f.label :title %> < %= f.text_field :title %>
+    < %= f.label :summary %> < %= f.text_area :summary, :rows => 3 %>
+    < %= f.label :details %> < %= f.text_area :details, :rows => 5 %>
+    < %= f.hidden_field :status, :value => status %>
+    < %= f.hidden_field :company_id, :value => company_id %>
+    
+    < %= f.submit "Add Campaign" %>
+< % end %>         -->
+
+
+
+<%= form_for(Campaign.new, :url => {:controller => "companies", :action => "create_campaign"}, :validate => true, :html => {:remote => true, :'data-replace' => "company_profile_section_div"}) do |f| %>
+    <!-- <div class="row">
+      <div class="span2">Company :</div>
+      <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+        <input name="skillstype" type="text" value="company">
+        </a> </div>
+    </div> -->
+    
+    <div class="row">
+      <div class="span2">Campaign Name :</div>
+      <div class="span4"> 
+        <%= f.text_field :campaign_name, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_campaignname %>
+      </div>
+    </div>
+    
+    <!-- <div class="row">
+      <div class="span2">Date Created :</div>
+      <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+         <input name="skillstype" type="text" value="DD/MM/YYYY">
+        </a> </div>
+    </div> -->
+    
+    <div class="row">
+      <div class="span2">Reference :</div>
+      <div class="span4"> 
+        <%= f.text_field :reference, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_campaignreference %>
+      </div>
+    </div>
+    
+    <!-- <div class="row">
+      <div class="span2">Status :</div>
+      <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+        <select name="">
+              </select>
+        </a> </div>
+    </div> -->
+    
+    <div class="row">
+      <div class="span2">Title :</div>
+      <div class="span4"> 
+        <%= f.text_field :title, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_campaigntitle%>
+        </div>
+    </div>
+    
+    <div class="row">
+      <div class="span2">Summary :</div>
+      <div class="span4"> 
+        <%= f.text_area :summary, :rows => 3, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_campaignsummary %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="span2">Details :</div>
+      <div class="span4"> 
+        <%= f.text_area :details, :rows => 5, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_campaigndetails %>
+      </div>
+    </div>
+    
+    <!-- <div class="row">
+      <div class="span2">Application Deadline :</div>
+      <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+         <input name="skillstype" type="text" value="DD/MM/YYYY">
+        </a> </div>
+    </div>
+    
+    <div class="row">
+      <div class="span2">Forward deadline :</div>
+      <div class="span4"> <a href="#" data-toggle="tooltip" data-placement="left" title="Your alert message will go here">
+         <input name="skillstype" type="text" value="DD/MM/YYYY">
+        </a> </div>
+    </div> -->
+    
+    <%= f.hidden_field :status, :value => status %>
+    <%= f.hidden_field :company_id, :value => company_id %>
+    
+    <%= hidden_field_tag :from_page, from_page %>
+    
+    <div class="clearfix margin-20"></div>
+    <div class="row">
+      <div class="span3"> <%= f.submit "Add & Finished", :class => "button_primery_modal" %> </div>
+      <div class="span3"> <%= f.submit "Add & Enter Another", :class => "button_primery_modal" %> </div>
+    </div>
+    
+<% end %>

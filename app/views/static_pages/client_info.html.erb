@@ -1,0 +1,33 @@
+<!--Start clientinfo-->
+<div id="clientinfo">
+  <div class='welcome_div'> <%= image_tag("MainImage-CI.jpg", :alt => "Main Welcome Screen") %>
+    <div class='welcomeoverlay'>
+      <div class="row">
+        <div class="span11 position_center text-center">
+          <div class="title-page">
+            <h1 class="title">What can TFP do for you?</h1>
+          </div>
+          <p><%= Settings.c_ClientInfo.html_safe %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row bg_white" id="clientinfo-nav">
+      <div class="span9 position_center">
+        <nav id="nav-clientinfo">
+          <ul>
+            <li><%=link_to "<span>Contact Us To Get Started</span>".html_safe, contact_us_path %></li>
+          </ul>
+        </nav>
+      </div>
+      <!--end span7--> 
+    </div>
+  </div>
+</div>
+
+<!--End clientinfo-->
+
+<% if current_user.present? %>
+	<%= render :partial => "/user_profiles/change_password", :locals => {:user => current_user } %>
+<% end %>

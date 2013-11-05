@@ -1,0 +1,33 @@
+<h3>Settings</h3>
+
+<div id="ajax-tab-container" class='tab-container'>
+	<ul class='etabs'>
+		<li class='tab'><a href="/staffs/my_details" data-target="#my_details_tab">My Details</a></li>
+	 	<li class='tab'><a href="/staffs/manage_users" data-target="#manage_users_tab">Manage Users</a></li>
+	 	<li class='tab'><a href="/staffs/manage_roles" data-target="#manage_roles_tab">Manage Roles</a></li>
+	 	<li class='tab'><a href="/staffs/system_config" data-target="#system_config_tab">System Config</a></li>
+	</ul>
+	
+	<div class='panel-container'>
+		<div id="my_details_tab"><!-- Contents are loaded dynamically here --></div>
+		<div id="manage_users_tab"><!-- Contents are loaded dynamically here --></div>
+		<div id="manage_roles_tab"><!-- Contents are loaded dynamically here --></div>
+		<div id="system_config_tab"><!-- Contents are loaded dynamically here --></div>
+	</div>
+</div>
+
+
+
+<script>
+
+	function makeValueEditable (current) {
+		$(current).hide();
+		$(current).parents("#setting_div").find("#edit_setting_value").show();
+	}
+	
+	function makeValueNonEditable (current) {
+		$(current).parents("#setting_div").find("#edit_btn").show();
+		$(current).parents("#setting_div").find("#edit_setting_value").hide();
+	}
+	
+</script>

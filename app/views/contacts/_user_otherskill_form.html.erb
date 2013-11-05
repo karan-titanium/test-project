@@ -1,0 +1,53 @@
+other skill
+<%= form_for(user.user_otherskills.build, :validate => true, :url => {:action => "update_contact_profile", :current_div => "otherskills_div"}, :remote => true, :html => {:'data-replace' => "contact_profile_section_div"}) do |f| %>
+<div class="row">
+	<div class="span2 txt_highlight">
+		Skills:
+	</div>
+	<div class="span4">
+		<%= f.text_field :skill, :placeholder => Settings.h_candidate_otherskill %>
+	</div>
+</div>
+<div class="row">
+	<div class="span2 txt_highlight">
+		Experience:
+	</div>
+	<div class="span2">
+		<%= f.text_field :experience, :class => "small", :placeholder => Settings.h_candidate_otherskillexperiene %>
+	</div>
+	<div class="span2">
+
+		<select name="other_experience_type" class="small mergin-left">
+			<option value="month">Month</option><option value="year">Year</option>
+		</select>
+	</div>
+</div>
+<div class="row">
+	<div class="span2 txt_highlight">
+		Skill Level:
+	</div>
+	<div class="span4">
+		<div class="row">
+			<%= f.radio_button :level, "basic", :id => "r12", :checked => true %>
+			<label for="r12"><span></span>Basic</label>
+		</div>
+		<div class="row">
+			<%= f.radio_button :level, "intermediate", :id => "r13" %>
+			<label for="r13"><span></span>Intermediate</label>
+		</div>
+		<div class="row">
+			<%= f.radio_button :level, "advanced", :id => "r14" %>
+			<label for="r14"><span></span>Advanced</label>
+		</div>
+	</div>
+</div>
+<div class="clearfix margin-20"></div>
+<div class="row">
+	<div class="span3">
+		<%= f.submit "Add and Finished", :class => "button_primery_modal" %>
+	</div>
+	<div class="span3">
+		<%= f.submit "Add and Enter Another", :class => "button_primery_modal add_itskill" %>
+	</div>
+</div>
+<% end %> 

@@ -1,0 +1,18 @@
+<!-- Staff Header -->
+<header>
+    <div class="sticky-nav">
+        <a id="mobile-nav" class="menu-nav" href="#menu-nav"></a>
+        <div id="logo">
+            <a id="goUp" href=<%= staff_dashboard_path(current_user.id) %> class="external" title="Home of Top Five Percent"></a>
+        </div>
+        <nav id="menu">
+            <ul id="menu-nav">
+                <li><a href=<%= staff_settings_path(current_user.id) %> title="Link to Settings page" class="external" >Settings</a></li>
+                <li><a href=<%= staff_dashboard_path(current_user.id) %> title="Link to Staff Dashboard page" class="external">Dashboard</a></li>
+                <li><%= user_signed_in? ? link_to('Logout', destroy_user_session_path, :method => :delete, :class => "external") : link_to('Login', new_user_session_path, :class => "external") %> </li>
+            </ul>
+        </nav>
+        <h1 class="PageTitle"><%= session[:page_title] %></h1>
+    </div>
+</header>
+<!-- End of Staff Header --> 

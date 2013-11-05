@@ -1,0 +1,50 @@
+<% size = "10x5" %> 
+<script>
+	$(document).ready(function() {
+		$('#add_remove_tests').html('<%= escape_javascript(render 'exams/add_remove_tests', :locals => { :selected_tests => @selected_tests, :available_tests => @available_tests }) %>');
+    });
+</script>
+
+<h1> Manage Test</h1>
+
+<%= form_for(@exam, :validate => true, :url => {:action =>'update',:id =>@exam.id}) do |f| %>
+<table>
+    <tr>
+        <td> Name </td>
+        <td> <%= f.text_field :name %> </td>
+    </tr>
+
+    <tr>
+        <td> Description </td>
+        <td> <%= f.text_area :description, :size => size %> </td>
+    </tr>
+    <tr>
+        <td><%= f.check_box :generic %></td>
+    </tr>
+    <tr>
+        <td> Rest Period </td>
+        <td> <%= f.number_field :rest %> &nbsp;&nbsp; minutes </td>
+    </tr>
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="1"> Status </td>
+        <td colspan="3"> <%= f.select :status, EXAM_STATUS %> </td>
+    </tr>
+
+</table>
+
+<% end %>
+<div id="add_remove_tests">
+
+</div>
+
+<br /><br /><br /><br /><br />
+
+<table>
+    <tr>
+        <td> <%= link_to "take me back to index page", exams_path %> </td>
+        <td align="right"> <%= link_to "Update","#" ,:path => URI::escape(exam_path(@exam.id)), :class => 'update_exam' %> </td>
+    </tr>
+</table>

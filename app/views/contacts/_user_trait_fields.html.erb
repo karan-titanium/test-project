@@ -1,0 +1,16 @@
+<fieldset class="fieldset_child">
+	<% if f.object.trait.present? %>
+		<%= f.object.trait.name %>	
+	<% else %>
+		<%= f.label :trait_name, 'trait_name' %>
+	<% end %>
+    
+    
+    <%= f.range_field :score, :in => 0..100, :step => 1, :class => 'trait_class' %>
+    <b class="trait_value" style="display: inline"> <%= f.object.score.present? ? f.object.score : 50 %> % </b>
+    
+    <%= link_to "remove","#",:class => "remove_fields" %>
+
+    <%= f.hidden_field :_destroy %>
+    <%= f.hidden_field :trait_id , :class => 'trait_id'%>
+</fieldset>

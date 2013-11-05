@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+    <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+    <!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+    <!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+    <!--[if (IE 9)]><html class="no-js ie9" lang="en"><![endif]-->
+    <!--[if gt IE 8]><!--> <html lang="en-US"> <!--<![endif]-->
+    
+    <head>
+    	<!--[if !IE]><!--><script>  
+	    if (/*@cc_on!@*/false) {  
+	        document.documentElement.className+=' ie10';  
+	    }  
+	    </script><!--<![endif]-->
+        <!-- Meta Tags -->
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>Top Five Percent | <%= session[:tab_title] %></title>
+            <meta name="description" content="Insert Your Site Description" />
+        
+        <!-- Mobile Specifics -->
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="HandheldFriendly" content="true"/>
+            <meta name="MobileOptimized" content="320"/>
+        
+        <!-- Mobile Internet Explorer ClearType Technology -->
+        <!--[if IEMobile]>  <meta http-equiv="cleartype" content="on">  <![endif]-->
+        
+        <%= render :partial => "layouts/include_all_stylesheets" %>
+
+        <!-- Fav Icon -->
+            <link rel="shortcut-icon" href="#">
+            <link rel="apple-touch-icon" href="#">
+            <link rel="apple-touch-icon" sizes="114x114" href="#">
+            <link rel="apple-touch-icon" sizes="72x72" href="#">
+            <link rel="apple-touch-icon" sizes="144x144" href="#">
+            
+        <%= render :partial => "layouts/include_all_javascripts" %>
+        
+        <%= render :partial => "layouts/application_script" %>
+    </head>
+
+    
+    <body>
+        <!--Start page content-->
+            <!-- < %= yield %> -->
+            <% if current_user.present? %>
+            <%= render :partial => "layouts/layout_staff"   if current_user.is_staff? %>
+            <%= render :partial => "layouts/layout_candidate"   if current_user.is_candidate? %>
+            <%= render :partial => "layouts/layout_client"   if current_user.is_client? %>
+            <% end %>                    
+        <!--End page content-->
+        
+        <!-- Footer -->
+        <footer>
+            <%= render :partial => "layouts/footer" %>
+        </footer>
+        <!-- End Footer -->
+    
+    
+        <!-- Back To Top --> 
+           <a id="back-to-top" href="#" title="Go To Top Link"> <i class="font-icon-arrow-simple-up"></i> </a> 
+        <!-- End Back to Top -->
+        
+         <div class="page_original"></div>  
+        
+        <!-- <div class="page"></div> -->
+    </body>
+
+</html>

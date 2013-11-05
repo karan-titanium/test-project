@@ -1,0 +1,79 @@
+<!-- < % company = Company.new %>
+< % company.cdn_files.build %> -->
+<%= form_for(Company.new, :url => {:controller => "companies", :action => "create"}, :validate => true, :html => {:remote => true, :'data-replace' => 'company_database_div'}) do |f| %>
+    <div class="row">
+        <div class="span2">Company Name :</div>
+        <div class="span4">
+          <%= f.text_field :name, :placeholder => Settings.h_companyname, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_company_name %>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="span2">Status :</div>
+        <div class="span4">
+           <%= f.select :status, options_for_select(COMPANY_STATUS_LIST.reject {|k, v| k.include? COMPANY_STATUS_DELETED}.invert), :prompt => Settings.h_status %>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="span2">Phone :</div>
+        <div class="span4">
+            <%= f.text_field :phone, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_phonenumber %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2">Website :</div>
+        <div class="span4">
+            <%= f.text_field :website, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_company_website %>            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2">Address :</div>
+        <div class="span4">
+            <%= f.text_field :address_line1, :placeholder => "Line 1", :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_addressline1 %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span4">
+            <%= f.text_field :address_line2, :placeholder => "Line 2", :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_addressline2 %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span4">
+            <%= f.text_field :address_town, :placeholder => "Town", :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_town %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span4">
+            <%= f.select :address_country, options_for_select(COUNTRY_LIST), :prompt => "Select Country" %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span4">
+            <%= f.text_field :address_postcode, :placeholder => "Postcode", :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_postcode %>
+        </div>
+    </div>
+    
+    <!-- <div class="row">
+        <div class="span2">Contact :</div>
+        <div class="span4">
+            < %= f.select :contact, "", :prompt => "Select Contact" %>
+        </div>
+    </div> -->    
+    
+    <div class="clearfix margin-20"></div>
+    <div class="row">
+      <div class="span3"> <%= f.submit "Add & Finished", :class => "button_primery_modal" %></div>
+      <div class="span3"> <%= f.submit "Add & Enter Another", :class => "button_primery_modal" %></div>
+    </div>
+<% end %>

@@ -1,0 +1,76 @@
+<%= form_for(company, :validate => true, :url => {:controller => "companies", :action => "update", :id => company.id}, :html => {:remote => true, :'data-replace' => 'company_profile_section_div', :id => "company_update_form"}) do |f| %>
+    <div class="row">
+        <div class="span2">Company Name :</div>
+        <div class="span4">
+            <%= f.text_field :name, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_company_name %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2">Phone :</div>
+        <div class="span4">
+            <%= f.text_field :phone, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_phonenumber %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2">Website :</div>
+        <div class="span4">
+            <%= f.text_field :website, :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_company_website %>            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2">Address :</div>
+        <div class="span4">
+            <%= f.text_field :address_line1, :placeholder => "Line 1", :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_addressline1 %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span4">
+            <%= f.text_field :address_line2, :placeholder => "Line 2", :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_addressline2 %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span4">
+            <%= f.text_field :address_town, :placeholder => "Town", :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_town %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span4">
+            <%= f.select :address_country, options_for_select(COUNTRY_LIST, :selected => company.address_country), :prompt => "Select Country" %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span4">
+            <%= f.text_field :address_postcode, :placeholder => "Postcode", :'data-toggle' => "tooltip", :'data-placement' => "left", :title => Settings.t_postcode %>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="span2">Contact :</div>
+        <div class="span4">
+            <%= f.select :contact, options_from_collection_for_select(company.contacts, "id", "first_name", company.contact), :prompt => "Select Contact" %>
+        </div>
+    </div>
+    
+    <div class="clearfix margin-20"></div>
+    <div class="row">
+        <div class="span6"> <%= f.submit "Save", :class => "button_primery button_finish position_center" %> </div>
+    </div>
+<% end %>
+ 
+ 
+<script>
+    $(document).on("click", function(){
+        $('#company_update_form').validate();
+    });
+</script> 

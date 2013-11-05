@@ -1,0 +1,38 @@
+<!--Start Home-->
+<div id="home">
+  <div class="welcome_div">
+    <%= image_tag("MainImage-home.jpg", :alt => "Main Welcome Screen") %>
+    <div class="welcomeoverlay">
+      <div class="row">
+        <div class="span8 position_center text-center">
+          <div class="title-page">
+            <h1 class="title">Top Five Percent</h1>
+          </div>
+          <P><%= Settings.c_Homepage.html_safe %></P>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row bg_white position_center" id="site-entry-home">
+      <div class="span7 position_center">
+        <div class="span5 position_center">
+          <div class="joiningborder">
+          <div class="lbl"></div>
+            <!--<div class="span5 position_center" style=" background:url(assets/images/Bg_knowmore_text.png) top center no-repeat; margin-top:-26px; position:relative; z-index:999;">&nbsp; </div>-->
+          </div>
+          
+        </div>
+        <nav id="entry-home">
+            <ul>
+            <li><%=link_to "<span>Candidate</span>".html_safe, new_user_registration_path %></li>
+            <li><%=link_to "<span>Client</span>".html_safe, client_info_path %></li>
+            </ul>  
+        </nav>
+      </div>
+      <!--end span8--> 
+    </div>
+  </div>
+</div>
+
+<!--End Home--> 

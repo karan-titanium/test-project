@@ -1,0 +1,69 @@
+    <!-- =================Dynamic content For Main Body ============================= -->
+<div id='user_profile_content'>
+	<%= render :partial => 'summary'%>
+</div>
+<div class="clearfix"></div>
+    <!-- ================= End Dynamic content ============================= -->
+
+
+
+    <!-- =============================== For Profile Photo   ======================  -->
+<div id="pop_photo" class="row">
+	<h3 class="popover-title">Profile Photo</h3><p> <%= Settings.t_candidate_profilephoto  %></p>
+	<%= form_for(@profile_photo, :validate => true, :url => {:action => "upload_profile_photo"}, :remote => true ) do |f| %>
+	<div class="span1"></div>
+	<div class="span2">	  
+		  <button class="button_upload_photo pull-left upload_button_to_display" value="Upload Photo">Upload Photo</button>
+		  <%= f.file_field :cf_filename, :id => "browse_button", :onchange =>"validateFiles(this);", :data => {:max_file_size => 10.megabytes}, :'supported_formate' => 'jpg jpeg pdf tiff gif bmp png', :'file_type' => 'image', :class => "original_upload_button" %>
+	</div>
+	<br /><br />	
+    <div class="field_with_errors row">
+		<label class="<%= (@cdn_file.present? && @cdn_file.errors.present?) ? 'message' : '' %>" id="file_errors"></label>
+    </div>
+	  
+	<%= f.hidden_field :file_type, :value => FILE_TYPE_IMAGE %>
+	<%= f.submit "Upload Photo" , :id => "file_upload_submit", :style => "display:none;" %>
+	<% end %>
+</div>
+
+
+	
+	<!--=====================  Cropping image will show here==================================  -->
+<div id="image_cropper_div"></div>
+	<!--=====================  Cropping image END =============================================  -->
+
+
+    <!-- ======================Modal Definitions (Setting Change password) =======================================-->
+<%= render :partial => "change_password", :locals => {:user => @user} %>
+	<!-- =============================end model of setting============================================== --> 
+
+
+<!-- ===============================Common Script For All Candidate Pages======================  --> 		
+<script>
+// ====================================================================================
+// Objective :=> To Click on Submit Button when Profile Photo Selected  
+// ====================================================================================
+$(document).on("click", function(){
+  $('#browse_button').change(function(event){
+    var target = $(event.target);
+
+    if(target.val() != ''){
+      $(target.parents('form').get(0)).submit(); //better ways to do it ^^
+
+      event.stopPropagation();
+      return false;
+    }
+  });
+});
+
+// ====================================================================================
+// Objective :=> To close lightbox after Image crop 
+// ====================================================================================
+	$(document).on("click", "#crop_image_button", function(){
+		 $('#image_cropper_modal').modal('hide');
+		 $('.modal-backdrop').remove();
+	}); 
+	
+
+</script>
+

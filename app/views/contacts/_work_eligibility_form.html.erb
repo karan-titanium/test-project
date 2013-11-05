@@ -1,0 +1,56 @@
+<%= form_for(user, :validate => true, :url => {:action =>'update_contact_profile', :current_div => "work_eligibility_div", :contact_id => user.id }, :remote => true, :html => {:'data-replace' => "contact_profile_section_div"}) do |user| %>
+<%= user.fields_for :user_profile do |profile_form| %>
+<div class="row ">
+	<span class="txt_highlight">Do you have a UK or EU Passport?</span>
+</div>
+<div class="row">
+	<%= profile_form.radio_button :passport, "yes", :class => 'messageCheckbox', :id => "r1" %>
+	<label for="r1"><span></span>Yes</label>
+</div>
+<div class="row">
+	<%= profile_form.radio_button :passport, "no", :class => 'messageCheckbox', :id => "r2" %>
+	<label for="r2"><span></span>No</label>
+	<div class="row bg_grey well" id="eligible_details_div" style="display: none">
+		<div class="row">
+			<span class="txt_highlight">Are you eligable to work in the UK?</span>
+		</div>
+		<div class="row">
+			<%= profile_form.radio_button :eligableuk,"yes", :class => 'messageBox', :id => "r3" %>
+			<label for="r3"><span></span>Yes</label>
+		</div>
+		<div class="row">
+			<%= profile_form.radio_button :eligableuk,"no", :class => 'messageBox', :id => "r4" %>
+			<label for="r4"><span></span>No</label>
+
+		</div>
+		<div class="row">
+			Please give further details
+		</div>
+		<div class="row">
+			<%= profile_form.text_area :eligabledetails, :placeholder => "", :'data-toggle' => "tooltip", :'data-placement' => "left", :title => '', :rows => 2, :cols => 1%>
+		</div>
+	</div>
+</div>
+<% end %>
+<%= user.submit "submit", :id => 'submit_work_eligibility_details' %>
+<% end %> 
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $(":radio:eq(0)").click(function() {
+            $("#eligible_details_div").hide(300);
+        });
+        $(":radio:eq(1)").click(function() {
+            $("#eligible_details_div").show(500);
+        });
+        if ($("#r1").attr("checked") == "checked") {
+            $("#eligible_details_div").css("display", "none");
+        }else if($("#r2").attr("checked") == "checked") {
+            $("#eligible_details_div").css("display", "block");
+        }else{}
+        
+    });
+</script> 

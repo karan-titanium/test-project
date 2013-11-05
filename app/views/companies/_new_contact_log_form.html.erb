@@ -1,0 +1,94 @@
+<% new_contact_log = ContactLog.new %>
+<% new_contact_log.cdn_files.build %>
+<%= form_for new_contact_log, :url => {:controller => "companies", :action => "create_contact_log"}, :validate => true, :html => {:remote => true, :'data-replace' => 'company_profile_section_div'} do |f| %>
+    <div class="row">
+      <div class="span2">To :</div>
+      <div class="span4">
+        <%= f.collection_select :to, company.contacts, :id, :first_name, :prompt => "Select Contact" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Campiagn :</div>
+      <div class="span4"> 
+        <%= f.collection_select :campaign_id, company.non_deleted_campaigns, :id, :campaign_name, :prompt => "Select Campaign" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Method :</div>
+      <div class="span4"> 
+        <%= f.select :method, options_for_select(CONTACT_LOG_METHOD_LIST.invert), :prompt => "Select Method" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Date of Contact :</div>
+      <div class="span4">
+        <div class="input-append date" id="dp_date_of_contact" data-date=<%= DateTime.now %> data-date-format="dd/mm/yyyy" style="margin-top: 0px;">
+            <%= f.text_field :datecontact, :readonly => true, :id => "date_of_contact", :style => "width:308px", :value => DateTime.now.strftime("%d/%m/%Y") %>
+            <span class="add-on"><i class="icon-calendar"></i></span>
+        </div>  
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Subject :</div>
+      <div class="span4"> 
+        <%= f.text_area :subject, :rows => 3, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_contactlog_subject %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">Details :</div>
+      <div class="span4">
+        <%= f.text_area :details, :rows => 6, :'data-toggle' => "tooltip", :'data-placement' => "left",  :title => Settings.t_contactlog_details %>
+      </div>
+    </div>
+    
+    <%= f.hidden_field :from, :value => current_user.present? ? current_user.id : nil %>
+    
+
+    
+    <%= f.fields_for :cdn_files do |cdn_file|  %>
+        <div class="row">
+          <div class="span2">Attachment :</div>
+          <div class="span4">
+            <input type="button" value="Choose File" class="button_primery_big pull-left upload_button_to_display" />
+            <%= cdn_file.file_field :cf_filename, :onchange =>"validateFiles(this);", :data => {:max_file_size => FILE_SIZE_MAX_10MB}, :'supported_formate' => FILE_IMAGE_SUPPORTED_FORMATS, :id => "browse_button", :'file_type' => FILE_TYPE_IMAGE, :class => "original_upload_button" %>
+            <%= cdn_file.hidden_field :uploaded_by, :value => current_user.present? ? current_user.id : nil %>
+            <span id="uploaded_file_name"></span>
+            <div class="field_with_errors"><label id="file_errors"></label></div>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="row" id="private_option_div" style="display: none;">
+      <div class="span2">Private :</div>
+      <div class="span4">
+        <%= check_box_tag :private, true, false, :id => "chk_bx_private" %>
+        <label for="chk_bx_private"><span></span></label>
+      </div>
+    </div>
+
+    
+    <%= hidden_field_tag :from_page, from_page %>
+    <%= hidden_field_tag :company_id, company.id %>
+    
+    <div class="clearfix margin-20"></div>
+    <div class="row">
+      <div class="span6"> <%= f.submit "Save", :class => "button_primery button_finish position_center" %> </div>
+    </div>
+<% end %>
+
+
+<script>
+    $('#dp_date_of_contact').datepicker().on('changeDate', function(){
+        $(this).datepicker('hide');
+    });
+    
+    
+    
+    $(document).ready(function(){
+        $('#browse_button').change(function(){
+            if ($(this).val()) {
+                $('#private_option_div').show();
+            } 
+        });
+    });
+</script>
